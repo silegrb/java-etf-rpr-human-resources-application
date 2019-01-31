@@ -1,5 +1,8 @@
 package ba.unsa.etf.rpr.project;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -13,6 +16,15 @@ public class HumanResourcesDAO {
             updateAdministrator,updateCountry,updateCity,updateLocation,updateJob,updateDepartment,updateEmployee,updateContract,
             getAdministrator,getContinent,getCountry,getCity,getLocation,getJob,getDepartment,getEmployee,getContract,
             removeAdministrator,removeCountry,removeCity,removeLocation,removeJob,removeDepartment,removeEmployee,removeContract;
+    public ObservableList<Administrator> administrators = FXCollections.observableArrayList();
+    public ObservableList<Continent> continents = FXCollections.observableArrayList();
+    public ObservableList<Country> countries = FXCollections.observableArrayList();
+    public ObservableList<City> cities = FXCollections.observableArrayList();
+    public ObservableList<Location> locations = FXCollections.observableArrayList();
+    public ObservableList<Job> jobs = FXCollections.observableArrayList();
+    public ObservableList<Department> departments = FXCollections.observableArrayList();
+    public ObservableList<Employee> employees = FXCollections.observableArrayList();
+    public ObservableList<Contract> contracts = FXCollections.observableArrayList();
 
     private static void initialize() throws FileNotFoundException, SQLException {
         instance = new HumanResourcesDAO();
@@ -43,34 +55,33 @@ public class HumanResourcesDAO {
         }
 
         try {
-            addAdministrator = connection.prepareStatement("INSERT INTO Administrator VALUES (administrator_sequence.nextval,?,?)");
-            addCountry = connection.prepareStatement("INSERT INTO Country VALUES (country_sequence.nextval,?,?)");
-            addCity = connection.prepareStatement("INSERT INTO City VALUES ( city_sequence.nextval,?,? )");
-            addLocation = connection.prepareStatement("INSERT INTO Location VALUES ( location_sequence.nextval,?,?,? )");
-            addJob = connection.prepareStatement("INSERT INTO Job VALUES ( job_sequence.nextval,? )");
-            addDepartment = connection.prepareStatement("INSERT INTO Department VALUES ( department_sequence.nextval,?,? )");
-            addEmployee = connection.prepareStatement("INSERT INTO Employee VALUES ( employee_sequence.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
-            addContract = connection.prepareStatement("INSERT INTO Contract VALUES ( contract_sequence.nextval,?,?,?,?,? )");
-            getAdministrator = connection.prepareStatement("SELECT * FROM Administrator");
-            getContinent = connection.prepareStatement("SELECT * FROM Continent");
-            getCountry = connection.prepareStatement("SELECT * FROM Country");
-            getCity = connection.prepareStatement("SELECT * FROM City");
-            getLocation = connection.prepareStatement("SELECT * FROM Location");
-            getJob = connection.prepareStatement("SELECT * FROM Job");
-            getDepartment = connection.prepareStatement("SELECT * FROM Department");
-            getEmployee = connection.prepareStatement("SELECT * FROM Employee");
-            getContract = connection.prepareStatement("SELECT * FROM Contract");
-            updateAdministrator = connection.prepareStatement("UPDATE Administrator SET username=?, password=? WHERE id=?");
-            updateCountry = connection.prepareStatement("UPDATE Country SET name=?, continent=? WHERE id=?");
-            updateCity = connection.prepareStatement("UPDATE City SET name=?, country=? WHERE id=?");
-            updateLocation = connection.prepareStatement("UPDATE Location SET postal_code=?, street_adress=?, city=? WHERE id=?");
-            updateJob = connection.prepareStatement("UPDATE Job SET job_title=? WHERE id=?");
-            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=? WHERE id=?");
-            updateEmployee = connection.prepareStatement("UPDATE Employee SET first_name=?, last_name=?, parent_name=?, birth_date=?, umcn=?, mobile_number=?, email_address=?, credit_card=?, salary=?, photo=?, location=?, department=?, job=?, manager=? WHERE id=?");
-            updateContract = connection.prepareStatement("UPDATE Contract SET contract_number=?, start_date=?, end_date=?, job=?, employee=? WHERE id=?");
+            //If we can't select an item from one of the following tables, we have to run
+            //SQL script "HumanResourcesDB.sql via regenerateBase() function.
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Administrator");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Continent");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Country");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM City");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Location");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Job");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Department");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Employee");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Contract");
+            preparedStatement.executeQuery();
         } catch (SQLException e) {
             regenerateBase();
+
         }
+        prepareStatements();
+        fetchData();
     }
 
     private void regenerateBase() throws FileNotFoundException, SQLException {
@@ -85,6 +96,249 @@ public class HumanResourcesDAO {
             }
         }
         input.close();
+    }
+
+    private int getNextId( String table ) throws SQLException {
+        int id = -1;
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT id FROM " + table );
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while( resultSet.next() ) id = resultSet.getInt(1);
+        return ++id;
+    }
+
+    private void prepareStatements() throws SQLException {
+        addAdministrator = connection.prepareStatement("INSERT INTO Administrator VALUES (?,?,?)");
+        addCountry = connection.prepareStatement("INSERT INTO Country VALUES (?,?,?)");
+        addCity = connection.prepareStatement("INSERT INTO City VALUES ( ?,?,? )");
+        addLocation = connection.prepareStatement("INSERT INTO Location VALUES ( ?,?,?,? )");
+        addJob = connection.prepareStatement("INSERT INTO Job VALUES ( ?,? )");
+        addDepartment = connection.prepareStatement("INSERT INTO Department VALUES ( ?,?,?,? )");
+        addEmployee = connection.prepareStatement("INSERT INTO Employee VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
+        addContract = connection.prepareStatement("INSERT INTO Contract VALUES ( ?,?,?,?,?,? )");
+        getAdministrator = connection.prepareStatement("SELECT * FROM Administrator");
+        getContinent = connection.prepareStatement("SELECT * FROM Continent");
+        getCountry = connection.prepareStatement("SELECT * FROM Country");
+        getCity = connection.prepareStatement("SELECT * FROM City");
+        getLocation = connection.prepareStatement("SELECT * FROM Location");
+        getJob = connection.prepareStatement("SELECT * FROM Job");
+        getDepartment = connection.prepareStatement("SELECT * FROM Department");
+        getEmployee = connection.prepareStatement("SELECT * FROM Employee");
+        getContract = connection.prepareStatement("SELECT * FROM Contract");
+        updateAdministrator = connection.prepareStatement("UPDATE Administrator SET username=?, password=? WHERE id=?");
+        updateCountry = connection.prepareStatement("UPDATE Country SET name=?, continent=? WHERE id=?");
+        updateCity = connection.prepareStatement("UPDATE City SET name=?, country=? WHERE id=?");
+        updateLocation = connection.prepareStatement("UPDATE Location SET postal_code=?, street_adress=?, city=? WHERE id=?");
+        updateJob = connection.prepareStatement("UPDATE Job SET job_title=? WHERE id=?");
+        updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=? WHERE id=?");
+        updateEmployee = connection.prepareStatement("UPDATE Employee SET first_name=?, last_name=?, parent_name=?, birth_date=?, umcn=?, mobile_number=?, email_address=?, credit_card=?, salary=?, photo=?, location=?, department=?, job=?, manager=? WHERE id=?");
+        updateContract = connection.prepareStatement("UPDATE Contract SET contract_number=?, start_date=?, end_date=?, job=?, employee=? WHERE id=?");
+        removeAdministrator = connection.prepareStatement("DELETE FROM Administrator WHERE id=?");
+        removeCountry = connection.prepareStatement("DELETE FROM Country WHERE id=?");
+        removeCity = connection.prepareStatement("DELETE FROM City WHERE id=?");
+        removeLocation = connection.prepareStatement("DELETE FROM Location WHERE id=?");
+        removeJob = connection.prepareStatement("DELETE FROM Job WHERE id=?");
+        removeDepartment = connection.prepareStatement("DELETE FROM Department WHERE id=?");
+        removeEmployee = connection.prepareStatement("DELETE FROM Employee WHERE id=?");
+        removeContract = connection.prepareStatement("DELETE FROM Contract WHERE id=?");
+    }
+
+    private void fetchData() throws SQLException {
+        //First, lets download all administrators from database.
+        ResultSet resultSet = getAdministrator.executeQuery();
+        while( resultSet.next() ){
+            Administrator administrator = new Administrator( resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3) );
+            administrators.add( administrator );
+        }
+
+        //Lets add all the continents.
+        resultSet = getContinent.executeQuery();
+        while( resultSet.next() ){
+            Continent continent = new Continent( resultSet.getInt(1), resultSet.getString(2) );
+            continents.add( continent );
+        }
+
+        //Lets add all the countries, but we have to find its corresponding continent.
+        resultSet = getCountry.executeQuery();
+        while( resultSet.next() ){
+            Country country = new Country( resultSet.getInt(1), resultSet.getString(2), null );
+            int continentFK = resultSet.getInt(3);
+            for ( Continent c : continents)
+                if( c.getId() == continentFK )
+                    country.setContinent( c );
+            countries.add( country ) ;
+        }
+
+        //Lets add all the cities, but we have to find its corresponding country.
+        resultSet = getCity.executeQuery();
+        while( resultSet.next() ){
+            City city = new City( resultSet.getInt(1), resultSet.getString(2), null );
+            int countryFK = resultSet.getInt(3);
+            for ( Country c : countries)
+                if( c.getId() == countryFK )
+                    city.setCountry( c );
+            cities.add( city ) ;
+        }
+
+        //Lets add all the locations, but we have to find its correspoding city.
+        resultSet = getLocation.executeQuery();
+        while( resultSet.next() ){
+            Location location = new Location( resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), null );
+            int cityFK = resultSet.getInt(4);
+            for ( City c : cities)
+                if( c.getId() == cityFK )
+                    location.setCity( c );
+            locations.add( location ) ;
+        }
+
+        //Lets add all the jobs.
+        resultSet = getJob.executeQuery();
+        while( resultSet.next() ){
+            Job job = new Job( resultSet.getInt(1), resultSet.getString(2) );
+            jobs.add( job );
+        }
+
+        //Lets add all the departments, but without manager, because employee array is still empty.
+        resultSet = getDepartment.executeQuery();
+        while( resultSet.next() ){
+            Department department = new Department( resultSet.getInt(1), resultSet.getString(2),null,null );
+            int locationFK = resultSet.getInt(3);
+            for ( Location l: locations )
+                if( l.getId() == locationFK )
+                    department.setLocation( l );
+            departments.add( department );
+        }
+
+        //Lets add all the employees. Manager will be fixed afterwards.
+        resultSet = getEmployee.executeQuery();
+        while( resultSet.next() ){
+            Employee employee = new Employee( resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getDate(5).toLocalDate() , resultSet.getString(6), resultSet.getString(7), resultSet.getString(8), resultSet.getString(9), resultSet.getInt(10), resultSet.getString(11), null,null,null, null );
+            int locationFK = resultSet.getInt(12);
+            for ( Location l: locations )
+                if( l.getId() == locationFK )
+                    employee.setLocation( l );
+            int departmentFK = resultSet.getInt(13);
+            for ( Department d: departments )
+                if( d.getId() == departmentFK )
+                    employee.setDepartment( d );
+            int jobFK = resultSet.getInt(14);
+            for ( Job j: jobs )
+                if( j.getId() == jobFK )
+                    employee.setJob( j );
+            employees.add( employee );
+        }
+
+        //Lets set managers for departments
+        resultSet = getDepartment.executeQuery();
+        while( resultSet.next() ){
+            int departmentPK = resultSet.getInt(1);
+            int managerFK = resultSet.getInt(4);
+            for ( int i = 0; i < departments.size(); i++ )
+                for ( int j = 0; j < employees.size(); j++ )
+                    if( departments.get(i).getId() == departmentPK && employees.get(j).getId() == managerFK ){
+                        departments.get(i).setManager( employees.get(j) );
+                        break;
+                    }
+        }
+
+        //Lets set managers for employees
+        resultSet = getEmployee.executeQuery();
+        while( resultSet.next() ){
+            int employeePK = resultSet.getInt(1);
+            int managerFK = resultSet.getInt(15);
+            for( int i = 0; i < employees.size(); i++  )
+                for ( int j = 0; j < employees.size(); j++ )
+                    if( employees.get(i).getId() == employeePK && employees.get(j).getId() == managerFK ){
+                        employees.get(i).setManager( employees.get(j) );
+                        break;
+                    }
+        }
+
+        //Lets add all the contracts.
+        resultSet = getContract.executeQuery();
+        while( resultSet.next() ){
+            Contract contract = new Contract( resultSet.getInt(1), resultSet.getString(2), resultSet.getDate(3).toLocalDate(), resultSet.getDate(4).toLocalDate(), null, null );
+            int jobFK = resultSet.getInt(5);
+            for ( Job j: jobs )
+                if( j.getId() == jobFK )
+                    contract.setJob( j );
+            int employeeFK = resultSet.getInt(6);
+            for ( Employee e: employees )
+                if( e.getId() == employeeFK )
+                    contract.setEmployee( e );
+            contracts.add( contract );
+        }
+    }
+
+    public ObservableList<Administrator> getAdministrators() {
+        return administrators;
+    }
+
+    public void setAdministrators(ObservableList<Administrator> administrators) {
+        this.administrators = administrators;
+    }
+
+    public ObservableList<Continent> getContinents() {
+        return continents;
+    }
+
+    public void setContinents(ObservableList<Continent> continents) {
+        this.continents = continents;
+    }
+
+    public ObservableList<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(ObservableList<Country> countries) {
+        this.countries = countries;
+    }
+
+    public ObservableList<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(ObservableList<City> cities) {
+        this.cities = cities;
+    }
+
+    public ObservableList<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(ObservableList<Location> locations) {
+        this.locations = locations;
+    }
+
+    public ObservableList<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(ObservableList<Job> jobs) {
+        this.jobs = jobs;
+    }
+
+    public ObservableList<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(ObservableList<Department> departments) {
+        this.departments = departments;
+    }
+
+    public ObservableList<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(ObservableList<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public ObservableList<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(ObservableList<Contract> contracts) {
+        this.contracts = contracts;
     }
 
 }

@@ -87,7 +87,7 @@ CREATE TABLE Employee (
   birth_date DATE NOT NULL,
   umcn TEXT NOT NULL UNIQUE ,
   mobile_number TEXT NOT NULL UNIQUE,
-  email_adress TEXT UNIQUE,
+  email_address TEXT UNIQUE,
   credit_card TEXT NOT NULL UNIQUE,
   salary INTEGER NOT NULL,
   photo TEXT NULL,
@@ -96,11 +96,11 @@ CREATE TABLE Employee (
   job INTEGER REFERENCES Job(id) NULL
 );
 
-INSERT INTO Employee VALUES ( 1, 'Faris', 'Owner', 'Dzebrail','1998-08-24 00:00:00','2408998170040','060/338-1032','sisicfaris@hotmail.com','77769777123',10000,NULL,3,5,3 );
-INSERT INTO Employee VALUES ( 2, 'Mirza', 'Sinanovic', 'Narcis', '1998-09-09 00:00:00','0909998170026','061/580-789','micki-91@hotmail.com','1231230991',5000,NULL,5,1,2 );
-INSERT INTO Employee VALUES ( 3, 'Ajla', 'Salispahic', 'Rusmir', '1999-01-01 00:00:00','0101999175016','062/572-168','aj-la-s@hotmail.com','199901234567',5000,NULL,5,1,2 );
-INSERT INTO Employee VALUES ( 4, 'Julian', 'Cutthroat', 'Jack','1997-07-07 00:00:00','0707997170942','060/123-4567','juli69@outlook.com','987650002',3500,NULL,4,3,4 );
-INSERT INTO Employee VALUES ( 5, 'Jane', 'Doe', 'John', '1997-01-01 00:00:00','0101970123432','063/333-333','janedoe@outlook.com','00042011169',4000,NULL,1,5,1 );
+INSERT INTO Employee VALUES ( 1, 'Faris', 'Owner', 'Dzebrail','1998-08-24 00:00:00.000','2408998170040','060/338-1032','sisicfaris@hotmail.com','77769777123',10000,NULL,3,5,3 );
+INSERT INTO Employee VALUES ( 2, 'Mirza', 'Sinanovic', 'Narcis', '1998-09-09 00:00:00.000','0909998170026','061/580-789','micki-91@hotmail.com','1231230991',5000,NULL,5,1,2 );
+INSERT INTO Employee VALUES ( 3, 'Ajla', 'Salispahic', 'Rusmir', '1999-01-01 00:00:00.000','0101999175016','062/572-168','aj-la-s@hotmail.com','199901234567',5000,NULL,5,1,2 );
+INSERT INTO Employee VALUES ( 4, 'Julian', 'Cutthroat', 'Jack','1997-07-07 00:00:00.000','0707997170942','060/123-4567','juli69@outlook.com','987650002',3500,NULL,4,3,4 );
+INSERT INTO Employee VALUES ( 5, 'Jane', 'Doe', 'John', '1997-01-01 00:00:00.000','0101970123432','063/333-333','janedoe@outlook.com','00042011169',4000,NULL,1,5,1 );
 
 ALTER TABLE Employee ADD manager INTEGER REFERENCES Employee(id) NULL default 0;
 
@@ -126,10 +126,10 @@ CREATE TABLE Contract (
   employee INTEGER REFERENCES Employee(id) NULL
 );
 
-INSERT INTO Contract VALUES ( 1, 'A123-11195','2019-01-01 00:00:00','2029-01-01 00:00:00',1,5 );
-INSERT INTO Contract VALUES ( 2, 'A123-11196','2019-02-01 00:00:00','2024-02-01 00:00:00',4,4 );
-INSERT INTO Contract VALUES ( 3, 'C123-12311','2019-02-01 00:00:00','2024-02-01 00:00:00',1,2 );
-INSERT INTO Contract VALUES ( 4, 'B127-34112','2019-02-01 00:00:00','2024-02-01 00:00:00',1,2 );
+INSERT INTO Contract VALUES ( 1, 'A123-11195','2019-01-01 00:00:00.000','2029-01-01 00:00:00.000',1,5 );
+INSERT INTO Contract VALUES ( 2, 'A123-11196','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000',4,4 );
+INSERT INTO Contract VALUES ( 3, 'C123-12311','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000',1,2 );
+INSERT INTO Contract VALUES ( 4, 'B127-34112','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000',1,2 );
 
 
 

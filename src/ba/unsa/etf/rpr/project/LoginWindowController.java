@@ -9,11 +9,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
 public class LoginWindowController implements Initializable {
+    private static HumanResourcesDAO dao;
     public TextField usernameField;
     public PasswordField passwordField;
     public Button confirmLogin;
@@ -21,8 +24,9 @@ public class LoginWindowController implements Initializable {
     public Label statusLabelText;
     private int failCounter;
 
-    public LoginWindowController(){
+    public LoginWindowController() throws FileNotFoundException, SQLException {
         failCounter = 3;
+        dao = HumanResourcesDAO.getInstance();
     }
 
     @Override
@@ -52,7 +56,13 @@ public class LoginWindowController implements Initializable {
                 e.printStackTrace();
             }
             Platform.runLater( () -> {
-                if( usernameField.getText().equals("admin") && passwordField.getText().equals("admin") ){
+                boolean userFound = false;
+                for ( Administrator a : dao.getAdministrators() )
+                    if (a.getUsername().equals( usernameField.getText() ) && a.getPassword().equals(passwordField.getText())) {
+                        userFound = true;
+                        break;
+                    }
+                if( userFound ){
                     statusLabelText.setText("Confirmed");
                     ImageView confirmationImage = new ImageView("/Images/confirmation.png");
                     confirmationImage.setFitWidth(25);
@@ -96,4 +106,6 @@ public class LoginWindowController implements Initializable {
         } ).start();
 
     }
+
+
 }

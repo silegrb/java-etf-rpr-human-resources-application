@@ -7,14 +7,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    HumanResourcesDAO dao;
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/FXML/loginWindow.fxml"));
         primaryStage.setTitle("Login");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 220, 140));
         primaryStage.show();
-        dao = HumanResourcesDAO.getInstance();
     }
 
 
@@ -22,3 +21,4 @@ public class Main extends Application {
         launch(args);
     }
 }
+
