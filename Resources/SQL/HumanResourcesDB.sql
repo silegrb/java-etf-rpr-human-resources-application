@@ -172,8 +172,8 @@ CREATE TABLE Contract (
   contract_number VARCHAR(255) NOT NULL UNIQUE,
   start_date DATE NOT NULL ,
   end_date DATE NOT NULL ,
-  job_id INTEGER REFERENCES Job(id) NULL,
-  employee_id INTEGER REFERENCES Employee(id) NULL
+  job INTEGER REFERENCES Job(id) NULL,
+  employee INTEGER REFERENCES Employee(id) NULL
 );
 
 INSERT INTO Contract VALUES ( contract_sequence.nextval, 'A123-11195',TO_DATE('M/d/yyyy','1/1/2019'),TO_DATE('M/d/yyyy','1/1/2029'),1,5 );
