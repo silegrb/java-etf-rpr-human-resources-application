@@ -33,7 +33,7 @@ public class Main extends Application {
                 }
                 secondaryStage.setTitle("Human Resources");
                 secondaryStage.setResizable(false);
-                secondaryStage.setScene(new Scene(secondaryRoot, 750, 500));
+                secondaryStage.setScene(new Scene(secondaryRoot, 850, 650));
                 secondaryStage.show();
             }
         });

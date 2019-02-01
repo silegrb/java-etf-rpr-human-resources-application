@@ -1,7 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.GridPane?>
-<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="500" prefWidth="750">
- <Button text="Test"/>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<GridPane fx:id="hrGrid" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="650" prefWidth="850">
+    <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
+    <Label fx:id="titlePicture" GridPane.rowIndex="1" GridPane.columnIndex="1">
+        <graphic>
+            <ImageView fitWidth="70" fitHeight="70">
+                <image>
+                    <Image url="/Images/people2.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Label>
+    <Label fx:id="titleLabel" text="TechFreak Human Resources" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+    <TabPane fx:id="hrTabPane" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.rowSpan="10" GridPane.columnSpan="2">
+        <Tab text="Home" closable="false">
+        </Tab>
+
+        <Tab text="Employees" closable="false">
+        </Tab>
+
+        <Tab text="Contracts" closable="false">
+        </Tab>
+
+        <Tab text="Departments" closable="false">
+        </Tab>
+
+        <Tab text="Jobs" closable="false">
+        </Tab>
+
+        <Tab text="Countries" closable="false">
+        </Tab>
+
+        <Tab text="Cities" closable="false">
+        </Tab>
+
+        <Tab text="Locations" closable="false">
+        </Tab>
+
+
+
+    </TabPane>
+    <padding>
+        <Insets top="10" left="10" bottom="10" right="10"/>
+    </padding>
 </GridPane>

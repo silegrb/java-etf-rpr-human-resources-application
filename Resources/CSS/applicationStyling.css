@@ -1,2 +1,67 @@
+#hrGrid{
+    -fx-background-color: linear-gradient(black, greenyellow);
+    -fx-border-color: white;
+}
 
+#loginGrid {
+    -fx-background-color: linear-gradient(black, greenyellow);
+    -fx-border-color: white;
+}
 
+#confirmLogin {
+    -fx-background-color: black;
+    -fx-text-fill: linear-gradient(black,yellowgreen); 
+}
+
+#usernameField {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(transparent,transparent, darkgrey);
+    -fx-text-fill: white;
+}
+
+#passwordField {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(transparent, transparent,darkgrey);
+    -fx-text-fill: white;
+}
+
+#titleLabel{
+    -fx-font-size: 40;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Black";
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:80px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: black;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: white;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+}
