@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -133,9 +133,129 @@
         </Tab>
 
         <Tab closable="false" text="Contracts">
+            <GridPane fx:id="contractsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                <Button fx:id="addContractBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/add.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="editContractBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/edit.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="deleteContractBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/delete.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="printContractBtn" styleClass="blackTheme" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/print.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <TableView fx:id="contractTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
+                    <columns>
+                        <TableColumn fx:id="contractIdColumn" text="ID" prefWidth="30"/>
+                        <TableColumn fx:id="contractNumberColumn" text="Contract number" prefWidth="200"/>
+                        <TableColumn fx:id="contractEmployeeColumn" text="Contract holder" prefWidth="300"/>
+                        <TableColumn fx:id="contractJobColumn" text="Contract job" prefWidth="250" />
+
+                    </columns>
+                </TableView>
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+                <padding>
+                    <Insets top="5" bottom="5" left="5" right="5"/>
+                </padding>
+            </GridPane>
         </Tab>
 
         <Tab closable="false" text="Departments">
+            <GridPane fx:id="departmentsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                <Button fx:id="addDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/add.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="editDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/edit.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="deleteDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/delete.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="printDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/print.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <TableView fx:id="departmentTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
+                    <columns>
+                        <TableColumn fx:id="departmentIdColumn" text="ID" prefWidth="30"/>
+                        <TableColumn fx:id="departmentNameColumn" text="Name" prefWidth="200"/>
+                        <TableColumn fx:id="departmentLocationColumn" text="Location" prefWidth="300"/>
+                        <TableColumn fx:id="departmentManagerColumn" text="Manager" prefWidth="250" />
+
+                    </columns>
+                </TableView>
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+                <padding>
+                    <Insets top="5" bottom="5" left="5" right="5"/>
+                </padding>
+            </GridPane>
         </Tab>
 
         <Tab closable="false" text="Jobs">

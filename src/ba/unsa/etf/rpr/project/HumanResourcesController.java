@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,17 +37,35 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public Button editEmployeeBtn = new Button();
     public Button deleteEmployeeBtn = new Button();
     public Button printEmployeeBtn = new Button();
+    public Button addContractBtn = new Button();
+    public Button editContractBtn = new Button();
+    public Button deleteContractBtn = new Button();
+    public Button printContractBtn = new Button();
+    public Button addDepartmentBtn = new Button();
+    public Button editDepartmentBtn = new Button();
+    public Button deleteDepartmentBtn = new Button();
+    public Button printDepartmentBtn = new Button();
     private String currentUser;
     public GridPane hrGrid;
     private Timer changingColorTimer = new Timer();
     private ArrayList<String> colors = new ArrayList<>();
     public TableView<Employee> employeeTable = new TableView<>();
-    public TableColumn<Employee,String> employeeIdColumn = new TableColumn<>();
+    public TableView<Contract> contractTable = new TableView<>();
+    public TableView<Department> departmentTable = new TableView<>();
+    public TableColumn<Employee,Integer> employeeIdColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeNameColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeSurnameColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeMobileNumberColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeEmailAddressColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeCreditCardColumn = new TableColumn<>();
+    public TableColumn<Contract,Integer> contractIdColumn = new TableColumn<>();
+    public TableColumn<Contract,String> contractNumberColumn = new TableColumn<>();
+    public TableColumn<Contract,String> contractEmployeeColumn = new TableColumn<>();
+    public TableColumn<Contract,String> contractJobColumn = new TableColumn<>();
+    public TableColumn<Department,Integer> departmentIdColumn = new TableColumn<>();
+    public TableColumn<Department,String> departmentNameColumn = new TableColumn<>();
+    public TableColumn<Department,String> departmentLocationColumn = new TableColumn<>();
+    public TableColumn<Department,String> departmentManagerColumn = new TableColumn<>();
 
     @Override
     public void run() {
@@ -78,9 +97,16 @@ public class HumanResourcesController extends TimerTask implements Initializable
         hoverEffect(editEmployeeBtn);
         hoverEffect(deleteEmployeeBtn);
         hoverEffect(printEmployeeBtn);
+        hoverEffect(addContractBtn);
+        hoverEffect(editContractBtn);
+        hoverEffect(deleteContractBtn);
+        hoverEffect(printContractBtn);
+        hoverEffect(addDepartmentBtn);
+        hoverEffect(editDepartmentBtn);
+        hoverEffect(deleteDepartmentBtn);
+        hoverEffect(printDepartmentBtn);
 
         //Adding table column content and table content.
-        employeeTable.setEditable(true);
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         employeeSurnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -88,6 +114,18 @@ public class HumanResourcesController extends TimerTask implements Initializable
         employeeEmailAddressColumn.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
         employeeCreditCardColumn.setCellValueFactory(new PropertyValueFactory<>("creditCard"));
         employeeTable.setItems( dao.getEmployees() );
+
+        contractIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
+        contractNumberColumn.setCellValueFactory( new PropertyValueFactory<>("contractNumber") );
+        contractEmployeeColumn.setCellValueFactory( cellData -> Bindings.concat( cellData.getValue().getEmployee().getFirstName(), " (", cellData.getValue().getEmployee().getParentName(), ") ", cellData.getValue().getEmployee().getLastName() ) );
+        contractJobColumn.setCellValueFactory( cellData -> Bindings.concat( cellData.getValue().getJob().getJobTitle() ) );
+        contractTable.setItems( dao.getContracts() );
+
+        departmentIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
+        departmentNameColumn.setCellValueFactory( new PropertyValueFactory<>("name") );
+        departmentLocationColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getLocation().getStreetAdress()) );
+        departmentManagerColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getManager().getFirstName()," ", cellData.getValue().getManager().getLastName()) );
+        departmentTable.setItems( dao.getDepartments() );
 
 
     }
