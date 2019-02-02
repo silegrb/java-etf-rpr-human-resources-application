@@ -51,7 +51,9 @@ public class HumanResourcesController extends TimerTask implements Initializable
     @Override
     public void run() {
         int random = (int )(Math. random() * 4 + 0);
-        Platform.runLater( () -> hrGrid.setStyle(colors.get(random)));
+        Platform.runLater( () -> {
+            hrGrid.setStyle(colors.get(random));
+        });
     }
 
     public HumanResourcesController(String currentUser) {
@@ -86,6 +88,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         employeeEmailAddressColumn.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
         employeeCreditCardColumn.setCellValueFactory(new PropertyValueFactory<>("creditCard"));
         employeeTable.setItems( dao.getEmployees() );
+
 
     }
 
