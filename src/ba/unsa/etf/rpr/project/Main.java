@@ -1,12 +1,10 @@
 package ba.unsa.etf.rpr.project;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -60,14 +58,12 @@ public class Main extends Application {
                 secondaryStage.setResizable(false);
                 secondaryStage.setScene(new Scene(secondaryRoot, 850, 650));
                 secondaryStage.show();
-                secondaryStage.setOnHidden(new EventHandler<>() {
-                    @Override
-                    public void handle(WindowEvent event) {
-                        hrc.getChangingColorTimer().cancel();
-                    }
-                });
+                secondaryStage.setOnHidden(event1 -> hrc.getChangingColorTimer().cancel());
             }
         });
+//        for (Login l: dao.getLogins())
+//            System.out.println( l.getUser() +"-"+ l.getTime() );
+
 
     }
 

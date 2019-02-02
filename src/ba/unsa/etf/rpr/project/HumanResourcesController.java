@@ -2,15 +2,22 @@ package ba.unsa.etf.rpr.project;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -62,7 +69,6 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public Button editLocationBtn = new Button();
     public Button deleteLocationBtn = new Button();
     public Button printLocationBtn = new Button();
-    public Button testButton = new Button();
 
     private String currentUser;
     public GridPane hrGrid;
@@ -110,6 +116,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     }
 
     public HumanResourcesController(String currentUser) {
+
         this.currentUser = currentUser;
     }
 
@@ -214,4 +221,34 @@ public class HumanResourcesController extends TimerTask implements Initializable
         return changingColorTimer;
     }
 
+    public void clickOnChangeUsername(ActionEvent actionEvent) {
+    }
+
+    public void clickOnChangePassword(ActionEvent actionEvent) {
+        String userPassword = "";
+        for (Administrator a: dao.getAdministrators())
+            if( a.getUsername().equals( currentUser ) ){
+                userPassword = a.getPassword();
+                break;
+            }
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/passwordWindow.fxml"));
+        PasswordController pc = new PasswordController( currentUser, userPassword );
+        secondaryLoader.setController(pc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Password update");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.show();
+    }
+
+    public void clickOnLogout(ActionEvent actionEvent) {
+        homeTabWelcomeLabel.getScene().getWindow().hide();
+    }
 }

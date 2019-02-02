@@ -388,4 +388,17 @@ public class HumanResourcesDAO {
 
     }
 
+    public void changeCurrentUserPassword(String user,String password) throws SQLException {
+        int wantedId = -1;
+        for (Administrator a: getAdministrators())
+            if(a.getUsername().equals(user)){
+                wantedId = a.getId();
+                break;
+            }
+         updateAdministrator.setString(1,user);
+         updateAdministrator.setString(2,password);
+         updateAdministrator.setInt(3, wantedId);
+         updateAdministrator.executeUpdate();
+        }
 }
+

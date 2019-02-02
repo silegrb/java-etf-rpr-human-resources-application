@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<GridPane fx:id="hrGrid" prefHeight="650" prefWidth="850" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="hrGrid" prefHeight="650" prefWidth="850" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" >
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
     <Label fx:id="titlePicture" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <graphic>
@@ -21,27 +21,14 @@
         <Tab closable="false" text="Home">
             <GridPane fx:id="homeTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
                 <Label fx:id="homeTabWelcomeLabel" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                <Label  GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="788">
                             <Image url="/Images/collageImage.jpg" />
                         </ImageView>
                     </graphic>
                 </Label>
-                <Label styleClass="emptyRow" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                <Label styleClass="emptyRow" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+
 
                 <padding>
                     <Insets bottom="5" left="5" right="5" top="5" />
@@ -64,6 +51,17 @@
                 <RowConstraints maxHeight="85.0" minHeight="29.0" prefHeight="36.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="85.0" minHeight="29.0" prefHeight="36.0" vgrow="ALWAYS" />
             </rowConstraints>
+                <MenuBar GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="accountTheme">
+                    <menus>
+                        <Menu fx:id="myAccount" text="_My Account">
+                            <items>
+                                <MenuItem fx:id="changeUsername"  text="Change username" onAction="#clickOnChangeUsername"/>
+                                <MenuItem fx:id="changePassword"  text="Change password" onAction="#clickOnChangePassword"/>
+                                <MenuItem fx:id="Logout"  text="Logout" onAction="#clickOnLogout"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
             </GridPane>
         </Tab>
 
@@ -526,4 +524,5 @@
       <RowConstraints />
       <RowConstraints />
    </rowConstraints>
+
 </GridPane>
