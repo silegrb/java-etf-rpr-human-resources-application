@@ -33,6 +33,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     }
 
     public Label homeTabWelcomeLabel;
+
     public Button addEmployeeBtn = new Button();
     public Button editEmployeeBtn = new Button();
     public Button deleteEmployeeBtn = new Button();
@@ -45,13 +46,31 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public Button editDepartmentBtn = new Button();
     public Button deleteDepartmentBtn = new Button();
     public Button printDepartmentBtn = new Button();
+    public Button addJobBtn = new Button();
+    public Button editJobBtn = new Button();
+    public Button deleteJobBtn = new Button();
+    public Button printJobBtn = new Button();
+    public Button addCountryBtn = new Button();
+    public Button editCountryBtn = new Button();
+    public Button deleteCountryBtn = new Button();
+    public Button printCountryBtn = new Button();
+    public Button addCityBtn = new Button();
+    public Button editCityBtn = new Button();
+    public Button deleteCityBtn = new Button();
+    public Button printCityBtn = new Button();
+
     private String currentUser;
     public GridPane hrGrid;
     private Timer changingColorTimer = new Timer();
     private ArrayList<String> colors = new ArrayList<>();
+
     public TableView<Employee> employeeTable = new TableView<>();
     public TableView<Contract> contractTable = new TableView<>();
     public TableView<Department> departmentTable = new TableView<>();
+    public TableView<Job> jobTable = new TableView<>();
+    public TableView<Country> countryTable = new TableView<>();
+    public TableView<City> cityTable = new TableView<>();
+
     public TableColumn<Employee,Integer> employeeIdColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeNameColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeSurnameColumn = new TableColumn<>();
@@ -66,6 +85,12 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public TableColumn<Department,String> departmentNameColumn = new TableColumn<>();
     public TableColumn<Department,String> departmentLocationColumn = new TableColumn<>();
     public TableColumn<Department,String> departmentManagerColumn = new TableColumn<>();
+    public TableColumn<Job,Integer> jobIdColumn = new TableColumn<>();
+    public TableColumn<Job,String> jobTitleColumn = new TableColumn<>();
+    public TableColumn<Country,Integer> countryIdColumn = new TableColumn<>();
+    public TableColumn<Country,String> countryNameColumn = new TableColumn<>();
+    public TableColumn<City,Integer> cityIdColumn = new TableColumn<>();
+    public TableColumn<City,String> cityNameColumn = new TableColumn<>();
 
     @Override
     public void run() {
@@ -105,6 +130,18 @@ public class HumanResourcesController extends TimerTask implements Initializable
         hoverEffect(editDepartmentBtn);
         hoverEffect(deleteDepartmentBtn);
         hoverEffect(printDepartmentBtn);
+        hoverEffect(addJobBtn);
+        hoverEffect(editJobBtn);
+        hoverEffect(deleteJobBtn);
+        hoverEffect(printJobBtn);
+        hoverEffect(addCountryBtn);
+        hoverEffect(editCountryBtn);
+        hoverEffect(deleteCountryBtn);
+        hoverEffect(printCountryBtn);
+        hoverEffect(addCityBtn);
+        hoverEffect(editCityBtn);
+        hoverEffect(deleteCityBtn);
+        hoverEffect(printCityBtn);
 
         //Adding table column content and table content.
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -126,6 +163,18 @@ public class HumanResourcesController extends TimerTask implements Initializable
         departmentLocationColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getLocation().getStreetAdress()) );
         departmentManagerColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getManager().getFirstName()," ", cellData.getValue().getManager().getLastName()) );
         departmentTable.setItems( dao.getDepartments() );
+
+        jobIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
+        jobTitleColumn.setCellValueFactory( new PropertyValueFactory<>("jobTitle") );
+        jobTable.setItems( dao.getJobs() );
+
+        countryIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
+        countryNameColumn.setCellValueFactory( new PropertyValueFactory<>("name") );
+        countryTable.setItems( dao.getCountries() );
+
+        cityIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
+        cityNameColumn.setCellValueFactory( new PropertyValueFactory<>("name") );
+        cityTable.setItems( dao.getCities() );
 
 
     }

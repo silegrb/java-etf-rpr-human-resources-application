@@ -259,13 +259,186 @@
         </Tab>
 
         <Tab closable="false" text="Jobs">
+            <GridPane fx:id="jobsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                <Button fx:id="addJobBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/add.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="editJobBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/edit.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="deleteJobBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/delete.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="printJobBtn" styleClass="blackTheme" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/print.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <TableView fx:id="jobTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
+                    <columns>
+                        <TableColumn fx:id="jobIdColumn" text="ID" prefWidth="30"/>
+                        <TableColumn fx:id="jobTitleColumn" text="Job title" prefWidth="750"/>
+                    </columns>
+                </TableView>
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+                <padding>
+                    <Insets top="5" bottom="5" left="5" right="5"/>
+                </padding>
+            </GridPane>
         </Tab>
 
         <Tab closable="false" text="Countries">
+            <GridPane fx:id="countriesTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                <Button fx:id="addCountryBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/add.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="editCountryBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/edit.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="deleteCountryBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/delete.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="printCountryBtn" styleClass="blackTheme" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/print.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <TableView fx:id="countryTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
+                    <columns>
+                        <TableColumn fx:id="countryIdColumn" text="ID" prefWidth="30"/>
+                        <TableColumn fx:id="countryNameColumn" text="Name" prefWidth="750"/>
+                    </columns>
+                </TableView>
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+                <padding>
+                    <Insets top="5" bottom="5" left="5" right="5"/>
+                </padding>
+            </GridPane>
         </Tab>
 
         <Tab closable="false" text="Cities">
+            <GridPane fx:id="citiesTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                <Button fx:id="addCityBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/add.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="editCityBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/edit.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="deleteCityBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/delete.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="printCityBtn" styleClass="blackTheme" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="50" fitWidth="50">
+                            <Image url="/Images/print.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <TableView fx:id="cityTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
+                    <columns>
+                        <TableColumn fx:id="cityIdColumn" text="ID" prefWidth="30"/>
+                        <TableColumn fx:id="cityNameColumn" text="Name" prefWidth="750"/>
+                    </columns>
+                </TableView>
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+                <padding>
+                    <Insets top="5" bottom="5" left="5" right="5"/>
+                </padding>
+            </GridPane>
         </Tab>
+
+
 
         <Tab closable="false" text="Locations">
         </Tab>
