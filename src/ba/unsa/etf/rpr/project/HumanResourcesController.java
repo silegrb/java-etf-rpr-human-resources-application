@@ -58,6 +58,10 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public Button editCityBtn = new Button();
     public Button deleteCityBtn = new Button();
     public Button printCityBtn = new Button();
+    public Button addLocationBtn = new Button();
+    public Button editLocationBtn = new Button();
+    public Button deleteLocationBtn = new Button();
+    public Button printLocationBtn = new Button();
 
     private String currentUser;
     public GridPane hrGrid;
@@ -70,6 +74,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public TableView<Job> jobTable = new TableView<>();
     public TableView<Country> countryTable = new TableView<>();
     public TableView<City> cityTable = new TableView<>();
+    public TableView<Location> locationTable = new TableView<>();
 
     public TableColumn<Employee,Integer> employeeIdColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeNameColumn = new TableColumn<>();
@@ -91,6 +96,9 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public TableColumn<Country,String> countryNameColumn = new TableColumn<>();
     public TableColumn<City,Integer> cityIdColumn = new TableColumn<>();
     public TableColumn<City,String> cityNameColumn = new TableColumn<>();
+    public TableColumn<Location,Integer> locationIdColumn = new TableColumn<>();
+    public TableColumn<Location,String> locationPostalCodeColumn = new TableColumn<>();
+    public TableColumn<Location,String> locationStreetAddressColumn = new TableColumn<>();
 
     @Override
     public void run() {
@@ -142,6 +150,10 @@ public class HumanResourcesController extends TimerTask implements Initializable
         hoverEffect(editCityBtn);
         hoverEffect(deleteCityBtn);
         hoverEffect(printCityBtn);
+        hoverEffect(addLocationBtn);
+        hoverEffect(editLocationBtn);
+        hoverEffect(deleteLocationBtn);
+        hoverEffect(printLocationBtn);
 
         //Adding table column content and table content.
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -160,7 +172,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
         departmentIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
         departmentNameColumn.setCellValueFactory( new PropertyValueFactory<>("name") );
-        departmentLocationColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getLocation().getStreetAdress()) );
+        departmentLocationColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getLocation().getStreetAddress()) );
         departmentManagerColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getManager().getFirstName()," ", cellData.getValue().getManager().getLastName()) );
         departmentTable.setItems( dao.getDepartments() );
 
@@ -175,6 +187,11 @@ public class HumanResourcesController extends TimerTask implements Initializable
         cityIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
         cityNameColumn.setCellValueFactory( new PropertyValueFactory<>("name") );
         cityTable.setItems( dao.getCities() );
+
+        locationIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
+        locationPostalCodeColumn.setCellValueFactory( new PropertyValueFactory<>("postalCode") );
+        locationStreetAddressColumn.setCellValueFactory( new PropertyValueFactory<>("streetAddress") );
+        locationTable.setItems( dao.getLocations() );
 
 
     }

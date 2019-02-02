@@ -5,13 +5,13 @@ public class Location {
 
     private int id;
     private String postalCode;
-    private String streetAdress;
+    private String streetAddress;
     private City city;
 
     public Location( int id, String postalCode, String streetAdress, City city ) {
         this.id = id;
         this.postalCode = postalCode;
-        this.streetAdress = streetAdress;
+        this.streetAddress = streetAdress;
         this.city = city;
     }
 
@@ -31,12 +31,12 @@ public class Location {
         this.postalCode = postalCode;
     }
 
-    public String getStreetAdress() {
-        return streetAdress;
+    public String getStreetAddress() {
+        return streetAddress;
     }
 
-    public void setStreetAdress(String streetAdress) {
-        this.streetAdress = streetAdress;
+    public void setStreetAddress(String streetAdress) {
+        this.streetAddress = streetAdress;
     }
 
     public City getCity() {
