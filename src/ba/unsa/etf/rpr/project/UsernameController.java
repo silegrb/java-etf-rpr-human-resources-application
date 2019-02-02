@@ -113,8 +113,6 @@ public class UsernameController implements Initializable {
             dao.getAdministrators().get(wantedId).setUsername(  newUsernameField.getText() );
             dao.changeCurrentUser(newUsernameField.getText(), password);
             usernameChanged = true;
-            for (Administrator adm: dao.getAdministrators())
-                System.out.println( adm.getUsername() + " " + adm.getPassword() );
             confirmNewUsernameField.getScene().getWindow().hide();
         }
         confirmNewUsernameField.getScene().getWindow().hide();

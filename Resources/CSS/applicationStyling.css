@@ -163,11 +163,14 @@
 .fieldInvalid {
     -fx-background-color: linear-gradient(transparent,lightpink);
     -fx-border-color: linear-gradient(transparent,transparent, darkgrey);
+    -fx-text-fill: white;
 }
 
 .fieldValid {
     -fx-background-color: linear-gradient(transparent,yellowgreen);
     -fx-border-color: linear-gradient(transparent,transparent, darkgrey);
+    -fx-text-fill: white;
+
 }
 
 #passwordChangeGridPane {
