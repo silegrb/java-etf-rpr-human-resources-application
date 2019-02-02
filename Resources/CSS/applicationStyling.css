@@ -1,6 +1,11 @@
-#hrGrid{
-    -fx-background-color: linear-gradient(black, greenyellow);
-    -fx-border-color: white;
+.blackTheme{
+    -fx-background-color: black;
+    -fx-border-color: black;
+}
+
+.blackGreyTheme{
+    -fx-background-color: linear-gradient(black,black, darkgrey);
+    -fx-border-color: black;
 }
 
 #loginGrid {
@@ -10,7 +15,7 @@
 
 #confirmLogin {
     -fx-background-color: black;
-    -fx-text-fill: linear-gradient(black,yellowgreen); 
+    -fx-text-fill: linear-gradient(black,yellowgreen);
 }
 
 #usernameField {
@@ -37,12 +42,10 @@
 
 .tab-pane
 {
-    -fx-tab-min-width:80px;
+    -fx-tab-min-width:85px;
 }
 
-.tab{
-    -fx-background-insets: 0 1 0 1,0,0;
-}
+
 .tab-pane .tab
 {
     -fx-background-color: black;
@@ -64,4 +67,19 @@
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: black;
+}
+
+#homeTabGridPane {
+    -fx-background-color: black;
+}
+
+#homeTabWelcomeLabel {
+    -fx-background-color: black;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+    -fx-font-family: Helvetica;
+}
+
+.emptyRow {
+    -fx-background-color: black;
 }

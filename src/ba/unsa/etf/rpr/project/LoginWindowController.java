@@ -111,5 +111,7 @@ public class LoginWindowController implements Initializable {
         return statusLabelText.getText().equals("Confirmed");
     }
 
-
+    public TextField getUsernameField() {
+        return usernameField;
+    }
 }

@@ -1,10 +1,12 @@
 package ba.unsa.etf.rpr.project;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -23,7 +25,8 @@ public class Main extends Application {
             if( lwc.loginSuccess() ) {
                 Stage secondaryStage = new Stage();
                 FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/humanResourcesController.fxml"));
-                HumanResourcesController hrc = new HumanResourcesController();
+                HumanResourcesController hrc = new HumanResourcesController( lwc.getUsernameField().getText() );
+
                 secondaryLoader.setController(hrc);
                 Parent secondaryRoot = null;
                 try {
@@ -35,6 +38,12 @@ public class Main extends Application {
                 secondaryStage.setResizable(false);
                 secondaryStage.setScene(new Scene(secondaryRoot, 850, 650));
                 secondaryStage.show();
+                secondaryStage.setOnHidden(new EventHandler<>() {
+                    @Override
+                    public void handle(WindowEvent event) {
+                        hrc.getChangingColorTimer().cancel();
+                    }
+                });
             }
         });
 

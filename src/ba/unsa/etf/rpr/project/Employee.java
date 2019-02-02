@@ -11,7 +11,7 @@ public class Employee {
     private LocalDate birthDate;
     private String umcn;
     private String mobileNumber;
-    private String emailAdress;
+    private String emailAddress;
     private String creditCard;
     private int salary;
     private String photo;
@@ -28,7 +28,7 @@ public class Employee {
         this.birthDate = birthDate;
         this.umcn = umcn;
         this.mobileNumber = mobileNumber;
-        this.emailAdress = emailAdress;
+        this.emailAddress = emailAdress;
         this.creditCard = creditCard;
         this.salary = salary;
         this.photo = photo;
@@ -94,12 +94,12 @@ public class Employee {
         this.mobileNumber = mobileNumber;
     }
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
+    public void setEmailAddress(String emailAdress) {
+        this.emailAddress = emailAdress;
     }
 
     public String getCreditCard() {
