@@ -123,7 +123,7 @@ public class PasswordController implements Initializable {
                    break;
                }
                dao.getAdministrators().get(wantedId).setPassword(  newPasswordField.getText() );
-            dao.changeCurrentUserPassword(user, newPasswordField.getText());
+            dao.changeCurrentUser(user, newPasswordField.getText());
             confirmNewPasswordField.getScene().getWindow().hide();
         }
         confirmNewPasswordField.getScene().getWindow().hide();

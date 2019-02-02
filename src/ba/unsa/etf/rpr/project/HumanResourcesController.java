@@ -222,6 +222,35 @@ public class HumanResourcesController extends TimerTask implements Initializable
     }
 
     public void clickOnChangeUsername(ActionEvent actionEvent) {
+        String oldUsername = "";
+        String currentPassword = "";
+        for (Administrator a: dao.getAdministrators())
+            if( a.getUsername().equals( currentUser ) ){
+                oldUsername = a.getUsername();
+                currentPassword = a.getPassword();
+                break;
+            }
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/usernameWindow.fxml"));
+        UsernameController uc = new UsernameController( currentPassword, oldUsername );
+        secondaryLoader.setController(uc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Username update");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.show();
+        secondaryStage.setOnHidden(event -> {
+            if( uc.isUsernameChanged() ) {
+                homeTabWelcomeLabel.setText("   Welcome " + uc.getNewUsernameField().getText() + "!");
+                currentUser = uc.getNewUsernameField().getText();
+            }
+        });
     }
 
     public void clickOnChangePassword(ActionEvent actionEvent) {

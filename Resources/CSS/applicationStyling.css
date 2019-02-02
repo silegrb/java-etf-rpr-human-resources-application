@@ -189,5 +189,21 @@
     -fx-text-fill: linear-gradient(black,yellowgreen);
 }
 
+.usernameLabels {
+    -fx-text-fill: black;
+}
 
+.usernameButtons {
+    -fx-background-color: black;
+    -fx-text-fill: linear-gradient(black,yellowgreen);
+}
 
+.usernameFields {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(transparent,transparent, darkgrey);
+}
+
+#usernameChangeGridPane {
+    -fx-background-color: linear-gradient(black, greenyellow);
+    -fx-border-color: white;
+}
