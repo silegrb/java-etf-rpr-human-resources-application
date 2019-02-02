@@ -12,10 +12,10 @@ public class HumanResourcesDAO {
 
     private static HumanResourcesDAO instance;
     private static Connection connection;
-    private PreparedStatement addAdministrator,addCountry,addCity,addLocation,addJob,addDepartment,addEmployee,addContract,
-            updateAdministrator,updateCountry,updateCity,updateLocation,updateJob,updateDepartment,updateEmployee,updateContract,
-            getAdministrator,getContinent,getCountry,getCity,getLocation,getJob,getDepartment,getEmployee,getContract,
-            removeAdministrator,removeCountry,removeCity,removeLocation,removeJob,removeDepartment,removeEmployee,removeContract;
+    private PreparedStatement addAdministrator,addCountry,addCity,addLocation,addJob,addDepartment,addEmployee,addContract,addLogin,
+            updateAdministrator,updateCountry,updateCity,updateLocation,updateJob,updateDepartment,updateEmployee,updateContract,updateLogin,
+            getAdministrator,getContinent,getCountry,getCity,getLocation,getJob,getDepartment,getEmployee,getContract,getLogin,
+            removeAdministrator,removeCountry,removeCity,removeLocation,removeJob,removeDepartment,removeEmployee,removeContract,removeLogin;
     public ObservableList<Administrator> administrators = FXCollections.observableArrayList();
     public ObservableList<Continent> continents = FXCollections.observableArrayList();
     public ObservableList<Country> countries = FXCollections.observableArrayList();
@@ -25,6 +25,7 @@ public class HumanResourcesDAO {
     public ObservableList<Department> departments = FXCollections.observableArrayList();
     public ObservableList<Employee> employees = FXCollections.observableArrayList();
     public ObservableList<Contract> contracts = FXCollections.observableArrayList();
+    public ObservableList<Login> logins = FXCollections.observableArrayList();
 
     private static void initialize() throws FileNotFoundException, SQLException {
         instance = new HumanResourcesDAO();
@@ -59,6 +60,8 @@ public class HumanResourcesDAO {
             //SQL script "HumanResourcesDB.sql via regenerateBase() function.
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement("SELECT 'X' FROM Administrator");
+            preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT 'X' FROM Login");
             preparedStatement.executeQuery();
             preparedStatement = connection.prepareStatement("SELECT 'X' FROM Continent");
             preparedStatement.executeQuery();
@@ -108,6 +111,7 @@ public class HumanResourcesDAO {
 
     private void prepareStatements() throws SQLException {
         addAdministrator = connection.prepareStatement("INSERT INTO Administrator VALUES (?,?,?)");
+        addLogin = connection.prepareStatement("INSERT INTO Login VALUES (?,?,?)");
         addCountry = connection.prepareStatement("INSERT INTO Country VALUES (?,?,?)");
         addCity = connection.prepareStatement("INSERT INTO City VALUES ( ?,?,? )");
         addLocation = connection.prepareStatement("INSERT INTO Location VALUES ( ?,?,?,? )");
@@ -116,6 +120,7 @@ public class HumanResourcesDAO {
         addEmployee = connection.prepareStatement("INSERT INTO Employee VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
         addContract = connection.prepareStatement("INSERT INTO Contract VALUES ( ?,?,?,?,?,? )");
         getAdministrator = connection.prepareStatement("SELECT * FROM Administrator");
+        getLogin = connection.prepareStatement("SELECT * FROM Login");
         getContinent = connection.prepareStatement("SELECT * FROM Continent");
         getCountry = connection.prepareStatement("SELECT * FROM Country");
         getCity = connection.prepareStatement("SELECT * FROM City");
@@ -125,6 +130,7 @@ public class HumanResourcesDAO {
         getEmployee = connection.prepareStatement("SELECT * FROM Employee");
         getContract = connection.prepareStatement("SELECT * FROM Contract");
         updateAdministrator = connection.prepareStatement("UPDATE Administrator SET username=?, password=? WHERE id=?");
+        updateLogin = connection.prepareStatement("UPDATE Login SET user=?, time=? WHERE id=?");
         updateCountry = connection.prepareStatement("UPDATE Country SET name=?, continent=? WHERE id=?");
         updateCity = connection.prepareStatement("UPDATE City SET name=?, country=? WHERE id=?");
         updateLocation = connection.prepareStatement("UPDATE Location SET postal_code=?, street_adress=?, city=? WHERE id=?");
@@ -133,6 +139,7 @@ public class HumanResourcesDAO {
         updateEmployee = connection.prepareStatement("UPDATE Employee SET first_name=?, last_name=?, parent_name=?, birth_date=?, umcn=?, mobile_number=?, email_address=?, credit_card=?, salary=?, photo=?, location=?, department=?, job=?, manager=? WHERE id=?");
         updateContract = connection.prepareStatement("UPDATE Contract SET contract_number=?, start_date=?, end_date=?, job=?, employee=? WHERE id=?");
         removeAdministrator = connection.prepareStatement("DELETE FROM Administrator WHERE id=?");
+        removeLogin = connection.prepareStatement("DELETE FROM Login WHERE id=?");
         removeCountry = connection.prepareStatement("DELETE FROM Country WHERE id=?");
         removeCity = connection.prepareStatement("DELETE FROM City WHERE id=?");
         removeLocation = connection.prepareStatement("DELETE FROM Location WHERE id=?");
@@ -148,6 +155,13 @@ public class HumanResourcesDAO {
         while( resultSet.next() ){
             Administrator administrator = new Administrator( resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3) );
             administrators.add( administrator );
+        }
+
+        //Lets add all logins.
+        resultSet = getLogin.executeQuery();
+        while( resultSet.next() ){
+            Login login = new Login( resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)  );
+            logins.add( login );
         }
 
         //Lets add all the continents.
@@ -339,6 +353,39 @@ public class HumanResourcesDAO {
 
     public void setContracts(ObservableList<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public ObservableList<Login> getLogins() {
+        return logins;
+    }
+
+    public void setLogins(ObservableList<Login> logins) {
+        this.logins = logins;
+    }
+
+    public int nextIndex(String s ){
+        try {
+            PreparedStatement preparedStatement;
+            preparedStatement = connection.prepareStatement("SELECT id FROM " + s + " ORDER BY id DESC LIMIT 1");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int index = -1;
+            while( resultSet.next() )
+                index = resultSet.getInt(1);
+            return ++index;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -999;
+    }
+
+    public void recordUserLogin( String user, String time ) throws SQLException {
+        Login login = new Login( nextIndex("Login"), user, time );
+        addLogin.setInt(1, login.getId() );
+        addLogin.setString(2, user );
+        addLogin.setString(3, time );
+        addLogin.executeUpdate();
+        logins.add( login );
+
     }
 
 }

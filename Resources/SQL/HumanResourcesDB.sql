@@ -6,6 +6,12 @@ CREATE TABLE Administrator (
 
 INSERT INTO Administrator VALUES ( 1, 'admin', 'admin' );
 
+CREATE TABLE Login (
+  id INTEGER PRIMARY KEY ,
+  user TEXT NOT NULL,
+  time TEXT NOT NULL
+);
+
 CREATE TABLE Continent (
   id INTEGER PRIMARY KEY ,
   name TEXT

@@ -62,6 +62,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public Button editLocationBtn = new Button();
     public Button deleteLocationBtn = new Button();
     public Button printLocationBtn = new Button();
+    public Button testButton = new Button();
 
     private String currentUser;
     public GridPane hrGrid;
