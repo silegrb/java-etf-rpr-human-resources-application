@@ -15,14 +15,12 @@ import java.util.ResourceBundle;
 
 public class LocationController implements Initializable {
 
-    HumanResourcesDAO dao;
+    private HumanResourcesDAO dao;
 
     {
         try {
             dao = HumanResourcesDAO.getInstance();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (FileNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -30,7 +28,7 @@ public class LocationController implements Initializable {
     public TextField fieldPostalCode = new TextField();
     public TextField fieldStreetAddress = new TextField();
     public ChoiceBox<String> cbCities = new ChoiceBox<>();
-    private Location currentLocation = null;
+    private Location currentLocation;
     public Button okBtn = new Button();
 
     public LocationController( Location currentLocation ){
@@ -111,7 +109,7 @@ public class LocationController implements Initializable {
             fieldStreetAddress.getScene().getWindow().hide();
         }
         else{
-            dao.changeLocation( currentLocation, getLocationFromWindow() );
+            dao.changeLocation( getLocationFromWindow() );
             fieldStreetAddress.getScene().getWindow().hide();
         }
     }

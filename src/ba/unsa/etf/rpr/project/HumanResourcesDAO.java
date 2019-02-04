@@ -419,11 +419,11 @@ public class HumanResourcesDAO {
         fetchData();
     }
 
-    public void changeLocation( Location oldLocation, Location newLocation ) throws SQLException {
-        updateLocation.setString(1, newLocation.getPostalCode() );
-        updateLocation.setString(2, newLocation.getStreetAddress() );
-        updateLocation.setInt(3, newLocation.getCity().getId() );
-        updateLocation.setInt(4, newLocation.getId());
+    public void changeLocation( Location location ) throws SQLException {
+        updateLocation.setString(1, location.getPostalCode() );
+        updateLocation.setString(2, location.getStreetAddress() );
+        updateLocation.setInt(3, location.getCity().getId() );
+        updateLocation.setInt(4, location.getId());
         updateLocation.executeUpdate();
         clearData();
         fetchData();
@@ -434,6 +434,31 @@ public class HumanResourcesDAO {
             removeLocation.executeUpdate();
             clearData();
             fetchData();
+    }
+
+    public void addCountry( Country country ) throws SQLException {
+        addCountry.setInt(1, country.getId());
+        addCountry.setString(2, country.getName());
+        addCountry.setInt( 3, country.getContinent().getId() );
+        addCountry.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void changeCountry( Country country ) throws SQLException {
+        updateCountry.setString(1, country.getName());
+        updateCountry.setInt( 2, country.getContinent().getId() );
+        updateCountry.setInt(3, country.getId() );
+        updateCountry.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void deleteCountry( Country country ) throws SQLException {
+        removeCountry.setInt(1, country.getId() );
+        removeCountry.executeUpdate();
+        clearData();
+        fetchData();
     }
 }
 

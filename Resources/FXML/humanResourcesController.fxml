@@ -318,21 +318,21 @@
 
         <Tab closable="false" text="Countries">
             <GridPane fx:id="countriesTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addCountryBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button fx:id="addCountryBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddCountryBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editCountryBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button fx:id="editCountryBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditCountryBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteCountryBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <Button fx:id="deleteCountryBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteCountryBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />
@@ -440,7 +440,7 @@
 
         <Tab closable="false" text="Locations">
             <GridPane fx:id="locationsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addLocationBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickAddLocationBtn">
+                <Button fx:id="addLocationBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddLocationBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />

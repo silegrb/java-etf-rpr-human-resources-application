@@ -102,6 +102,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public TableColumn<Location,String> locationStreetAddressColumn = new TableColumn<>();
 
     private Location currentLocation = null;
+    private Country currentCountry = null;
 
     @Override
     public void run() {
@@ -208,6 +209,12 @@ public class HumanResourcesController extends TimerTask implements Initializable
             }
         });
 
+        countryTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                currentCountry = countryTable.getSelectionModel().getSelectedItem();
+            }
+        });
+
         //Now lets add the option of clicking a row that is not empty, that will open window for changing
         //a clicked row.
         locationTable.setRowFactory(tr ->
@@ -223,6 +230,21 @@ public class HumanResourcesController extends TimerTask implements Initializable
                             }
                     }
             ); return row; } );
+
+        countryTable.setRowFactory(tr ->
+        { TableRow<Country> row = new TableRow<>();
+            row.setOnMouseClicked(
+                    event -> {
+                        if( event.getClickCount() == 2 && (!row.isEmpty()) )
+                            try{
+                                clickOnEditCountryBtn(null);
+                            }
+                            catch (Exception ignored){
+
+                            }
+                    }
+            ); return row; } );
+
 
 
     }
@@ -306,7 +328,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         homeTabWelcomeLabel.getScene().getWindow().hide();
     }
 
-    public void clickAddLocationBtn(ActionEvent actionEvent){
+    public void clickOnAddLocationBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
         FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/locationWindow.fxml"));
         LocationController lc = new LocationController( null );
@@ -336,7 +358,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            secondaryStage.setTitle("Change location");
+            secondaryStage.setTitle("Edit location");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
             secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
@@ -358,6 +380,61 @@ public class HumanResourcesController extends TimerTask implements Initializable
                 dao.deleteLocation( currentLocation );
             currentLocation = null;
             locationTable.getSelectionModel().clearSelection();
+        }
+    }
+
+    public void clickOnAddCountryBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/countryWindow.fxml"));
+        CountryController cc = new CountryController( null );
+        secondaryLoader.setController(cc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Add country");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
+        secondaryStage.show();
+    }
+
+    public void clickOnEditCountryBtn(ActionEvent actionEvent){
+        if( currentCountry != null ){
+            Stage secondaryStage = new Stage();
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/countryWindow.fxml"));
+            CountryController cc = new CountryController( currentCountry );
+            secondaryLoader.setController( cc );
+            Parent secondaryRoot = null;
+            try {
+                secondaryRoot = secondaryLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            secondaryStage.setTitle("Edit country");
+            secondaryStage.setResizable(false);
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
+            secondaryStage.show();
+            secondaryStage.setOnHidden(event -> {
+                currentCountry = null;
+                countryTable.getSelectionModel().clearSelection();
+            });
+        }
+    }
+
+    public void clickOnDeleteCountryBtn(ActionEvent actionEvent) throws SQLException {
+        if( currentCountry != null ) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete country");
+            alert.setHeaderText("Are you sure you want to delete " + currentCountry.getName() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if( result.get() == ButtonType.OK )
+                dao.deleteCountry( currentCountry );
+            currentCountry = null;
+            countryTable.getSelectionModel().clearSelection();
         }
     }
 }
