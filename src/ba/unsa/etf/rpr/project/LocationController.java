@@ -42,6 +42,7 @@ public class LocationController implements Initializable {
             fieldPostalCode.setText( currentLocation.getPostalCode() );
             fieldStreetAddress.setText( currentLocation.getStreetAddress() );
             cbCities.setValue( currentLocation.getCity().getName() );
+            okBtn.setDisable(false);
 
             //Lets set styleClasses for this case.
             fieldPostalCode.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
@@ -91,7 +92,7 @@ public class LocationController implements Initializable {
             if( newValue.equals("") ){
                 cbCities.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
                 cbCities.getStyleClass().add("controllerFields");
-                cbCities.setDisable(true);
+                okBtn.setDisable(true);
             }
             else {
                 cbCities.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
@@ -133,4 +134,5 @@ public class LocationController implements Initializable {
 
             return new Location( index, fieldPostalCode.getText(), fieldStreetAddress.getText(), city );
     }
+
 }

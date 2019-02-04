@@ -450,8 +450,31 @@ public class HumanResourcesController extends TimerTask implements Initializable
             alert.setTitle("Delete country");
             alert.setHeaderText("Are you sure you want to delete " + currentCountry.getName() + "?");
             Optional<ButtonType> result = alert.showAndWait();
-            if( result.get() == ButtonType.OK )
-                dao.deleteCountry( currentCountry );
+            if( result.get() == ButtonType.OK ) {
+                ArrayList<City> citiesToDelete = new ArrayList<>();
+                //Lets fetch all cities we need to delete.
+                for ( City c : dao.getCities())
+                    if( c.getCountry().equals( currentCountry ) )
+                        citiesToDelete.add(c);
+
+                 ArrayList<Location> locationsToDelete = new ArrayList<>();
+                //Lets fetch all locations in cities we need to delete.
+                for ( City c : citiesToDelete )
+                    for ( Location l: dao.getLocations() )
+                        if( l.getCity().equals(c) )
+                            locationsToDelete.add( l );
+
+                //Lets delete cities from citiesToDelete
+                for (City c : citiesToDelete)
+                    dao.deleteCity(c);
+
+                //Lets delete locations from locationsToDelete
+                for (Location l: locationsToDelete)
+                    dao.deleteLocation(l);
+
+                //Lets delete selected country.
+                dao.deleteCountry(currentCountry);
+            }
             currentCountry = null;
             countryTable.getSelectionModel().clearSelection();
         }
@@ -470,7 +493,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         }
         secondaryStage.setTitle("Add city");
         secondaryStage.setResizable(false);
-        //secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
         secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
         secondaryStage.show();
     }
@@ -505,8 +528,20 @@ public class HumanResourcesController extends TimerTask implements Initializable
             alert.setTitle("Delete city");
             alert.setHeaderText("Are you sure you want to delete " + currentCity.getName() + "?");
             Optional<ButtonType> result = alert.showAndWait();
-            if( result.get() == ButtonType.OK )
-                dao.deleteCity( currentCity );
+            if( result.get() == ButtonType.OK ) {
+                ArrayList<Location> locationsToDelete = new ArrayList<>();
+                //Lets fetch all locations that are in selected city.
+                for ( Location l : dao.getLocations())
+                    if( l.getCity().equals( currentCity ) )
+                        locationsToDelete.add(l);
+
+                 //Lets delete those locations.
+                for ( Location l : locationsToDelete )
+                    dao.deleteLocation(l);
+
+                //Lets delete selected city.
+                dao.deleteCity(currentCity);
+            }
             currentCity = null;
             cityTable.getSelectionModel().clearSelection();
         }

@@ -46,6 +46,7 @@ public class CityController implements Initializable {
         if( currentCity != null ){
             fieldName.setText( currentCity.getName() );
             cbCountries.setValue( currentCity.getCountry().getName() );
+            okBtn.setDisable(false);
 
             //Lets set styleClasses for this case.
             fieldName.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
@@ -77,10 +78,10 @@ public class CityController implements Initializable {
         });
 
         cbCountries.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if( newValue.equals("") ){
+            if(  cbCountries.getValue() == null || newValue.equals("") ){
                 cbCountries.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
                 cbCountries.getStyleClass().add("controllerFields");
-                cbCountries.setDisable(true);
+                okBtn.setDisable(true);
             }
             else {
                 cbCountries.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
@@ -116,14 +117,17 @@ public class CityController implements Initializable {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                cbCountries.getItems().clear();
                 ObservableList<String> countryNames = FXCollections.observableArrayList();
                 for (Country c : dao.getCountries())
                     countryNames.add(c.getName());
                 cbCountries.setItems(countryNames);
-                cbCountries.setValue(dao.getCountries().get(dao.getCountries().size() - 1).getName());
             }
         });
+
+
+
+
+
 
     }
 
@@ -161,6 +165,7 @@ public class CityController implements Initializable {
         dao.fetchData();
         fieldName.getScene().getWindow().hide();
     }
+
 
 
 }

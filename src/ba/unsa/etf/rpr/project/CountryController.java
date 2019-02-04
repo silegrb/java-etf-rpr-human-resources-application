@@ -42,6 +42,7 @@ public class CountryController implements Initializable {
         if( currentCountry != null ){
             fieldName.setText( currentCountry.getName() );
             cbContinents.setValue( currentCountry.getContinent().getName() );
+            okBtn.setDisable(false);
 
             //Lets set styleClasses for this case.
             fieldName.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
@@ -76,7 +77,7 @@ public class CountryController implements Initializable {
             if( newValue.equals("") ){
                 cbContinents.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
                 cbContinents.getStyleClass().add("controllerFields");
-                cbContinents.setDisable(true);
+                okBtn.setDisable(true);
             }
             else {
                 cbContinents.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
@@ -122,4 +123,5 @@ public class CountryController implements Initializable {
     public boolean isOkBtnClicked() {
         return okBtnClicked;
     }
+
 }

@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import java.util.Objects;
+
 public class Country {
 
     private int id;
@@ -34,6 +36,16 @@ public class Country {
 
     public void setContinent(Continent continent) {
         this.continent = continent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Country country = (Country) o;
+        return id == country.id &&
+                Objects.equals(name, country.name) &&
+                Objects.equals(continent, country.continent);
     }
 
 }
