@@ -30,6 +30,7 @@ public class CountryController implements Initializable {
     public TextField fieldName = new TextField();
     public Button okBtn = new Button();
     public ChoiceBox<String> cbContinents = new ChoiceBox<>();
+    private boolean okBtnClicked = false;
 
     public CountryController( Country currentCountry ){
         this.currentCountry = currentCountry;
@@ -103,6 +104,7 @@ public class CountryController implements Initializable {
     }
 
     public void clickOkBtn(ActionEvent actionEvent) throws SQLException {
+        okBtnClicked = true;
         if( currentCountry == null ){
             dao.addCountry( getCountryFromWindow() );
             fieldName.getScene().getWindow().hide();
@@ -117,5 +119,7 @@ public class CountryController implements Initializable {
         fieldName.getScene().getWindow().hide();
     }
 
-
+    public boolean isOkBtnClicked() {
+        return okBtnClicked;
+    }
 }

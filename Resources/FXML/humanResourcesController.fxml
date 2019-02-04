@@ -378,21 +378,21 @@
 
         <Tab closable="false" text="Cities">
             <GridPane fx:id="citiesTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addCityBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button fx:id="addCityBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddCityBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editCityBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button fx:id="editCityBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditCityBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteCityBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <Button fx:id="deleteCityBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteCityBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />

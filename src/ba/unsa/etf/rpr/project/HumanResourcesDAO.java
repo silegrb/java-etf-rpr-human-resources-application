@@ -144,7 +144,7 @@ public class HumanResourcesDAO {
         removeContract = connection.prepareStatement("DELETE FROM Contract WHERE id=?");
     }
 
-    private void fetchData() throws SQLException {
+    void fetchData() throws SQLException {
         //First, lets download all administrators from database.
         ResultSet resultSet = getAdministrator.executeQuery();
         while( resultSet.next() ){
@@ -457,6 +457,31 @@ public class HumanResourcesDAO {
     public void deleteCountry( Country country ) throws SQLException {
         removeCountry.setInt(1, country.getId() );
         removeCountry.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void addCity( City city ) throws SQLException {
+        addCity.setInt(1, city.getId());
+        addCity.setString(2, city.getName());
+        addCity.setInt( 3, city.getCountry().getId() );
+        addCity.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void changeCity( City city ) throws SQLException {
+        updateCity.setString(1, city.getName());
+        updateCity.setInt( 2, city.getCountry().getId() );
+        updateCity.setInt(3, city.getId() );
+        updateCity.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void deleteCity( City city ) throws SQLException {
+        removeCity.setInt(1, city.getId() );
+        removeCity.executeUpdate();
         clearData();
         fetchData();
     }

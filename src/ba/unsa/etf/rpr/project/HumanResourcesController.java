@@ -103,6 +103,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     private Location currentLocation = null;
     private Country currentCountry = null;
+    private City currentCity = null;
 
     @Override
     public void run() {
@@ -112,7 +113,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         });
     }
 
-    public HumanResourcesController(String currentUser) {
+    public HumanResourcesController( String currentUser ) {
 
         this.currentUser = currentUser;
     }
@@ -215,6 +216,12 @@ public class HumanResourcesController extends TimerTask implements Initializable
             }
         });
 
+        cityTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                currentCity = cityTable.getSelectionModel().getSelectedItem();
+            }
+        });
+
         //Now lets add the option of clicking a row that is not empty, that will open window for changing
         //a clicked row.
         locationTable.setRowFactory(tr ->
@@ -245,7 +252,19 @@ public class HumanResourcesController extends TimerTask implements Initializable
                     }
             ); return row; } );
 
+        cityTable.setRowFactory(tr ->
+        { TableRow<City> row = new TableRow<>();
+            row.setOnMouseClicked(
+                    event -> {
+                        if( event.getClickCount() == 2 && (!row.isEmpty()) )
+                            try{
+                                clickOnEditCityBtn(null);
+                            }
+                            catch (Exception ignored){
 
+                            }
+                    }
+            ); return row; } );
 
     }
 
@@ -436,5 +455,64 @@ public class HumanResourcesController extends TimerTask implements Initializable
             currentCountry = null;
             countryTable.getSelectionModel().clearSelection();
         }
+    }
+
+    public void clickOnAddCityBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/cityWindow.fxml"));
+        CityController cc = new CityController( null );
+        secondaryLoader.setController(cc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Add city");
+        secondaryStage.setResizable(false);
+        //secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.show();
+    }
+
+    public void clickOnEditCityBtn(ActionEvent actionEvent){
+        if( currentCity != null ){
+            Stage secondaryStage = new Stage();
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/cityWindow.fxml"));
+            CityController cc = new CityController( currentCity );
+            secondaryLoader.setController( cc );
+            Parent secondaryRoot = null;
+            try {
+                secondaryRoot = secondaryLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            secondaryStage.setTitle("Edit city");
+            secondaryStage.setResizable(false);
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+            secondaryStage.show();
+            secondaryStage.setOnHidden(event -> {
+                currentCity = null;
+                cityTable.getSelectionModel().clearSelection();
+            });
+        }
+    }
+
+    public void clickOnDeleteCityBtn(ActionEvent actionEvent) throws SQLException {
+        if( currentCity != null ) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete city");
+            alert.setHeaderText("Are you sure you want to delete " + currentCity.getName() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if( result.get() == ButtonType.OK )
+                dao.deleteCity( currentCity );
+            currentCity = null;
+            cityTable.getSelectionModel().clearSelection();
+        }
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
     }
 }
