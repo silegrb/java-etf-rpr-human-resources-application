@@ -63,9 +63,14 @@ public class Main extends Application {
         });
 //        for (Login l: dao.getLogins())
 //            System.out.println( l.getUser() +"-"+ l.getTime() );
+//
+//        System.out.println();
+//
+//        for (Location l: dao.getLocations())
+//            System.out.println( l.getCity().getName()  );
 
+        }
 
-    }
 
 
     public static void main(String[] args) {

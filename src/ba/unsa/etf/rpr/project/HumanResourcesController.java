@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -20,10 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class HumanResourcesController extends TimerTask implements Initializable {
 
@@ -107,6 +101,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public TableColumn<Location,String> locationPostalCodeColumn = new TableColumn<>();
     public TableColumn<Location,String> locationStreetAddressColumn = new TableColumn<>();
 
+    private Location currentLocation = null;
+
     @Override
     public void run() {
         int random = (int )(Math. random() * 4 + 0);
@@ -180,7 +176,11 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
         departmentIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
         departmentNameColumn.setCellValueFactory( new PropertyValueFactory<>("name") );
-        departmentLocationColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getLocation().getStreetAddress()) );
+        departmentLocationColumn.setCellValueFactory( cellData -> {
+            if( cellData.getValue().getLocation() != null )
+            return Bindings.concat(cellData.getValue().getLocation().getStreetAddress());
+            else return null;
+        } );
         departmentManagerColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getManager().getFirstName()," ", cellData.getValue().getManager().getLastName()) );
         departmentTable.setItems( dao.getDepartments() );
 
@@ -200,6 +200,29 @@ public class HumanResourcesController extends TimerTask implements Initializable
         locationPostalCodeColumn.setCellValueFactory( new PropertyValueFactory<>("postalCode") );
         locationStreetAddressColumn.setCellValueFactory( new PropertyValueFactory<>("streetAddress") );
         locationTable.setItems( dao.getLocations() );
+
+        //Listeners for current values in tables
+        locationTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                currentLocation = locationTable.getSelectionModel().getSelectedItem();
+            }
+        });
+
+        //Now lets add the option of clicking a row that is not empty, that will open window for changing
+        //a clicked row.
+        locationTable.setRowFactory(tr ->
+        { TableRow<Location> row = new TableRow<>();
+            row.setOnMouseClicked(
+                    event -> {
+                        if( event.getClickCount() == 2 && (!row.isEmpty()) )
+                            try{
+                                clickOnEditLocationBtn(null);
+                            }
+                            catch (Exception ignored){
+
+                            }
+                    }
+            ); return row; } );
 
 
     }
@@ -254,30 +277,87 @@ public class HumanResourcesController extends TimerTask implements Initializable
     }
 
     public void clickOnChangePassword(ActionEvent actionEvent) {
-        String userPassword = "";
-        for (Administrator a: dao.getAdministrators())
-            if( a.getUsername().equals( currentUser ) ){
-                userPassword = a.getPassword();
-                break;
+
+            String userPassword = "";
+            for (Administrator a : dao.getAdministrators())
+                if (a.getUsername().equals(currentUser)) {
+                    userPassword = a.getPassword();
+                    break;
+                }
+            Stage secondaryStage = new Stage();
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/passwordWindow.fxml"));
+            PasswordController pc = new PasswordController(currentUser, userPassword);
+            secondaryLoader.setController(pc);
+            Parent secondaryRoot = null;
+            try {
+                secondaryRoot = secondaryLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            secondaryStage.setTitle("Password update");
+            secondaryStage.setResizable(false);
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+            secondaryStage.show();
+
+    }
+
+    public void clickOnLogout(ActionEvent actionEvent) {
+        homeTabWelcomeLabel.getScene().getWindow().hide();
+    }
+
+    public void clickAddLocationBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/passwordWindow.fxml"));
-        PasswordController pc = new PasswordController( currentUser, userPassword );
-        secondaryLoader.setController(pc);
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/locationWindow.fxml"));
+        LocationController lc = new LocationController( null );
+        secondaryLoader.setController(lc);
         Parent secondaryRoot = null;
         try {
             secondaryRoot = secondaryLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        secondaryStage.setTitle("Password update");
+        secondaryStage.setTitle("Add location");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
         secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
         secondaryStage.show();
     }
 
-    public void clickOnLogout(ActionEvent actionEvent) {
-        homeTabWelcomeLabel.getScene().getWindow().hide();
+    public void clickOnEditLocationBtn(ActionEvent actionEvent){
+        if( currentLocation != null ){
+            Stage secondaryStage = new Stage();
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/locationWindow.fxml"));
+            LocationController lc = new LocationController( currentLocation );
+            secondaryLoader.setController( lc );
+            Parent secondaryRoot = null;
+            try {
+                secondaryRoot = secondaryLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            secondaryStage.setTitle("Change location");
+            secondaryStage.setResizable(false);
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+            secondaryStage.show();
+            secondaryStage.setOnHidden(event -> {
+                currentLocation = null;
+                locationTable.getSelectionModel().clearSelection();
+            });
+        }
+    }
+
+    public void clickOnDeleteLocationBtn(ActionEvent actionEvent) throws SQLException {
+        if( currentLocation != null ) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete location");
+            alert.setHeaderText("Are you sure you want to delete " + currentLocation.getStreetAddress() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if( result.get() == ButtonType.OK )
+                dao.deleteLocation( currentLocation );
+            currentLocation = null;
+            locationTable.getSelectionModel().clearSelection();
+        }
     }
 }

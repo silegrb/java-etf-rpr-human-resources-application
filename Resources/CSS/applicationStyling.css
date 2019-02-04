@@ -210,3 +210,22 @@
     -fx-background-color: linear-gradient(black, greenyellow);
     -fx-border-color: white;
 }
+
+.controllerGridPanes {
+    -fx-background-color: linear-gradient(black, greenyellow);
+    -fx-border-color: white;
+}
+
+.controllerLabels {
+    -fx-text-fill: black;
+}
+
+.controllerButtons {
+    -fx-background-color: black;
+    -fx-text-fill: linear-gradient(black,yellowgreen);
+}
+
+.controllerFields {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(transparent,transparent, darkgrey);
+}

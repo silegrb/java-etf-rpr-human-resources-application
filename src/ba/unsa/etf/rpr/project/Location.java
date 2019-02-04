@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import java.util.Objects;
+
 public class Location {
 
 
@@ -47,4 +49,14 @@ public class Location {
         this.city = city;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return id == location.id &&
+                Objects.equals(postalCode, location.postalCode) &&
+                Objects.equals(streetAddress, location.streetAddress) &&
+                Objects.equals(city, location.city);
+    }
 }

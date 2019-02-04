@@ -27,6 +27,8 @@ public class HumanResourcesDAO {
     public ObservableList<Contract> contracts = FXCollections.observableArrayList();
     public ObservableList<Login> logins = FXCollections.observableArrayList();
 
+    public Location currentlySelectedLocation = null;
+
     private static void initialize() throws FileNotFoundException, SQLException {
         instance = new HumanResourcesDAO();
     }
@@ -50,6 +52,7 @@ public class HumanResourcesDAO {
     private HumanResourcesDAO() throws FileNotFoundException, SQLException {
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:HumanResources.db");
+
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -99,14 +102,6 @@ public class HumanResourcesDAO {
             }
         }
         input.close();
-    }
-
-    private int getNextId( String table ) throws SQLException {
-        int id = -1;
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT id FROM " + table );
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while( resultSet.next() ) id = resultSet.getInt(1);
-        return ++id;
     }
 
     private void prepareStatements() throws SQLException {
@@ -283,6 +278,19 @@ public class HumanResourcesDAO {
         }
     }
 
+    public void clearData(){
+        administrators.clear();
+        logins.clear();
+        continents.clear();
+        countries.clear();
+        cities.clear();
+        locations.clear();
+        departments.clear();
+        jobs.clear();
+        employees.clear();
+        contracts.clear();
+    }
+
     public ObservableList<Administrator> getAdministrators() {
         return administrators;
     }
@@ -368,7 +376,7 @@ public class HumanResourcesDAO {
             PreparedStatement preparedStatement;
             preparedStatement = connection.prepareStatement("SELECT id FROM " + s + " ORDER BY id DESC LIMIT 1");
             ResultSet resultSet = preparedStatement.executeQuery();
-            int index = -1;
+            int index = 0;
             while( resultSet.next() )
                 index = resultSet.getInt(1);
             return ++index;
@@ -400,5 +408,32 @@ public class HumanResourcesDAO {
          updateAdministrator.setInt(3, wantedId);
          updateAdministrator.executeUpdate();
         }
+
+    public void addLocation( Location location ) throws SQLException {
+        addLocation.setInt(1, location.getId());
+        addLocation.setString(2, location.getPostalCode());
+        addLocation.setString(3, location.getStreetAddress());
+        addLocation.setInt(4, location.getCity().getId());
+        addLocation.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void changeLocation( Location oldLocation, Location newLocation ) throws SQLException {
+        updateLocation.setString(1, newLocation.getPostalCode() );
+        updateLocation.setString(2, newLocation.getStreetAddress() );
+        updateLocation.setInt(3, newLocation.getCity().getId() );
+        updateLocation.setInt(4, newLocation.getId());
+        updateLocation.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void deleteLocation( Location location ) throws SQLException {
+            removeLocation.setInt(1, location.getId());
+            removeLocation.executeUpdate();
+            clearData();
+            fetchData();
+    }
 }
 
