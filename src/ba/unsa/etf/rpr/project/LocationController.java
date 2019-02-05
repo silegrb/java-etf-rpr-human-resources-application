@@ -3,12 +3,18 @@ package ba.unsa.etf.rpr.project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -117,6 +123,40 @@ public class LocationController implements Initializable {
 
     public void clickCancelBtn(ActionEvent actionEvent){
         fieldStreetAddress.getScene().getWindow().hide();
+    }
+
+    public void clickOnQuicklyAddCity(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/cityWindow.fxml"));
+        CityController cc = new CityController( null );
+        secondaryLoader.setController(cc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Add city");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.show();
+        secondaryStage.setOnHidden(event -> {
+            //If OK button in CountryController is not clicked, nothing will happen.
+            if( cc.isOkBtnClicked() ) {
+                dao.clearData();
+                try {
+                    dao.fetchData();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                ObservableList<String> cityNames = FXCollections.observableArrayList();
+                for (City c : dao.getCities())
+                    cityNames.add(c.getName());
+                cbCities.setItems(cityNames);
+            }
+        });
+
     }
 
     private Location getLocationFromWindow(){

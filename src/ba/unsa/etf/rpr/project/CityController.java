@@ -35,6 +35,7 @@ public class CityController implements Initializable {
     public TextField fieldName = new TextField();
     public Button okBtn = new Button();
     public ChoiceBox<String> cbCountries = new ChoiceBox<>();
+    public boolean okBtnClicked = false;
 
     public CityController( City currentCity ){
         this.currentCity = currentCity;
@@ -54,6 +55,8 @@ public class CityController implements Initializable {
             cbCountries.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
             cbCountries.getStyleClass().add( "fieldValid" );
         }
+        else cbCountries.setValue( null );
+
 
         ObservableList<String> countryNames = FXCollections.observableArrayList();
         for ( Country c: dao.getCountries())
@@ -109,7 +112,7 @@ public class CityController implements Initializable {
         secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
         secondaryStage.show();
         secondaryStage.setOnHidden(event -> {
-            //If OK button in CountryController is not clicked, nothing will happen.
+            //If OK button in C is not clicked, nothing will happen.
             if( cc.isOkBtnClicked() ) {
                 dao.clearData();
                 try {
@@ -123,11 +126,6 @@ public class CityController implements Initializable {
                 cbCountries.setItems(countryNames);
             }
         });
-
-
-
-
-
 
     }
 
@@ -149,6 +147,7 @@ public class CityController implements Initializable {
     }
 
     public void clickOkBtn(javafx.event.ActionEvent actionEvent) throws SQLException {
+        okBtnClicked = true;
         if( currentCity == null ){
             dao.addCity( getCityFromWindow() );
             fieldName.getScene().getWindow().hide();
@@ -167,5 +166,8 @@ public class CityController implements Initializable {
     }
 
 
+    public boolean isOkBtnClicked() {
+        return okBtnClicked;
+    }
 
 }

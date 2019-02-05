@@ -104,6 +104,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     private Location currentLocation = null;
     private Country currentCountry = null;
     private City currentCity = null;
+    private Job currentJob = null;
 
     @Override
     public void run() {
@@ -222,6 +223,12 @@ public class HumanResourcesController extends TimerTask implements Initializable
             }
         });
 
+        jobTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                currentJob = jobTable.getSelectionModel().getSelectedItem();
+            }
+        });
+
         //Now lets add the option of clicking a row that is not empty, that will open window for changing
         //a clicked row.
         locationTable.setRowFactory(tr ->
@@ -259,6 +266,20 @@ public class HumanResourcesController extends TimerTask implements Initializable
                         if( event.getClickCount() == 2 && (!row.isEmpty()) )
                             try{
                                 clickOnEditCityBtn(null);
+                            }
+                            catch (Exception ignored){
+
+                            }
+                    }
+            ); return row; } );
+
+        jobTable.setRowFactory(tr ->
+        { TableRow<Job> row = new TableRow<>();
+            row.setOnMouseClicked(
+                    event -> {
+                        if( event.getClickCount() == 2 && (!row.isEmpty()) )
+                            try{
+                                //clickOnEditCountryBtn(null);
                             }
                             catch (Exception ignored){
 
@@ -361,7 +382,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add location");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
         secondaryStage.show();
     }
 
@@ -380,7 +401,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Edit location");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
             secondaryStage.show();
             secondaryStage.setOnHidden(event -> {
                 currentLocation = null;
