@@ -66,7 +66,7 @@ INSERT INTO Location VALUES ( 5, '12623', 'Jl. Mendut', 4 );
 
 CREATE TABLE Job (
   id INTEGER PRIMARY KEY ,
-  job_title TEXT 
+  job_title TEXT UNIQUE
 );
 
 INSERT INTO Job VALUES ( 1, 'Secretary' );

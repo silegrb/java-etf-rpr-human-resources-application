@@ -157,4 +157,9 @@ public class Employee {
     public void setManager(Employee manager) {
         this.manager = manager;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " +  lastName;
+    }
 }

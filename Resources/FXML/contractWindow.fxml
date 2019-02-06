@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="220" prefWidth="370" hgap="5" vgap="5">
+    <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
+
+    <Label text="Contract Number" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldContractNumber" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Start Date" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
+    <DatePicker fx:id="dpStartDate" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="End Date" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="controllerLabels"/>
+    <DatePicker fx:id="dpEndDate" GridPane.rowIndex="3" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Contract Holder" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbEmployees" GridPane.rowIndex="4" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Contract Job" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbJobs" GridPane.rowIndex="5" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+
+    <Button fx:id="okBtn" text="OK" textAlignment="CENTER" GridPane.rowIndex="6" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
+    <Button fx:id="cancelBtn" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
+
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+</GridPane>

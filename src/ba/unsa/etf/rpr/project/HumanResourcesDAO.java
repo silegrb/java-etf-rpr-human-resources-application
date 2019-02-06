@@ -485,5 +485,24 @@ public class HumanResourcesDAO {
         clearData();
         fetchData();
     }
+
+    public void addContract( Contract contract ) throws SQLException {
+        addContract.setInt( 1, contract.getId() );
+        addContract.setString( 2, contract.getContractNumber() );
+        addContract.setDate( 3, Date.valueOf( contract.getStartDate() )  );
+        addContract.setDate( 4, Date.valueOf( contract.getEndDate() ) );
+        addContract.setInt( 5, contract.getJob().getId() );
+        addContract.setInt( 6, contract.getEmployee().getId() );
+        addContract.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void deleteContract( Contract contract ) throws SQLException {
+        removeContract.setInt( 1, contract.getId() );
+        removeContract.executeUpdate();
+        clearData();
+        fetchData();
+    }
 }
 

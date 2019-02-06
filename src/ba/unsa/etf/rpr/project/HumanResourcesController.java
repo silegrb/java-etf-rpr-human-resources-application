@@ -105,6 +105,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     private Country currentCountry = null;
     private City currentCity = null;
     private Job currentJob = null;
+    private Contract currentContract = null;
 
     @Override
     public void run() {
@@ -228,6 +229,11 @@ public class HumanResourcesController extends TimerTask implements Initializable
                 currentJob = jobTable.getSelectionModel().getSelectedItem();
             }
         });
+
+         contractTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+             if( newValue != null )
+                 currentContract = contractTable.getSelectionModel().getSelectedItem();
+         });
 
         //Now lets add the option of clicking a row that is not empty, that will open window for changing
         //a clicked row.
@@ -565,6 +571,37 @@ public class HumanResourcesController extends TimerTask implements Initializable
             }
             currentCity = null;
             cityTable.getSelectionModel().clearSelection();
+        }
+    }
+
+    public void clickOnAddContractBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/contractWindow.fxml"));
+        ContractController cc = new ContractController();
+        secondaryLoader.setController(cc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Add contract");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 220));
+        secondaryStage.show();
+    }
+
+    public void clickOnDeleteContractBtn( ActionEvent actionEvent ) throws SQLException {
+        if (currentContract != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete contract");
+            alert.setHeaderText("Are you sure you want to delete " + currentContract.getContractNumber() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK)
+                dao.deleteContract(currentContract);
+            currentContract = null;
+            contractTable.getSelectionModel().clearSelection();
         }
     }
 
