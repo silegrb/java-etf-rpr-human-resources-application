@@ -56,6 +56,10 @@
 {
     -fx-background-color: white;
 }
+.tab-pane .tab:hover {
+    -fx-background-color: linear-gradient(transparent, white);
+    -fx-text-fill: white;
+}
 
 .tab .tab-label {
     -fx-alignment: CENTER;
@@ -126,6 +130,11 @@
     -fx-padding: 0.0em; /* 0 */
 }
 
+.table-row-cell:filled:hover {
+    -fx-background-color: linear-gradient(transparent, transparent,dimgrey);
+    -fx-text-fill: white;
+}
+
 .table-row-cell:selected {
     -fx-background-color: linear-gradient(black, black,dimgrey);
     -fx-background-insets: 0;
@@ -134,6 +143,11 @@
 
 .accountTheme{
     -fx-background-color: linear-gradient(transparent, white);
+    -fx-text-fill: white;
+}
+
+#myAccount:hover {
+    -fx-background-color: linear-gradient(transparent, black);
     -fx-text-fill: white;
 }
 
@@ -230,3 +244,35 @@
     -fx-border-color: linear-gradient(transparent,transparent, darkgrey);
     -fx-text-fill: black;
 }
+
+.list-view {
+    -fx-background-color: black;
+    -fx-border-color: linear-gradient(#131313 0%, #424141 100%);
+
+}
+.list-cell{
+    -fx-background-color: black;
+    -fx-border-color: linear-gradient(#131313 0%, #424141 100%);
+    -fx-text-fill: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: linear-gradient(transparent, transparent,dimgrey);
+    -fx-text-fill: white;
+}
+
+
+#errorReportGridPane {
+    -fx-background-color: linear-gradient(black, red);
+    -fx-border-color: white;
+}
+
+#errorReportCloseBtn {
+    -fx-background-color: black;
+    -fx-text-fill: linear-gradient(black,red);
+}
+
+#errorReportLabel {
+    -fx-text-fill: white;
+}
+

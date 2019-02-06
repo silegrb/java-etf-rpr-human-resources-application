@@ -588,7 +588,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add contract");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 220));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 250));
         secondaryStage.show();
     }
 
@@ -596,7 +596,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         if (currentContract != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete contract");
-            alert.setHeaderText("Are you sure you want to delete " + currentContract.getContractNumber() + "?");
+            alert.setHeaderText("Are you sure you want to delete contract " + currentContract.getContractNumber() + "?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK)
                 dao.deleteContract(currentContract);
