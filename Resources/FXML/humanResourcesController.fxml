@@ -188,21 +188,21 @@
 
         <Tab closable="false" text="Departments">
             <GridPane fx:id="departmentsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button fx:id="addDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddDepartmentBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button fx:id="editDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditDepartmentBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <Button fx:id="deleteDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteDepartmentBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />

@@ -106,6 +106,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     private City currentCity = null;
     private Job currentJob = null;
     private Contract currentContract = null;
+    private Department currentDepartment = null;
 
     @Override
     public void run() {
@@ -235,6 +236,11 @@ public class HumanResourcesController extends TimerTask implements Initializable
                  currentContract = contractTable.getSelectionModel().getSelectedItem();
          });
 
+        departmentTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if( newValue != null )
+                currentDepartment = departmentTable.getSelectionModel().getSelectedItem();
+        });
+
         //Now lets add the option of clicking a row that is not empty, that will open window for changing
         //a clicked row.
         locationTable.setRowFactory(tr ->
@@ -286,6 +292,20 @@ public class HumanResourcesController extends TimerTask implements Initializable
                         if( event.getClickCount() == 2 && (!row.isEmpty()) )
                             try{
                                 clickOnEditJobBtn(null);
+                            }
+                            catch (Exception ignored){
+
+                            }
+                    }
+            ); return row; } );
+
+        departmentTable.setRowFactory(tr ->
+        { TableRow<Department> row = new TableRow<>();
+            row.setOnMouseClicked(
+                    event -> {
+                        if( event.getClickCount() == 2 && (!row.isEmpty()) )
+                            try{
+                                clickOnEditDepartmentBtn(null);
                             }
                             catch (Exception ignored){
 
@@ -657,6 +677,61 @@ public class HumanResourcesController extends TimerTask implements Initializable
                 dao.deleteJob(currentJob);
             currentJob = null;
             jobTable.getSelectionModel().clearSelection();
+        }
+    }
+
+    public void clickOnAddDepartmentBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/departmentWindow.fxml"));
+        DepartmentController dc = new DepartmentController( null );
+        secondaryLoader.setController(dc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Add department");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
+        secondaryStage.show();
+    }
+
+    public void clickOnEditDepartmentBtn(ActionEvent actionEvent){
+        if( currentDepartment != null ){
+            Stage secondaryStage = new Stage();
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/departmentWindow.fxml"));
+            DepartmentController dc = new DepartmentController( currentDepartment );
+            secondaryLoader.setController( dc );
+            Parent secondaryRoot = null;
+            try {
+                secondaryRoot = secondaryLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            secondaryStage.setTitle("Edit department");
+            secondaryStage.setResizable(false);
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
+            secondaryStage.show();
+            secondaryStage.setOnHidden(event -> {
+                currentDepartment = null;
+                departmentTable.getSelectionModel().clearSelection();
+            });
+        }
+    }
+
+    public void clickOnDeleteDepartmentBtn(ActionEvent actionEvent) throws SQLException {
+        if ( currentDepartment != null ) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete department");
+            alert.setHeaderText("Are you sure you want to delete " + currentDepartment.getName() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK)
+                dao.deleteDepartment(currentDepartment);
+            currentDepartment = null;
+            departmentTable.getSelectionModel().clearSelection();
         }
     }
 

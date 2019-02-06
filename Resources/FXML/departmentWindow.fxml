@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="180" prefWidth="370" hgap="5" vgap="5">
+    <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
+
+    <Label text="Departmen name" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldDepartmentName" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbLocations" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Manager" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbManagers" GridPane.rowIndex="3" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Button fx:id="errorReportBtn" text="Error Report" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
+
+    <Button fx:id="okBtn" text="OK" textAlignment="CENTER" GridPane.rowIndex="5" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
+    <Button fx:id="cancelBtn" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="5" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
+
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+</GridPane>
+

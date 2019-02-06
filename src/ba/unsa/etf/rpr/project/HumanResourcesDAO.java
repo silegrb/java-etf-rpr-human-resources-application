@@ -128,7 +128,7 @@ public class HumanResourcesDAO {
         updateCity = connection.prepareStatement("UPDATE City SET name=?, country=? WHERE id=?");
         updateLocation = connection.prepareStatement("UPDATE Location SET postal_code=?, street_adress=?, city=? WHERE id=?");
         updateJob = connection.prepareStatement("UPDATE Job SET job_title=? WHERE id=?");
-        updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=? WHERE id=?");
+        updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=?, manager=? WHERE id=?");
         updateEmployee = connection.prepareStatement("UPDATE Employee SET first_name=?, last_name=?, parent_name=?, birth_date=?, umcn=?, mobile_number=?, email_address=?, credit_card=?, salary=?, photo=?, location=?, department=?, job=?, manager=? WHERE id=?");
         removeAdministrator = connection.prepareStatement("DELETE FROM Administrator WHERE id=?");
         removeLogin = connection.prepareStatement("DELETE FROM Login WHERE id=?");
@@ -513,6 +513,65 @@ public class HumanResourcesDAO {
     public void deleteJob( Job job ) throws SQLException {
         removeJob.setInt(1, job.getId() );
         removeJob.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void addDepartment( Department department ) throws SQLException {
+        addDepartment.setInt( 1, department.getId() );
+        addDepartment.setString( 2, department.getName() );
+        addDepartment.setInt( 3, department.getLocation().getId() );
+        addDepartment.setInt( 4, department.getManager().getId() );
+        addDepartment.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void changeDepartment( Department department ) throws SQLException {
+        if( department.getLocation() == null && department.getManager() != null ){
+            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=NULL, manager=? WHERE id=?");
+            updateDepartment.setString( 1, department.getName() );
+            updateDepartment.setInt( 2, department.getManager().getId() );
+            updateDepartment.setInt( 3, department.getId() );
+            updateDepartment.executeUpdate();
+            clearData();
+            fetchData();
+            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=?, manager=? WHERE id=?");
+        }
+        else if( department.getLocation() != null && department.getManager() == null ){
+            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=?, manager=NULL WHERE id=?");
+            updateDepartment.setString( 1, department.getName() );
+            updateDepartment.setInt( 2, department.getLocation().getId() );
+            updateDepartment.setInt( 3, department.getId() );
+            updateDepartment.executeUpdate();
+            clearData();
+            fetchData();
+            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=?, manager=? WHERE id=?");
+        }
+        else if( department.getLocation() == null && department.getManager() == null ){
+            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=NULL, manager=NULL WHERE id=?");
+            updateDepartment.setString( 1, department.getName() );
+            updateDepartment.setInt( 2, department.getId() );
+            updateDepartment.executeUpdate();
+            clearData();
+            fetchData();
+            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=?, manager=? WHERE id=?");
+        }
+        else{
+            updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=?, manager=? WHERE id=?");
+            updateDepartment.setString( 1, department.getName() );
+            updateDepartment.setInt( 2, department.getLocation().getId() );
+            updateDepartment.setInt( 3, department.getManager().getId() );
+            updateDepartment.setInt( 4, department.getId() );
+            updateDepartment.executeUpdate();
+            clearData();
+            fetchData();
+        }
+    }
+
+    public void deleteDepartment( Department department ) throws SQLException {
+        removeDepartment.setInt(1, department.getId());
+        removeDepartment.executeUpdate();
         clearData();
         fetchData();
     }
