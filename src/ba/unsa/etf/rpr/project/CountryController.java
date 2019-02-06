@@ -4,15 +4,23 @@ package ba.unsa.etf.rpr.project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class CountryController implements Initializable {
 
@@ -122,6 +130,31 @@ public class CountryController implements Initializable {
 
     public boolean isOkBtnClicked() {
         return okBtnClicked;
+    }
+
+    private ObservableList<String> getErrors(){
+        ObservableList<String> errors = FXCollections.observableArrayList();
+        if( fieldName.getText().isEmpty() ) errors.add("Name field is empty");
+        if( cbContinents.getValue() == null ) errors.add("No country selected");
+        return errors;
+    }
+
+    public void clickErrorReportBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"));
+        ErrorReportController erc = new ErrorReportController( getErrors() );
+        secondaryLoader.setController(erc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Error report");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        secondaryStage.show();
     }
 
 }

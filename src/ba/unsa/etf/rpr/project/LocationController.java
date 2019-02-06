@@ -19,6 +19,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
 public class LocationController implements Initializable {
 
     private HumanResourcesDAO dao;
@@ -139,7 +141,7 @@ public class LocationController implements Initializable {
         secondaryStage.setTitle("Add city");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
         secondaryStage.show();
         secondaryStage.setOnHidden(event -> {
             //If OK button in CountryController is not clicked, nothing will happen.
@@ -175,4 +177,29 @@ public class LocationController implements Initializable {
             return new Location( index, fieldPostalCode.getText(), fieldStreetAddress.getText(), city );
     }
 
+    private ObservableList<String> getErrors(){
+        ObservableList<String> errors = FXCollections.observableArrayList();
+        if( fieldPostalCode.getText().isEmpty() ) errors.add("Postal code field is empty");
+        if( fieldStreetAddress.getText().isEmpty() ) errors.add("Street address field is empty");
+        if( cbCities.getValue() == null ) errors.add("No city selected");
+        return errors;
+    }
+
+    public void clickErrorReportBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"));
+        ErrorReportController erc = new ErrorReportController( getErrors() );
+        secondaryLoader.setController(erc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Error report");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        secondaryStage.show();
+    }
 }

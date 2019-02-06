@@ -19,6 +19,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
 public class CityController implements Initializable {
 
     private HumanResourcesDAO dao;
@@ -109,7 +111,7 @@ public class CityController implements Initializable {
         secondaryStage.setTitle("Add country");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
         secondaryStage.show();
         secondaryStage.setOnHidden(event -> {
             //If OK button in C is not clicked, nothing will happen.
@@ -168,6 +170,31 @@ public class CityController implements Initializable {
 
     public boolean isOkBtnClicked() {
         return okBtnClicked;
+    }
+
+    private ObservableList<String> getErrors(){
+        ObservableList<String> errors = FXCollections.observableArrayList();
+        if( fieldName.getText().isEmpty() ) errors.add("Name field is empty");
+        if( cbCountries.getValue() == null ) errors.add("No continent selected");
+        return errors;
+    }
+
+    public void clickErrorReportBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"));
+        ErrorReportController erc = new ErrorReportController( getErrors() );
+        secondaryLoader.setController(erc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Error report");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        secondaryStage.show();
     }
 
 }

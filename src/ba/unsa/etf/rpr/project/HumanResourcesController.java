@@ -388,7 +388,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add location");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 210));
         secondaryStage.show();
     }
 
@@ -407,7 +407,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Edit location");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 210));
             secondaryStage.show();
             secondaryStage.setOnHidden(event -> {
                 currentLocation = null;
@@ -443,7 +443,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add country");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
         secondaryStage.show();
     }
 
@@ -462,7 +462,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Edit country");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
             secondaryStage.show();
             secondaryStage.setOnHidden(event -> {
                 currentCountry = null;
@@ -521,7 +521,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add city");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
         secondaryStage.show();
     }
 
@@ -540,7 +540,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Edit city");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
             secondaryStage.show();
             secondaryStage.setOnHidden(event -> {
                 currentCity = null;
