@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -113,5 +115,10 @@ public class LoginWindowController implements Initializable {
 
     public TextField getUsernameField() {
         return usernameField;
+    }
+
+    public void pritisniEnter(KeyEvent keyEvent) throws InterruptedException {
+        if( keyEvent.getCode() == KeyCode.ENTER)
+            clickLogin(null);
     }
 }
