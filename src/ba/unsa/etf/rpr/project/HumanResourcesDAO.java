@@ -13,7 +13,7 @@ public class HumanResourcesDAO {
     private static HumanResourcesDAO instance;
     private static Connection connection;
     private PreparedStatement addAdministrator,addCountry,addCity,addLocation,addJob,addDepartment,addEmployee,addContract,addLogin,
-            updateAdministrator,updateCountry,updateCity,updateLocation,updateJob,updateDepartment,updateEmployee,updateContract,updateLogin,
+            updateAdministrator,updateCountry,updateCity,updateLocation,updateJob,updateDepartment,updateEmployee,updateLogin,
             getAdministrator,getContinent,getCountry,getCity,getLocation,getJob,getDepartment,getEmployee,getContract,getLogin,
             removeAdministrator,removeCountry,removeCity,removeLocation,removeJob,removeDepartment,removeEmployee,removeContract,removeLogin;
     public ObservableList<Administrator> administrators = FXCollections.observableArrayList();
@@ -26,8 +26,6 @@ public class HumanResourcesDAO {
     public ObservableList<Employee> employees = FXCollections.observableArrayList();
     public ObservableList<Contract> contracts = FXCollections.observableArrayList();
     public ObservableList<Login> logins = FXCollections.observableArrayList();
-
-    public Location currentlySelectedLocation = null;
 
     private static void initialize() throws FileNotFoundException, SQLException {
         instance = new HumanResourcesDAO();
@@ -132,7 +130,6 @@ public class HumanResourcesDAO {
         updateJob = connection.prepareStatement("UPDATE Job SET job_title=? WHERE id=?");
         updateDepartment = connection.prepareStatement("UPDATE Department SET name=?, location=? WHERE id=?");
         updateEmployee = connection.prepareStatement("UPDATE Employee SET first_name=?, last_name=?, parent_name=?, birth_date=?, umcn=?, mobile_number=?, email_address=?, credit_card=?, salary=?, photo=?, location=?, department=?, job=?, manager=? WHERE id=?");
-        updateContract = connection.prepareStatement("UPDATE Contract SET contract_number=?, start_date=?, end_date=?, job=?, employee=? WHERE id=?");
         removeAdministrator = connection.prepareStatement("DELETE FROM Administrator WHERE id=?");
         removeLogin = connection.prepareStatement("DELETE FROM Login WHERE id=?");
         removeCountry = connection.prepareStatement("DELETE FROM Country WHERE id=?");
@@ -265,15 +262,7 @@ public class HumanResourcesDAO {
         //Lets add all the contracts.
         resultSet = getContract.executeQuery();
         while( resultSet.next() ){
-            Contract contract = new Contract( resultSet.getInt(1), resultSet.getString(2), resultSet.getDate(3).toLocalDate(), resultSet.getDate(4).toLocalDate(), null, null );
-            int jobFK = resultSet.getInt(5);
-            for ( Job j: jobs )
-                if( j.getId() == jobFK )
-                    contract.setJob( j );
-            int employeeFK = resultSet.getInt(6);
-            for ( Employee e: employees )
-                if( e.getId() == employeeFK )
-                    contract.setEmployee( e );
+            Contract contract = new Contract( resultSet.getInt(1), resultSet.getString(2), resultSet.getDate(3).toLocalDate(), resultSet.getDate(4).toLocalDate(), resultSet.getString(5), resultSet.getString(6) );
             contracts.add( contract );
         }
     }
@@ -491,8 +480,8 @@ public class HumanResourcesDAO {
         addContract.setString( 2, contract.getContractNumber() );
         addContract.setDate( 3, Date.valueOf( contract.getStartDate() )  );
         addContract.setDate( 4, Date.valueOf( contract.getEndDate() ) );
-        addContract.setInt( 5, contract.getJob().getId() );
-        addContract.setInt( 6, contract.getEmployee().getId() );
+        addContract.setString( 5, contract.getJobTitle() );
+        addContract.setString( 6, contract.getEmployeeFullname() );
         addContract.executeUpdate();
         clearData();
         fetchData();
@@ -501,6 +490,29 @@ public class HumanResourcesDAO {
     public void deleteContract( Contract contract ) throws SQLException {
         removeContract.setInt( 1, contract.getId() );
         removeContract.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void addJob( Job job ) throws SQLException {
+        addJob.setInt( 1, job.getId() );
+        addJob.setString(2, job.getJobTitle());
+        addJob.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void changeJob( Job job ) throws SQLException {
+        updateJob.setString(1, job.getJobTitle());
+        updateJob.setInt(2, job.getId());
+        updateJob.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void deleteJob( Job job ) throws SQLException {
+        removeJob.setInt(1, job.getId() );
+        removeJob.executeUpdate();
         clearData();
         fetchData();
     }

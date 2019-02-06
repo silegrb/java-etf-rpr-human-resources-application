@@ -130,14 +130,14 @@ CREATE TABLE Contract (
   contract_number TEXT  UNIQUE,
   start_date DATE  ,
   end_date DATE  ,
-  job INTEGER ,
-  employee INTEGER
+  job_title TEXT ,
+  employee_fullname TEXT
 );
 
-INSERT INTO Contract VALUES ( 1, 'A123-11195','2019-01-01 00:00:00.000','2029-01-01 00:00:00.000',1,5 );
-INSERT INTO Contract VALUES ( 2, 'A123-11196','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000',4,4 );
-INSERT INTO Contract VALUES ( 3, 'C123-12311','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000',2,2 );
-INSERT INTO Contract VALUES ( 4, 'B127-34112','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000',2,3 );
+INSERT INTO Contract VALUES ( 1, 'A123-11195','2019-01-01 00:00:00.000','2029-01-01 00:00:00.000','Secretary','Jane Doe' );
+INSERT INTO Contract VALUES ( 2, 'A123-11196','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000','Marketing Manager','Julian Cutthroat');
+INSERT INTO Contract VALUES ( 3, 'C123-12311','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000','IT Programmer','Mirza Sinanovic' );
+INSERT INTO Contract VALUES ( 4, 'B127-34112','2019-02-01 00:00:00.000','2024-02-01 00:00:00.000','IT Programmer','Ajla Salispahic' );
 
 
 

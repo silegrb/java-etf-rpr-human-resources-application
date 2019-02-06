@@ -8,16 +8,16 @@ public class Contract {
     private String contractNumber;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Job job;
-    private Employee employee;
+    private String jobTitle;
+    private String employeeFullname;
 
-    public Contract(int id, String contractNumber, LocalDate startDate, LocalDate endDate, Job job, Employee employee) {
+    public Contract(int id, String contractNumber, LocalDate startDate, LocalDate endDate, String jobTitle, String employeeFullname) {
         this.id = id;
         this.contractNumber = contractNumber;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.job = job;
-        this.employee = employee;
+        this.jobTitle = jobTitle;
+        this.employeeFullname = employeeFullname;
     }
 
     public int getId() {
@@ -52,19 +52,19 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public Job getJob() {
-        return job;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public void setJob(Job job) {
-        this.job = job;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public String getEmployeeFullname() {
+        return employeeFullname;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeFullname(String employeeFullname) {
+        this.employeeFullname = employeeFullname;
     }
 }

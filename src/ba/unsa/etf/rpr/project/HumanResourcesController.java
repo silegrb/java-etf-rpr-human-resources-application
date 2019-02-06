@@ -85,8 +85,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public TableColumn<Employee,String> employeeCreditCardColumn = new TableColumn<>();
     public TableColumn<Contract,Integer> contractIdColumn = new TableColumn<>();
     public TableColumn<Contract,String> contractNumberColumn = new TableColumn<>();
-    public TableColumn<Contract,String> contractEmployeeColumn = new TableColumn<>();
-    public TableColumn<Contract,String> contractJobColumn = new TableColumn<>();
+    public TableColumn<Contract,String> contractEmployeeFullnameColumn = new TableColumn<>();
+    public TableColumn<Contract,String> contractJobTitleColumn = new TableColumn<>();
     public TableColumn<Department,Integer> departmentIdColumn = new TableColumn<>();
     public TableColumn<Department,String> departmentNameColumn = new TableColumn<>();
     public TableColumn<Department,String> departmentLocationColumn = new TableColumn<>();
@@ -174,8 +174,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
         contractIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
         contractNumberColumn.setCellValueFactory( new PropertyValueFactory<>("contractNumber") );
-        contractEmployeeColumn.setCellValueFactory( cellData -> Bindings.concat( cellData.getValue().getEmployee().getFirstName(), " (", cellData.getValue().getEmployee().getParentName(), ") ", cellData.getValue().getEmployee().getLastName() ) );
-        contractJobColumn.setCellValueFactory( cellData -> Bindings.concat( cellData.getValue().getJob().getJobTitle() ) );
+        contractEmployeeFullnameColumn.setCellValueFactory( new PropertyValueFactory<>("employeeFullname") );
+        contractJobTitleColumn.setCellValueFactory( new PropertyValueFactory<>("jobTitle") );
         contractTable.setItems( dao.getContracts() );
 
         departmentIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
@@ -285,7 +285,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
                     event -> {
                         if( event.getClickCount() == 2 && (!row.isEmpty()) )
                             try{
-                                //clickOnEditCountryBtn(null);
+                                clickOnEditJobBtn(null);
                             }
                             catch (Exception ignored){
 
@@ -602,6 +602,61 @@ public class HumanResourcesController extends TimerTask implements Initializable
                 dao.deleteContract(currentContract);
             currentContract = null;
             contractTable.getSelectionModel().clearSelection();
+        }
+    }
+
+    public void clickOnAddJobBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/jobWindow.fxml"));
+        JobController jc = new JobController( null );
+        secondaryLoader.setController(jc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Add job");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
+        secondaryStage.show();
+    }
+
+    public void clickOnEditJobBtn(ActionEvent actionEvent){
+        if( currentJob != null ){
+            Stage secondaryStage = new Stage();
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/jobWindow.fxml"));
+            JobController jc = new JobController( currentJob );
+            secondaryLoader.setController( jc );
+            Parent secondaryRoot = null;
+            try {
+                secondaryRoot = secondaryLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            secondaryStage.setTitle("Edit job");
+            secondaryStage.setResizable(false);
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 120));
+            secondaryStage.show();
+            secondaryStage.setOnHidden(event -> {
+                currentJob = null;
+                jobTable.getSelectionModel().clearSelection();
+            });
+        }
+    }
+
+    public void clickOnDeleteJobBtn(ActionEvent actionEvent) throws SQLException {
+        if ( currentJob != null ) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete job");
+            alert.setHeaderText("Are you sure you want to delete job " + currentJob.getJobTitle() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK)
+                dao.deleteJob(currentJob);
+            currentJob = null;
+            jobTable.getSelectionModel().clearSelection();
         }
     }
 

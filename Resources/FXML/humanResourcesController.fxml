@@ -157,8 +157,8 @@
                     <columns>
                         <TableColumn fx:id="contractIdColumn" text="ID" prefWidth="30"/>
                         <TableColumn fx:id="contractNumberColumn" text="Contract number" prefWidth="200"/>
-                        <TableColumn fx:id="contractEmployeeColumn" text="Contract holder" prefWidth="300"/>
-                        <TableColumn fx:id="contractJobColumn" text="Contract job" prefWidth="250" />
+                        <TableColumn fx:id="contractEmployeeFullnameColumn" text="Contract holder" prefWidth="300"/>
+                        <TableColumn fx:id="contractJobTitleColumn" text="Contract job" prefWidth="250" />
 
                     </columns>
                 </TableView>
@@ -251,21 +251,21 @@
 
         <Tab closable="false" text="Jobs">
             <GridPane fx:id="jobsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addJobBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button fx:id="addJobBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddJobBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editJobBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button fx:id="editJobBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditJobBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteJobBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <Button fx:id="deleteJobBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteJobBtn">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />

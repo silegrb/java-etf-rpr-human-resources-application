@@ -40,7 +40,7 @@ public class ContractController implements Initializable {
     public TextField fieldContractNumber = new TextField();
     public DatePicker dpStartDate = new DatePicker();
     public DatePicker dpEndDate = new DatePicker();
-    public ChoiceBox<Employee> cbEmployees = new ChoiceBox<>();
+    public ChoiceBox<String> cbEmployees = new ChoiceBox<>();
     public ChoiceBox<String> cbJobs = new ChoiceBox<>();
     public Button okBtn = new Button();
 
@@ -50,7 +50,10 @@ public class ContractController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle)    {
 
         //Lets add all the items to choiceBoxes
-        cbEmployees.setItems( dao.getEmployees() );
+        ObservableList<String> employeeFullnames = FXCollections.observableArrayList();
+        for ( Employee e: dao.getEmployees() )
+            employeeFullnames.add( e.getFirstName() + " " + e.getLastName() );
+        cbEmployees.setItems( employeeFullnames );
 
         ObservableList<String> jobs = FXCollections.observableArrayList();
         for ( Job j: dao.getJobs())
@@ -200,14 +203,8 @@ public class ContractController implements Initializable {
         int index = dao.nextIndex("Contract");
         LocalDate startDate = dpStartDate.getValue();
         LocalDate endDate = dpEndDate.getValue();
-        Job job = null;
-        for ( Job j: dao.getJobs() )
-            if( cbJobs.getValue().equals( j.getJobTitle() ) ){
-                job = j;
-                break;
-            }
 
-        return new Contract( index, fieldContractNumber.getText(), startDate, endDate, job, cbEmployees.getValue() );
+        return new Contract( index, fieldContractNumber.getText(), startDate, endDate, cbJobs.getValue(), cbEmployees.getValue() );
     }
 
     public void clickOkBtn(ActionEvent actionEvent) throws SQLException {
