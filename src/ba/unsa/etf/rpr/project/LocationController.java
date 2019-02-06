@@ -138,6 +138,7 @@ public class LocationController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         secondaryStage.setTitle("Add city");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
