@@ -126,7 +126,9 @@ public class ContractController implements Initializable {
             //End date of a contract cannot be earlier that start date, and cannot be in past.
             LocalDate localDate = LocalDate.now().minusDays(1);
             //A contract cannot be shorter than three months.
-            LocalDate startDate = dpStartDate.getValue().plusMonths(3);
+            LocalDate startDate = null;
+            if( dpStartDate.getValue() != null )
+                startDate = dpStartDate.getValue().plusMonths(3);
             if( newValue == null ){
                 dpEndDate.getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
                 dpEndDate.getStyleClass().add( "controllerFields" );

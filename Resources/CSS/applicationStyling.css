@@ -1,6 +1,9 @@
 .blackTheme{
     -fx-background-color: black;
     -fx-border-color: black;
+    -fx-font-size: 15;
+    -fx-text-fill: white;
+    -fx-font-family: Helvetica;
 }
 
 .blackGreyTheme{
@@ -38,6 +41,20 @@
 
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
+}
+
+
+
+.table-view .scroll-bar .thumb{
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+}
+
+.table-view .scroll-bar{
+    -fx-background-color: black;
+}
+
+.corner {
+    -fx-background-color: black;
 }
 
 .tab-pane
@@ -98,7 +115,9 @@
     -fx-background-color: transparent;
 }
 
-
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+}
 
 .table-view .column-header-background{
     -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
@@ -276,3 +295,19 @@
     -fx-text-fill: white;
 }
 
+#radioBtnMyLogins{
+    -fx-font-size: 12;
+    -fx-text-fill: white;
+    -fx-font-family: Helvetica;
+}
+
+#radioBtnAllLogins{
+    -fx-font-size: 12;
+    -fx-text-fill: white;
+    -fx-font-family: Helvetica;
+}
+
+.radio-button .radio {
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+
+}

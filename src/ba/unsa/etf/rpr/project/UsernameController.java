@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -50,7 +51,8 @@ public class UsernameController implements Initializable {
                 oldUsernameField.getStyleClass().add("usernameFields");
                 okBtn.setDisable(true);
             }
-            else if( newValue.equals( oldUsername ) ){
+
+            else if( newValue.equals( oldUsername )  ){
                 oldUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
                 oldUsernameField.getStyleClass().add("fieldValid");
                 if( newUsernameField.getStyleClass().contains("fieldValid") && confirmNewUsernameField.getStyleClass().contains("fieldValid") )
@@ -65,11 +67,20 @@ public class UsernameController implements Initializable {
         });
 
         newUsernameField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if( !newValue.equals( "" ) ){
+            boolean usernameAlreadyExists = false;
+            for (Administrator a: dao.getAdministrators())
+                if( !newValue.equals(oldUsername) && newValue.equals( a.getUsername() ) )
+                    usernameAlreadyExists = true;
+            if( !newValue.equals( "" ) && !usernameAlreadyExists ){
                 newUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
                 newUsernameField.getStyleClass().add("fieldValid");
                 if( oldUsernameField.getStyleClass().contains("fieldValid") && confirmNewUsernameField.getStyleClass().contains("fieldValid") )
                     okBtn.setDisable(false);
+            }
+            else if( usernameAlreadyExists ){
+                newUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
+                newUsernameField.getStyleClass().add("fieldInvalid");
+                okBtn.setDisable(true);
             }
             else{
                 newUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
@@ -79,12 +90,16 @@ public class UsernameController implements Initializable {
         });
 
         confirmNewUsernameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            boolean usernameAlreadyExists = false;
+            for (Administrator a: dao.getAdministrators())
+                if( !newValue.equals(oldUsername) && newValue.equals( a.getUsername() ) )
+                    usernameAlreadyExists = true;
             if( newValue.equals("") ){
                 confirmNewUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
                 confirmNewUsernameField.getStyleClass().add("usernameFields");
                 okBtn.setDisable(true);
             }
-            else if( newValue.equals( newUsernameField.getText() ) ){
+            else if( !usernameAlreadyExists && newValue.equals( newUsernameField.getText() ) ){
                 confirmNewUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
                 confirmNewUsernameField.getStyleClass().add("fieldValid");
                 if( oldUsernameField.getStyleClass().contains("fieldValid") && newUsernameField.getStyleClass().contains("fieldValid"))
@@ -112,6 +127,12 @@ public class UsernameController implements Initializable {
                 }
             dao.getAdministrators().get(wantedId).setUsername(  newUsernameField.getText() );
             dao.changeCurrentUser(newUsernameField.getText(), password);
+            ArrayList<Integer> indexes = new ArrayList<>();
+            for ( Login l : dao.getLogins())
+                if( l.getUser().equals( oldUsername ) )
+                    indexes.add(l.getId());
+
+            dao.changeLogin( indexes, newUsernameField.getText() );
             usernameChanged = true;
             confirmNewUsernameField.getScene().getWindow().hide();
         }

@@ -2,6 +2,8 @@ package ba.unsa.etf.rpr.project;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -69,6 +71,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     private Timer changingColorTimer = new Timer();
     private ArrayList<String> colors = new ArrayList<>();
 
+    public TableView<Login> loginTable = new TableView<>();
     public TableView<Employee> employeeTable = new TableView<>();
     public TableView<Contract> contractTable = new TableView<>();
     public TableView<Department> departmentTable = new TableView<>();
@@ -77,6 +80,9 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public TableView<City> cityTable = new TableView<>();
     public TableView<Location> locationTable = new TableView<>();
 
+    public TableColumn<Login,Integer> loginIdColumn = new TableColumn<>();
+    public TableColumn<Login,String> loginUserColumn = new TableColumn<>();
+    public TableColumn<Login,String> loginTimeColumn = new TableColumn<>();
     public TableColumn<Employee,Integer> employeeIdColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeNameColumn = new TableColumn<>();
     public TableColumn<Employee,String> employeeSurnameColumn = new TableColumn<>();
@@ -107,6 +113,9 @@ public class HumanResourcesController extends TimerTask implements Initializable
     private Job currentJob = null;
     private Contract currentContract = null;
     private Department currentDepartment = null;
+
+    public RadioButton radioBtnAllLogins = new RadioButton();
+    public RadioButton radioBtnMyLogins = new RadioButton();
 
     @Override
     public void run() {
@@ -165,6 +174,11 @@ public class HumanResourcesController extends TimerTask implements Initializable
         hoverEffect(printLocationBtn);
 
         //Adding table column content and table content.
+        loginIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        loginUserColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
+        loginTimeColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getTime().substring(0,20) + cellData.getValue().getTime().substring(24)) );
+        loginTable.setItems( dao.getLogins() );
+
         employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         employeeSurnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -312,6 +326,11 @@ public class HumanResourcesController extends TimerTask implements Initializable
                             }
                     }
             ); return row; } );
+
+        ToggleGroup clickingRadioBtns = new ToggleGroup();
+        radioBtnAllLogins.setToggleGroup( clickingRadioBtns );
+        radioBtnAllLogins.setSelected( true );
+        radioBtnMyLogins.setToggleGroup( clickingRadioBtns );
 
     }
 
@@ -733,6 +752,19 @@ public class HumanResourcesController extends TimerTask implements Initializable
             currentDepartment = null;
             departmentTable.getSelectionModel().clearSelection();
         }
+    }
+
+    public void clickRadioBtnAllLogins(ActionEvent actionEvent){
+        loginTable.setItems( dao.getLogins() );
+    }
+
+    public void clickRadioBtnMyLogins(ActionEvent actionEvent){
+        ObservableList<Login> logins = FXCollections.observableArrayList();
+        for ( Login l : dao.getLogins() )
+            if( l.getUser().equals( currentUser ) )
+                logins.add( l );
+        loginTable.setItems( logins );
+
     }
 
     public String getCurrentUser() {

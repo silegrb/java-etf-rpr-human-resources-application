@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HumanResourcesDAO {
@@ -123,7 +124,7 @@ public class HumanResourcesDAO {
         getEmployee = connection.prepareStatement("SELECT * FROM Employee");
         getContract = connection.prepareStatement("SELECT * FROM Contract");
         updateAdministrator = connection.prepareStatement("UPDATE Administrator SET username=?, password=? WHERE id=?");
-        updateLogin = connection.prepareStatement("UPDATE Login SET user=?, time=? WHERE id=?");
+        updateLogin = connection.prepareStatement("UPDATE Login SET user=? WHERE id=?");
         updateCountry = connection.prepareStatement("UPDATE Country SET name=?, continent=? WHERE id=?");
         updateCity = connection.prepareStatement("UPDATE City SET name=?, country=? WHERE id=?");
         updateLocation = connection.prepareStatement("UPDATE Location SET postal_code=?, street_adress=?, city=? WHERE id=?");
@@ -572,6 +573,16 @@ public class HumanResourcesDAO {
     public void deleteDepartment( Department department ) throws SQLException {
         removeDepartment.setInt(1, department.getId());
         removeDepartment.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void changeLogin( ArrayList<Integer> indexes, String newUser ) throws SQLException {
+        for (Integer i: indexes) {
+            updateLogin.setString(1, newUser );
+            updateLogin.setInt(2, i );
+            updateLogin.executeUpdate();
+        }
         clearData();
         fetchData();
     }

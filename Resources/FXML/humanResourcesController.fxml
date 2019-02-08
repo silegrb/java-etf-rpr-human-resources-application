@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<GridPane fx:id="hrGrid" prefHeight="650" prefWidth="850" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" >
+<GridPane fx:id="hrGrid" prefHeight="650" prefWidth="850" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
     <Label fx:id="titlePicture" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <graphic>
@@ -21,7 +21,7 @@
         <Tab closable="false" text="Home">
             <GridPane fx:id="homeTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
                 <Label fx:id="homeTabWelcomeLabel" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Label  GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                <Label GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="788">
                             <Image url="/Images/collageImage.jpg" />
@@ -29,17 +29,55 @@
                     </graphic>
                 </Label>
 
+                <MenuBar maxWidth="-Infinity" minWidth="-Infinity" prefWidth="110.0" styleClass="accountTheme" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <menus>
+                        <Menu fx:id="myAccount" text="_My Account">
+                            <items>
+                                <MenuItem fx:id="changeUsername" onAction="#clickOnChangeUsername" text="Change username" />
+                                <MenuItem fx:id="changePassword" onAction="#clickOnChangePassword" text="Change password" />
+                                <MenuItem fx:id="Logout" onAction="#clickOnLogout" text="Logout" />
+                            </items>
+                        </Menu>
+                    </menus>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+                </MenuBar>
+
+                <Label styleClass="blackTheme" text="Login history" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                <TableView fx:id="loginTable" prefHeight="200" prefWidth="0" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.rowSpan="5">
+                    <columns>
+                        <TableColumn fx:id="loginIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="loginUserColumn" prefWidth="102" text="User" />
+                        <TableColumn fx:id="loginTimeColumn" prefWidth="196" text="Time" />
+                    </columns>
+                </TableView>
+
+                <GridPane prefHeight="44.0" prefWidth="330.0" GridPane.columnIndex="0" GridPane.rowIndex="9">
+
+                    <RadioButton fx:id="radioBtnAllLogins" text="All logins" maxHeight="Infinity" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" onAction="#clickRadioBtnAllLogins"/>
+                    <RadioButton fx:id="radioBtnMyLogins" text="My logins" maxHeight="Infinity" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" onAction="#clickRadioBtnMyLogins"/>
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="0.0" prefWidth="165.0" />
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="0.0" prefWidth="165.0" />
+                    </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="ALWAYS" />
+               </rowConstraints>
+
+                </GridPane>
+
 
                 <padding>
                     <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             <columnConstraints>
-               <ColumnConstraints hgrow="ALWAYS" />
-               <ColumnConstraints hgrow="ALWAYS" />
-               <ColumnConstraints />
+               <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="0.0" prefWidth="330.0" />
+               <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="0.0" prefWidth="210.0" />
+               <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="0.0" prefWidth="248.0" />
             </columnConstraints>
             <rowConstraints>
-               <RowConstraints />
+               <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
                 <RowConstraints maxHeight="85.0" minHeight="29.0" prefHeight="36.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="85.0" minHeight="29.0" prefHeight="36.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="85.0" minHeight="29.0" prefHeight="36.0" vgrow="ALWAYS" />
@@ -51,17 +89,6 @@
                 <RowConstraints maxHeight="85.0" minHeight="29.0" prefHeight="36.0" vgrow="ALWAYS" />
                 <RowConstraints maxHeight="85.0" minHeight="29.0" prefHeight="36.0" vgrow="ALWAYS" />
             </rowConstraints>
-                <MenuBar GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="accountTheme">
-                    <menus>
-                        <Menu fx:id="myAccount" text="_My Account">
-                            <items>
-                                <MenuItem fx:id="changeUsername"  text="Change username" onAction="#clickOnChangeUsername"/>
-                                <MenuItem fx:id="changePassword"  text="Change password" onAction="#clickOnChangePassword"/>
-                                <MenuItem fx:id="Logout"  text="Logout" onAction="#clickOnLogout"/>
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
             </GridPane>
         </Tab>
 
@@ -97,12 +124,12 @@
                 </Button>
                 <TableView fx:id="employeeTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="employeeIdColumn" text="ID" prefWidth="30"/>
-                        <TableColumn fx:id="employeeNameColumn" text="Name" prefWidth="130"/>
-                        <TableColumn fx:id="employeeSurnameColumn" text="Surname" prefWidth="130"/>
-                        <TableColumn fx:id="employeeMobileNumberColumn" text="Mobile number" prefWidth="130" />
-                        <TableColumn fx:id="employeeEmailAddressColumn" text="Email address" prefWidth="180"/>
-                        <TableColumn fx:id="employeeCreditCardColumn" prefWidth="180" text="Credit card" />
+                        <TableColumn fx:id="employeeIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="employeeNameColumn" prefWidth="130" text="Name" />
+                        <TableColumn fx:id="employeeSurnameColumn" prefWidth="130" text="Surname" />
+                        <TableColumn fx:id="employeeMobileNumberColumn" prefWidth="130" text="Mobile number" />
+                        <TableColumn fx:id="employeeEmailAddressColumn" prefWidth="180" text="Email address" />
+                        <TableColumn fx:id="employeeCreditCardColumn" prefWidth="183" text="Credit card" />
                     </columns>
                 </TableView>
             <columnConstraints>
@@ -124,7 +151,7 @@
                <RowConstraints />
             </rowConstraints>
                 <padding>
-                    <Insets top="5" bottom="5" left="5" right="5"/>
+                    <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             </GridPane>
 
@@ -132,14 +159,14 @@
 
         <Tab closable="false" text="Contracts">
             <GridPane fx:id="contractsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addContractBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddContractBtn">
+                <Button fx:id="addContractBtn" onAction="#clickOnAddContractBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteContractBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnDeleteContractBtn">
+                <Button fx:id="deleteContractBtn" onAction="#clickOnDeleteContractBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />
@@ -155,10 +182,10 @@
                 </Button>
                 <TableView fx:id="contractTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="contractIdColumn" text="ID" prefWidth="30"/>
-                        <TableColumn fx:id="contractNumberColumn" text="Contract number" prefWidth="200"/>
-                        <TableColumn fx:id="contractEmployeeFullnameColumn" text="Contract holder" prefWidth="300"/>
-                        <TableColumn fx:id="contractJobTitleColumn" text="Contract job" prefWidth="250" />
+                        <TableColumn fx:id="contractIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="contractNumberColumn" prefWidth="200" text="Contract number" />
+                        <TableColumn fx:id="contractEmployeeFullnameColumn" prefWidth="300" text="Contract holder" />
+                        <TableColumn fx:id="contractJobTitleColumn" prefWidth="253" text="Contract job" />
 
                     </columns>
                 </TableView>
@@ -181,28 +208,28 @@
                     <RowConstraints />
                 </rowConstraints>
                 <padding>
-                    <Insets top="5" bottom="5" left="5" right="5"/>
+                    <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             </GridPane>
         </Tab>
 
         <Tab closable="false" text="Departments">
             <GridPane fx:id="departmentsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddDepartmentBtn">
+                <Button fx:id="addDepartmentBtn" onAction="#clickOnAddDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditDepartmentBtn">
+                <Button fx:id="editDepartmentBtn" onAction="#clickOnEditDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteDepartmentBtn">
+                <Button fx:id="deleteDepartmentBtn" onAction="#clickOnDeleteDepartmentBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />
@@ -218,10 +245,10 @@
                 </Button>
                 <TableView fx:id="departmentTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="departmentIdColumn" text="ID" prefWidth="30"/>
-                        <TableColumn fx:id="departmentNameColumn" text="Name" prefWidth="200"/>
-                        <TableColumn fx:id="departmentLocationColumn" text="Location" prefWidth="300"/>
-                        <TableColumn fx:id="departmentManagerColumn" text="Manager" prefWidth="250" />
+                        <TableColumn fx:id="departmentIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="departmentNameColumn" prefWidth="200" text="Name" />
+                        <TableColumn fx:id="departmentLocationColumn" prefWidth="300" text="Location" />
+                        <TableColumn fx:id="departmentManagerColumn" prefWidth="253" text="Manager" />
 
                     </columns>
                 </TableView>
@@ -244,28 +271,28 @@
                     <RowConstraints />
                 </rowConstraints>
                 <padding>
-                    <Insets top="5" bottom="5" left="5" right="5"/>
+                    <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             </GridPane>
         </Tab>
 
         <Tab closable="false" text="Jobs">
             <GridPane fx:id="jobsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addJobBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddJobBtn">
+                <Button fx:id="addJobBtn" onAction="#clickOnAddJobBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editJobBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditJobBtn">
+                <Button fx:id="editJobBtn" onAction="#clickOnEditJobBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteJobBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteJobBtn">
+                <Button fx:id="deleteJobBtn" onAction="#clickOnDeleteJobBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />
@@ -281,8 +308,8 @@
                 </Button>
                 <TableView fx:id="jobTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="jobIdColumn" text="ID" prefWidth="30"/>
-                        <TableColumn fx:id="jobTitleColumn" text="Job title" prefWidth="750"/>
+                        <TableColumn fx:id="jobIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="jobTitleColumn" prefWidth="753" text="Job title" />
                     </columns>
                 </TableView>
                 <columnConstraints>
@@ -304,28 +331,28 @@
                     <RowConstraints />
                 </rowConstraints>
                 <padding>
-                    <Insets top="5" bottom="5" left="5" right="5"/>
+                    <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             </GridPane>
         </Tab>
 
         <Tab closable="false" text="Countries">
             <GridPane fx:id="countriesTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addCountryBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddCountryBtn">
+                <Button fx:id="addCountryBtn" onAction="#clickOnAddCountryBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editCountryBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditCountryBtn">
+                <Button fx:id="editCountryBtn" onAction="#clickOnEditCountryBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteCountryBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteCountryBtn">
+                <Button fx:id="deleteCountryBtn" onAction="#clickOnDeleteCountryBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />
@@ -341,8 +368,8 @@
                 </Button>
                 <TableView fx:id="countryTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="countryIdColumn" text="ID" prefWidth="30"/>
-                        <TableColumn fx:id="countryNameColumn" text="Name" prefWidth="750"/>
+                        <TableColumn fx:id="countryIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="countryNameColumn" prefWidth="753" text="Name" />
                     </columns>
                 </TableView>
                 <columnConstraints>
@@ -364,28 +391,28 @@
                     <RowConstraints />
                 </rowConstraints>
                 <padding>
-                    <Insets top="5" bottom="5" left="5" right="5"/>
+                    <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             </GridPane>
         </Tab>
 
         <Tab closable="false" text="Cities">
             <GridPane fx:id="citiesTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addCityBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddCityBtn">
+                <Button fx:id="addCityBtn" onAction="#clickOnAddCityBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editCityBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditCityBtn">
+                <Button fx:id="editCityBtn" onAction="#clickOnEditCityBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteCityBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteCityBtn">
+                <Button fx:id="deleteCityBtn" onAction="#clickOnDeleteCityBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />
@@ -401,8 +428,8 @@
                 </Button>
                 <TableView fx:id="cityTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="cityIdColumn" text="ID" prefWidth="30"/>
-                        <TableColumn fx:id="cityNameColumn" text="Name" prefWidth="750"/>
+                        <TableColumn fx:id="cityIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="cityNameColumn" prefWidth="753" text="Name" />
                     </columns>
                 </TableView>
                 <columnConstraints>
@@ -424,7 +451,7 @@
                     <RowConstraints />
                 </rowConstraints>
                 <padding>
-                    <Insets top="5" bottom="5" left="5" right="5"/>
+                    <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             </GridPane>
         </Tab>
@@ -433,21 +460,21 @@
 
         <Tab closable="false" text="Locations">
             <GridPane fx:id="locationsTabGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="797" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                <Button fx:id="addLocationBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#clickOnAddLocationBtn">
+                <Button fx:id="addLocationBtn" onAction="#clickOnAddLocationBtn" styleClass="blackTheme" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/add.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="editLocationBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#clickOnEditLocationBtn">
+                <Button fx:id="editLocationBtn" onAction="#clickOnEditLocationBtn" styleClass="blackTheme" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/edit.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="deleteLocationBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#clickOnDeleteLocationBtn">
+                <Button fx:id="deleteLocationBtn" onAction="#clickOnDeleteLocationBtn" styleClass="blackTheme" GridPane.columnIndex="3" GridPane.rowIndex="1">
                     <graphic>
                         <ImageView fitHeight="50" fitWidth="50">
                             <Image url="/Images/delete.png" />
@@ -463,9 +490,9 @@
                 </Button>
                 <TableView fx:id="locationTable" prefHeight="400.0" prefWidth="526.0" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="locationIdColumn" text="ID" prefWidth="30"/>
-                        <TableColumn fx:id="locationPostalCodeColumn" text="Postal code" prefWidth="200"/>
-                        <TableColumn fx:id="locationStreetAddressColumn" text="Street address" prefWidth="550"/>
+                        <TableColumn fx:id="locationIdColumn" prefWidth="30" text="ID" />
+                        <TableColumn fx:id="locationPostalCodeColumn" prefWidth="200" text="Postal code" />
+                        <TableColumn fx:id="locationStreetAddressColumn" prefWidth="553" text="Street address" />
                     </columns>
                 </TableView>
                 <columnConstraints>
@@ -487,7 +514,7 @@
                     <RowConstraints />
                 </rowConstraints>
                 <padding>
-                    <Insets top="5" bottom="5" left="5" right="5"/>
+                    <Insets bottom="5" left="5" right="5" top="5" />
                 </padding>
             </GridPane>
         </Tab>

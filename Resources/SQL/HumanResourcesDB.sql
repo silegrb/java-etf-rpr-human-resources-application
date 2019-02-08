@@ -7,6 +7,7 @@ CREATE TABLE Administrator (
 );
 
 INSERT INTO Administrator VALUES ( 1, 'admin', 'admin' );
+INSERT INTO Administrator VALUES ( 2, 'fsisic1', 'Yasuopentakill1' );
 
 CREATE TABLE Login (
   id INTEGER PRIMARY KEY ,

@@ -6,6 +6,10 @@ public class Login {
     private String user;
     private String time;
 
+    public Login(){
+
+    }
+
     public Login(int id, String user, String time) {
         this.id = id;
         this.user = user;
