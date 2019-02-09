@@ -21,6 +21,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
 public class HumanResourcesController extends TimerTask implements Initializable {
 
     HumanResourcesDAO dao;
@@ -37,6 +39,14 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public Label homeTabWelcomeLabel;
 
+    public TextField createNewAccountUsernameField = new TextField();
+    public TextField createNewAccountPasswordField = new TextField();
+    public TextField createNewAccountConfirmPasswordField = new TextField();
+
+
+    public Button createNewAccountCreateBtn = new Button();
+    public Button createNewAccountResetBtn = new Button();
+    public Button createNewAccountErrorReportBtn = new Button();
     public Button addEmployeeBtn = new Button();
     public Button editEmployeeBtn = new Button();
     public Button deleteEmployeeBtn = new Button();
@@ -132,6 +142,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+//        createNewAccountCreateBtn.setDisable(true);
+
         //We're setting a welcome message to Home Tab.
         homeTabWelcomeLabel.setText( "   Welcome " + currentUser + "!" );
 
@@ -220,6 +232,68 @@ public class HumanResourcesController extends TimerTask implements Initializable
         locationStreetAddressColumn.setCellValueFactory( new PropertyValueFactory<>("streetAddress") );
         locationTable.setItems( dao.getLocations() );
 
+        //Listeners for all the textfields
+        createNewAccountUsernameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            String typedUsername = null;
+            if( !createNewAccountUsernameField.getText().isEmpty() ) typedUsername = createNewAccountUsernameField.getText();
+            boolean usernameAlreadyExists = false;
+            for ( Administrator a : dao.getAdministrators())
+                if(a.getUsername().equals(typedUsername))
+                    usernameAlreadyExists = true;
+            if( typedUsername == null ){
+                createNewAccountUsernameField.getStyleClass().removeAll("createAccountFields","fieldValid","fieldInvalid");
+                createNewAccountUsernameField.getStyleClass().add("createAccountFields");
+            }
+            else if(!usernameAlreadyExists){
+                createNewAccountUsernameField.getStyleClass().removeAll("createAccountFields","fieldValid","fieldInvalid");
+                createNewAccountUsernameField.getStyleClass().add("fieldValid");
+            }
+            else {
+                createNewAccountUsernameField.getStyleClass().removeAll("createAccountFields","fieldValid","fieldInvalid");
+                createNewAccountUsernameField.getStyleClass().add("fieldInvalid");
+            }
+
+        });
+
+        createNewAccountPasswordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if( createNewAccountPasswordField.getText().isEmpty() ){
+                createNewAccountPasswordField.getStyleClass().removeAll("createAccountFields","fieldValid","fieldInvalid");
+                createNewAccountPasswordField.getStyleClass().add("createAccountFields");
+                if( !createNewAccountConfirmPasswordField.getText().isEmpty() ){
+                    createNewAccountConfirmPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+                    createNewAccountConfirmPasswordField.getStyleClass().add("fieldInvalid");
+                }
+            }
+            else{
+                createNewAccountPasswordField.getStyleClass().removeAll("createAccountFields","fieldValid","fieldInvalid");
+                createNewAccountPasswordField.getStyleClass().add("fieldValid");
+                if( !createNewAccountConfirmPasswordField.getText().isEmpty()  ) {
+                    if (createNewAccountConfirmPasswordField.getText().equals(newValue)) {
+                        createNewAccountConfirmPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+                        createNewAccountConfirmPasswordField.getStyleClass().add("fieldValid");
+                    } else {
+                        createNewAccountConfirmPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+                        createNewAccountConfirmPasswordField.getStyleClass().add("fieldInvalid");
+                    }
+                }
+            }
+        });
+
+        createNewAccountConfirmPasswordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if( createNewAccountConfirmPasswordField.getText().isEmpty() ){
+                createNewAccountConfirmPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+                createNewAccountConfirmPasswordField.getStyleClass().add("createAccountFields");
+            }
+            else if( !createNewAccountConfirmPasswordField.getText().isEmpty() && !createNewAccountPasswordField.getText().isEmpty() &&  createNewAccountConfirmPasswordField.getText().equals(createNewAccountPasswordField.getText()) ){
+                createNewAccountConfirmPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+                createNewAccountConfirmPasswordField.getStyleClass().add("fieldValid");
+            }
+            else{
+                createNewAccountConfirmPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+                createNewAccountConfirmPasswordField.getStyleClass().add("fieldInvalid");
+            }
+        });
+
         //Listeners for current values in tables
         locationTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -299,12 +373,14 @@ public class HumanResourcesController extends TimerTask implements Initializable
                     }
             ); return row; } );
 
+
         jobTable.setRowFactory(tr ->
         { TableRow<Job> row = new TableRow<>();
             row.setOnMouseClicked(
                     event -> {
-                        if( event.getClickCount() == 2 && (!row.isEmpty()) )
+                         if( event.getClickCount() == 2 && (!row.isEmpty()) )
                             try{
+
                                 clickOnEditJobBtn(null);
                             }
                             catch (Exception ignored){
@@ -373,12 +449,20 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Username update");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
         secondaryStage.show();
         secondaryStage.setOnHidden(event -> {
             if( uc.isUsernameChanged() ) {
                 homeTabWelcomeLabel.setText("   Welcome " + uc.getNewUsernameField().getText() + "!");
                 currentUser = uc.getNewUsernameField().getText();
+                if( radioBtnAllLogins.isSelected() )
+                    clickRadioBtnAllLogins(null);
+                 if( radioBtnMyLogins.isSelected() )
+                    clickRadioBtnMyLogins(null);
+
+
+
+
             }
         });
     }
@@ -404,7 +488,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Password update");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 370, 150));
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
             secondaryStage.show();
 
     }
@@ -662,12 +746,12 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.show();
     }
 
-    public void clickOnEditJobBtn(ActionEvent actionEvent){
-        if( currentJob != null ){
+    public void clickOnEditJobBtn(ActionEvent actionEvent) {
+        if (currentJob != null) {
             Stage secondaryStage = new Stage();
             FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/jobWindow.fxml"));
-            JobController jc = new JobController( currentJob );
-            secondaryLoader.setController( jc );
+            JobController jc = new JobController(currentJob);
+            secondaryLoader.setController(jc);
             Parent secondaryRoot = null;
             try {
                 secondaryRoot = secondaryLoader.load();
@@ -737,6 +821,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setOnHidden(event -> {
                 currentDepartment = null;
                 departmentTable.getSelectionModel().clearSelection();
+
             });
         }
     }
@@ -751,6 +836,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
                 dao.deleteDepartment(currentDepartment);
             currentDepartment = null;
             departmentTable.getSelectionModel().clearSelection();
+
+
         }
     }
 
@@ -770,4 +857,62 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public String getCurrentUser() {
         return currentUser;
     }
+
+
+
+    public void clickOnCreateNewAccountCreateBtn(ActionEvent actionEvent) throws SQLException {
+        ObservableList<String> errors = getErrors();
+        if( errors.size() != 0 ){
+            clickOnCreateNewAccountErrorReportBtn(null);
+        }
+        else{
+            dao.addAdministrator( new Administrator( dao.nextIndex("Administrator"), createNewAccountUsernameField.getText(), createNewAccountPasswordField.getText() ) );
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("New Account Information");
+            alert.setHeaderText("Congratulations! New account '" + createNewAccountUsernameField.getText() + "' successfully created!");
+            alert.showAndWait();
+            clickOnCreateNewAccountResetBtn(null);
+        }
+    }
+
+    public void clickOnCreateNewAccountResetBtn(ActionEvent actionEvent){
+        createNewAccountUsernameField.setText("");
+        createNewAccountUsernameField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+        createNewAccountUsernameField.getStyleClass().add("createAccountFields");
+        createNewAccountPasswordField.setText("");
+        createNewAccountPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+        createNewAccountPasswordField.getStyleClass().add("createAccountFields");
+        createNewAccountConfirmPasswordField.setText("");
+        createNewAccountConfirmPasswordField.getStyleClass().removeAll("createAccountFields", "fieldValid", "fieldInvalid");
+        createNewAccountConfirmPasswordField.getStyleClass().add("createAccountFields");
+    }
+
+    public void clickOnCreateNewAccountErrorReportBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"));
+        ErrorReportController erc = new ErrorReportController( getErrors() );
+        secondaryLoader.setController(erc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Error report");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        secondaryStage.show();
+    }
+
+    private ObservableList<String> getErrors(){
+        ObservableList<String> errors = FXCollections.observableArrayList();
+        if( createNewAccountUsernameField.getText().isEmpty() ) errors.add("Username field is empty");
+        if( createNewAccountUsernameField.getStyleClass().contains("fieldInvalid") ) errors.add("This username is already in use");
+        if( createNewAccountPasswordField.getText().isEmpty() ) errors.add("Password field is empty");
+        if( createNewAccountConfirmPasswordField.getText().isEmpty() ) errors.add("Confirm password field is empty");
+        if( createNewAccountConfirmPasswordField.getStyleClass().contains("fieldInvalid") ) errors.add("Confirmation failed");
+        return errors;
+    }
+
 }

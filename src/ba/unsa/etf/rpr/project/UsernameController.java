@@ -1,18 +1,28 @@
 package ba.unsa.etf.rpr.project;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class UsernameController implements Initializable {
     HumanResourcesDAO dao;
@@ -27,7 +37,7 @@ public class UsernameController implements Initializable {
         }
     }
 
-    public TextField oldUsernameField;
+    public TextField currentUsernameField;
     public TextField newUsernameField;
     public TextField confirmNewUsernameField;
     public Button okBtn = new Button();
@@ -44,23 +54,23 @@ public class UsernameController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
         okBtn.setDisable(true);
 
-        oldUsernameField.textProperty().addListener((observable, oldValue, newValue) -> {
+        currentUsernameField.textProperty().addListener((observable, oldValue, newValue) -> {
 
             if( newValue.equals("") ){
-                oldUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
-                oldUsernameField.getStyleClass().add("usernameFields");
+                currentUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
+                currentUsernameField.getStyleClass().add("usernameFields");
                 okBtn.setDisable(true);
             }
 
             else if( newValue.equals( oldUsername )  ){
-                oldUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
-                oldUsernameField.getStyleClass().add("fieldValid");
+                currentUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
+                currentUsernameField.getStyleClass().add("fieldValid");
                 if( newUsernameField.getStyleClass().contains("fieldValid") && confirmNewUsernameField.getStyleClass().contains("fieldValid") )
                     okBtn.setDisable(false);
             }
             else{
-                oldUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
-                oldUsernameField.getStyleClass().add("fieldInvalid");
+                currentUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
+                currentUsernameField.getStyleClass().add("fieldInvalid");
                 okBtn.setDisable(true);
 
             }
@@ -74,7 +84,16 @@ public class UsernameController implements Initializable {
             if( !newValue.equals( "" ) && !usernameAlreadyExists ){
                 newUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
                 newUsernameField.getStyleClass().add("fieldValid");
-                if( oldUsernameField.getStyleClass().contains("fieldValid") && confirmNewUsernameField.getStyleClass().contains("fieldValid") )
+                if( !confirmNewUsernameField.getText().isEmpty() ) {
+                    if (confirmNewUsernameField.getText().equals(newValue)) {
+                        confirmNewUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","passwordFields");
+                        confirmNewUsernameField.getStyleClass().add("fieldValid");
+                    } else {
+                        confirmNewUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","passwordFields");
+                        confirmNewUsernameField.getStyleClass().add("fieldInvalid");
+                    }
+                }
+                if( currentUsernameField.getStyleClass().contains("fieldValid") && confirmNewUsernameField.getStyleClass().contains("fieldValid") )
                     okBtn.setDisable(false);
             }
             else if( usernameAlreadyExists ){
@@ -85,6 +104,10 @@ public class UsernameController implements Initializable {
             else{
                 newUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
                 newUsernameField.getStyleClass().add("usernameFields");
+                if( !confirmNewUsernameField.getText().isEmpty() ){
+                    confirmNewUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
+                    confirmNewUsernameField.getStyleClass().add("fieldInvalid");
+                }
                 okBtn.setDisable(true);
             }
         });
@@ -102,7 +125,7 @@ public class UsernameController implements Initializable {
             else if( !usernameAlreadyExists && newValue.equals( newUsernameField.getText() ) ){
                 confirmNewUsernameField.getStyleClass().removeAll("fieldInvalid","fieldValid","usernameFields");
                 confirmNewUsernameField.getStyleClass().add("fieldValid");
-                if( oldUsernameField.getStyleClass().contains("fieldValid") && newUsernameField.getStyleClass().contains("fieldValid"))
+                if( currentUsernameField.getStyleClass().contains("fieldValid") && newUsernameField.getStyleClass().contains("fieldValid"))
                     okBtn.setDisable(false);
             }
             else{
@@ -141,7 +164,36 @@ public class UsernameController implements Initializable {
     }
 
     public void clickCancelBtn(ActionEvent actionEvent){
-        oldUsernameField.getScene().getWindow().hide();
+        currentUsernameField.getScene().getWindow().hide();
+    }
+    
+    public void clickErrorReportBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"));
+        ErrorReportController erc = new ErrorReportController( getErrors() );
+        secondaryLoader.setController(erc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Error report");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        secondaryStage.show();
+    }
+
+    private ObservableList<String> getErrors() {
+        ObservableList<String> errors = FXCollections.observableArrayList();
+        if( currentUsernameField.getText().isEmpty() ) errors.add("Current username field is empty");
+        if( currentUsernameField.getStyleClass().contains("fieldInvalid") ) errors.add( "Wrong current username" );
+        if( newUsernameField.getText().isEmpty() ) errors.add("New username field is empty");
+        if( newUsernameField.getStyleClass().contains("fieldInvalid") ) errors.add("This username is already in use");
+        if( confirmNewUsernameField.getText().isEmpty() ) errors.add("Confirm new username field is empty");
+        if( !newUsernameField.getStyleClass().contains("fieldInvalid") && confirmNewUsernameField.getStyleClass().contains("fieldInvalid") ) errors.add("Confirmation failed");
+        return errors;
     }
 
     public boolean isUsernameChanged() {

@@ -185,12 +185,11 @@
 }
 
 .context-menu {
-    -fx-background-color: linear-gradient(black,transparent);;
+    -fx-background-color: linear-gradient(black,transparent);
     -fx-border-color: linear-gradient(transparent,dimgrey);
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
-    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
-    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
 }
 
 .fieldInvalid {
@@ -310,4 +309,92 @@
 .radio-button .radio {
     -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
 
+}
+
+
+
+.date-picker .arrow-button{
+    -fx-background-radius:0px ;
+    -fx-background-color: #232323;
+}
+
+.date-picker .arrow-button .arrow{
+    -fx-background-radius:0px ;
+    -fx-background-color: linear-gradient(black, greenyellow);
+}
+
+.date-picker .arrow-button:hover .arrow{
+    -fx-background-radius:0px ;
+    -fx-background-color: linear-gradient(black, greenyellow);
+}
+
+.date-picker-popup {
+    -fx-background-color: black;
+}
+.date-picker .button {
+    -fx-border-color:transparent;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 35px;
+}
+
+.date-picker .button:hover {
+    -fx-border-color:transparent;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 35px;
+}
+
+.date-picker .button .arrow:pressed {
+    -fx-pref-height: 35px;
+    -fx-pref-width: 35px;
+}
+
+.date-picker .cell {
+    -fx-background-color: linear-gradient(black,dimgrey);
+    -fx-text-fill: lightgrey;
+}
+
+.date-picker .cell:hover {
+    -fx-background-color: linear-gradient(black, greenyellow);
+    -fx-pref-width:20px ;
+    -fx-pref-height:25px ;
+    -fx-text-fill: white;
+
+}
+
+.date-picker .cell:focused {
+    -fx-background-color: linear-gradient(black, greenyellow);
+    -fx-pref-width:20px ;
+    -fx-pref-height:25px ;
+    -fx-text-fill: white;
+
+}
+
+.date-picker-popup  {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: lightgrey;
+}
+
+#createNewAccountLabel {
+    -fx-background-color: black;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+    -fx-font-family: Arial;
+    -fx-font-style: italic;
+}
+
+#createNewAccountTable {
+    -fx-border-color: white;
+    -fx-border-radius: 5px;
+}
+
+.createAccountFields {
+    -fx-background-color: linear-gradient(black,dimgrey);
+    -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-font-style: italic;
+    -fx-font-family: Arial;
 }

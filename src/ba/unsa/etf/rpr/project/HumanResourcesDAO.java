@@ -586,5 +586,14 @@ public class HumanResourcesDAO {
         clearData();
         fetchData();
     }
+
+    public void addAdministrator( Administrator administrator ) throws SQLException {
+        addAdministrator.setInt(1, administrator.getId() );
+        addAdministrator.setString(2, administrator.getUsername() );
+        addAdministrator.setString(3, administrator.getPassword() );
+        addAdministrator.executeUpdate();
+        clearData();
+        fetchData();
+    }
 }
 
