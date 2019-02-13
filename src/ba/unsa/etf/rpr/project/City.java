@@ -47,5 +47,4 @@ public class City {
                 Objects.equals(name, city.name) &&
                 Objects.equals(country, city.country);
     }
-
 }

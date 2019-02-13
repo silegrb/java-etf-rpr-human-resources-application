@@ -123,6 +123,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
     private Job currentJob = null;
     private Contract currentContract = null;
     private Department currentDepartment = null;
+    private Employee currentEmployee = null;
 
     public RadioButton radioBtnAllLogins = new RadioButton();
     public RadioButton radioBtnMyLogins = new RadioButton();
@@ -212,7 +213,12 @@ public class HumanResourcesController extends TimerTask implements Initializable
             return Bindings.concat(cellData.getValue().getLocation().getStreetAddress());
             else return null;
         } );
-        departmentManagerColumn.setCellValueFactory( cellData -> Bindings.concat(cellData.getValue().getManager().getFirstName()," ", cellData.getValue().getManager().getLastName()) );
+        departmentManagerColumn.setCellValueFactory(
+                cellData -> {
+                    if( cellData.getValue().getManager() != null )
+                        return Bindings.concat( cellData.getValue().getManager().getFirstName() + " " + cellData.getValue().getManager().getLastName() );
+                    else return null;
+                } );
         departmentTable.setItems( dao.getDepartments() );
 
         jobIdColumn.setCellValueFactory( new PropertyValueFactory<>("id") );
@@ -329,6 +335,11 @@ public class HumanResourcesController extends TimerTask implements Initializable
                 currentDepartment = departmentTable.getSelectionModel().getSelectedItem();
         });
 
+        employeeTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if( newValue != null )
+                currentEmployee = employeeTable.getSelectionModel().getSelectedItem();
+        });
+
         //Now lets add the option of clicking a row that is not empty, that will open window for changing
         //a clicked row.
         locationTable.setRowFactory(tr ->
@@ -396,6 +407,20 @@ public class HumanResourcesController extends TimerTask implements Initializable
                         if( event.getClickCount() == 2 && (!row.isEmpty()) )
                             try{
                                 clickOnEditDepartmentBtn(null);
+                            }
+                            catch (Exception ignored){
+
+                            }
+                    }
+            ); return row; } );
+
+        employeeTable.setRowFactory(tr ->
+        { TableRow<Employee> row = new TableRow<>();
+            row.setOnMouseClicked(
+                    event -> {
+                        if( event.getClickCount() == 2 && (!row.isEmpty()) )
+                            try{
+                                clickOnEditEmployeeBtn(null);
                             }
                             catch (Exception ignored){
 
@@ -903,6 +928,62 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
         secondaryStage.setScene(new Scene(secondaryRoot, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         secondaryStage.show();
+    }
+
+    public void clickOnAddEmployeeBtn(ActionEvent actionEvent){
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/employeeWindow.fxml"));
+        EmployeeController ec = new EmployeeController( null );
+        secondaryLoader.setController(ec);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Add employee");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, 370, 530));
+        secondaryStage.show();
+    }
+
+    public void clickOnEditEmployeeBtn(ActionEvent actionEvent){
+        if( currentEmployee != null ){
+            Stage secondaryStage = new Stage();
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/employeeWindow.fxml"));
+            EmployeeController ec = new EmployeeController( currentEmployee );
+            secondaryLoader.setController( ec );
+            Parent secondaryRoot = null;
+            try {
+                secondaryRoot = secondaryLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            secondaryStage.setTitle("Edit employee");
+            secondaryStage.setResizable(false);
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            secondaryStage.setScene(new Scene(secondaryRoot, 370, 530));
+            secondaryStage.show();
+            secondaryStage.setOnHidden(event -> {
+                currentEmployee = null;
+                employeeTable.getSelectionModel().clearSelection();
+
+            });
+        }
+    }
+
+    public void clickOnDeleteEmployeeBtn(ActionEvent actionEvent) throws SQLException {
+        if ( currentEmployee != null ) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete employee");
+            alert.setHeaderText("Are you sure you want to delete " + currentEmployee.getFirstName() + " " + currentEmployee.getLastName() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK)
+                dao.deleteEmployee(currentEmployee);
+            currentEmployee = null;
+            employeeTable.getSelectionModel().clearSelection();
+        }
     }
 
     private ObservableList<String> getErrors(){

@@ -57,7 +57,7 @@ public class CityController implements Initializable {
             cbCountries.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
             cbCountries.getStyleClass().add( "fieldValid" );
         }
-        else cbCountries.setValue( null );
+        //else cbCountries.setValue( null );
 
 
         ObservableList<String> countryNames = FXCollections.observableArrayList();

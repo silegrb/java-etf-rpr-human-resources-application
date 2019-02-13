@@ -595,5 +595,79 @@ public class HumanResourcesDAO {
         clearData();
         fetchData();
     }
+
+    public void addEmployee( Employee employee ) throws SQLException {
+        addEmployee.setInt( 1, employee.getId() );
+        addEmployee.setString( 2, employee.getFirstName() );
+        addEmployee.setString( 3, employee.getLastName() );
+        addEmployee.setString( 4, employee.getParentName() );
+        addEmployee.setDate( 5, Date.valueOf( employee.getBirthDate() ) );
+        addEmployee.setString( 6, employee.getUmcn() );
+        addEmployee.setString( 7, employee.getMobileNumber() );
+        addEmployee.setString( 8, employee.getEmailAddress() );
+        addEmployee.setString( 9, employee.getCreditCard() );
+        addEmployee.setInt( 10, employee.getSalary() );
+        addEmployee.setString(11, employee.getPhoto());
+        if( employee.getLocation() == null )
+            addEmployee.setNull(12, Types.NULL );
+        else
+            addEmployee.setInt(12, employee.getLocation().getId() );
+        if( employee.getDepartment() == null )
+            addEmployee.setNull(13, Types.NULL );
+        else
+            addEmployee.setInt(13, employee.getDepartment().getId() );
+        if( employee.getJob() == null )
+            addEmployee.setNull(14, Types.NULL );
+        else
+            addEmployee.setInt(14, employee.getJob().getId() );
+        if( employee.getManager() == null )
+            addEmployee.setNull(15, Types.NULL);
+        else
+            addEmployee.setInt(15, employee.getManager().getId() );
+        addEmployee.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void changeEmployee( Employee employee ) throws SQLException {
+        updateEmployee.setString( 1, employee.getFirstName() );
+        updateEmployee.setString( 2, employee.getLastName() );
+        updateEmployee.setString( 3, employee.getParentName() );
+        updateEmployee.setDate( 4, Date.valueOf( employee.getBirthDate() ) );
+        updateEmployee.setString( 5, employee.getUmcn() );
+        updateEmployee.setString( 6, employee.getMobileNumber() );
+        updateEmployee.setString( 7, employee.getEmailAddress() );
+        updateEmployee.setString( 8, employee.getCreditCard() );
+        updateEmployee.setInt( 9, employee.getSalary() );
+        updateEmployee.setString(10, employee.getPhoto());
+        if( employee.getLocation() == null )
+            updateEmployee.setNull(11, Types.NULL );
+        else
+            updateEmployee.setInt(11, employee.getLocation().getId());
+
+        if( employee.getDepartment() == null )
+            updateEmployee.setNull(12, Types.NULL );
+        else
+            updateEmployee.setInt(12, employee.getDepartment().getId() );
+        if( employee.getJob() == null )
+            updateEmployee.setNull(13, Types.NULL );
+        else
+            updateEmployee.setInt(13, employee.getJob().getId() );
+        if( employee.getManager() == null )
+            updateEmployee.setNull(14, Types.NULL);
+        else
+            updateEmployee.setInt(14, employee.getManager().getId() );
+        updateEmployee.setInt( 15, employee.getId() );
+        updateEmployee.executeUpdate();
+        clearData();
+        fetchData();
+    }
+
+    public void deleteEmployee(Employee employee) throws SQLException {
+        removeEmployee.setInt(1, employee.getId());
+        removeEmployee.executeUpdate();
+        clearData();
+        fetchData();
+    }
 }
 

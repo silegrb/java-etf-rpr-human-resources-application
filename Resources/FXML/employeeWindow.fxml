@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="530" prefWidth="370" hgap="5" vgap="5">
+    <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
+
+    <Label text="First Name" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldFirstName" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldLastName" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Parent Name" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldParentName" GridPane.rowIndex="3" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Birth Date" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="controllerLabels"/>
+    <DatePicker fx:id="dpBirthDate" GridPane.rowIndex="4" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="UMCN" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldUmcn" GridPane.rowIndex="5" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Mobile number" GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldMobileNumber" GridPane.rowIndex="6" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Email address" GridPane.columnIndex="1" GridPane.rowIndex="7" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldEmailAddress" GridPane.rowIndex="7" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Credit card" GridPane.columnIndex="1" GridPane.rowIndex="8" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldCreditCard" GridPane.rowIndex="8" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Salary" GridPane.columnIndex="1" GridPane.rowIndex="9" styleClass="controllerLabels"/>
+    <Slider fx:id="sliderSalary" GridPane.rowIndex="9" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="10" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbLocations" GridPane.rowIndex="10" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Department" GridPane.columnIndex="1" GridPane.rowIndex="11" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbDepartments" GridPane.rowIndex="11" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Job" GridPane.columnIndex="1" GridPane.rowIndex="12" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbJobs" GridPane.rowIndex="12" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Label text="Manager" GridPane.columnIndex="1" GridPane.rowIndex="13" styleClass="controllerLabels"/>
+    <ChoiceBox fx:id="cbManagers" GridPane.rowIndex="13" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Button fx:id="errorReportBtn" text="Error Report" GridPane.rowIndex="14" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
+
+    <Button fx:id="okBtn" text="OK" textAlignment="CENTER" GridPane.rowIndex="15" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
+    <Button fx:id="cancelBtn" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="15" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
+
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+</GridPane>
