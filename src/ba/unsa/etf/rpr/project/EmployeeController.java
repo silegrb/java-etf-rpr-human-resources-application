@@ -181,16 +181,34 @@ public class EmployeeController implements Initializable {
             if( newValue.isEmpty() ){
                 fieldUmcn.getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
                 fieldUmcn.getStyleClass().add( "controllerFields" );
+                if( !dpBirthDate.getEditor().getText().isEmpty() ){
+                    dpBirthDate.getEditor().getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
+                    dpBirthDate.getEditor().getStyleClass().add( "fieldValid" );
+                }
                 okBtn.setDisable(true);
             }
             else if( umcnCheck(newValue) ){
                 fieldUmcn.getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
                 fieldUmcn.getStyleClass().add( "fieldValid" );
+                if( !dpBirthDate.getEditor().getText().isEmpty()  ) {
+                    if ( birthDateCheck( dpBirthDate.getEditor().getText() ) ) {
+                        dpBirthDate.getEditor().getStyleClass().removeAll("controllerFields", "fieldValid", "fieldInvalid");
+                        dpBirthDate.getEditor().getStyleClass().add("fieldValid");
+                    }
+                    else  {
+                        dpBirthDate.getEditor().getStyleClass().removeAll("controllerFields", "fieldValid", "fieldInvalid");
+                        dpBirthDate.getEditor().getStyleClass().add("fieldInvalid");
+                    }
+                }
                 okBtn.setDisable( disableOkBtn() );
             }
             else{
                 fieldUmcn.getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
                 fieldUmcn.getStyleClass().add( "fieldInvalid" );
+                if( !dpBirthDate.getEditor().getText().isEmpty()  ) {
+                        dpBirthDate.getEditor().getStyleClass().removeAll("controllerFields", "fieldValid", "fieldInvalid");
+                        dpBirthDate.getEditor().getStyleClass().add("fieldInvalid");
+                }
                 okBtn.setDisable(true);
             }
         });
@@ -338,6 +356,14 @@ public class EmployeeController implements Initializable {
     }
 
     private boolean birthDateCheck( String s ){
+        //If we can't parse this string, then format isn't ok.
+        try{
+            LocalDate.parse( s, DateTimeFormatter.ofPattern("dd/MM/yyyy") );
+        }
+        catch (Exception e){
+            return false;
+        }
+
         //We have three cases, if umcn field is empty, if umcn field contains x characters where x != 13 or umcn field
         //contains 13 characters but we have to check if they are legal.
         if( fieldUmcn.getText().isEmpty() ){
