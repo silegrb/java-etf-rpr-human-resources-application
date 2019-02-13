@@ -32,7 +32,7 @@
     <TextField fx:id="fieldCreditCard" GridPane.rowIndex="8" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
     <Label text="Salary" GridPane.columnIndex="1" GridPane.rowIndex="9" styleClass="controllerLabels"/>
-    <Slider fx:id="sliderSalary" GridPane.rowIndex="9" GridPane.columnIndex="2" styleClass="controllerFields"/>
+    <Spinner fx:id="spinnerSalary" GridPane.rowIndex="9" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
     <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="10" styleClass="controllerLabels"/>
     <ChoiceBox fx:id="cbLocations" GridPane.rowIndex="10" GridPane.columnIndex="2" styleClass="controllerFields"/>

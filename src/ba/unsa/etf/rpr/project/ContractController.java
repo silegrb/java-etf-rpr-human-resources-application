@@ -227,10 +227,10 @@ public class ContractController implements Initializable {
         if( dpStartDate.getValue() != null && dpStartDate.getValue().isBefore( todaysDate ) ) errors.add( "Contract start date cannot be in past" );
         if( dpEndDate.getValue() == null ) errors.add("No contract end date selected");
         if( dpEndDate.getValue() != null && dpEndDate.getValue().isBefore( todaysDate ) ) errors.add("Contract end date cannot be in past");
-        if( startDate != null &&  dpEndDate.getValue() != null && dpEndDate.getValue().isBefore( startDate ) ) errors.add("Contract end date cannot be before contract start date");
+        if( startDate != null &&  dpEndDate.getValue() != null && dpEndDate.getValue().isBefore( startDate ) ) errors.add("Contract end date cannot\nbe before contract start date");
         if( dpStartDate.getValue() != null )
             startDate = dpStartDate.getValue().plusMonths(3);
-        if( startDate != null && dpEndDate.getValue() != null && dpEndDate.getValue().isBefore(startDate) ) errors.add("Contract cannot be shorter than three months!");
+        if( startDate != null && dpEndDate.getValue() != null && dpEndDate.getValue().isBefore(startDate) ) errors.add("Contract cannot be shorter\nthan three months!");
         if( cbEmployees.getValue() == null ) errors.add("No contract holder selected");
         if( cbJobs.getValue() == null ) errors.add("No contract job selected");
 

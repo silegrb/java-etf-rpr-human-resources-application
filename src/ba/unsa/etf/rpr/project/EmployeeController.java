@@ -3,15 +3,23 @@ package ba.unsa.etf.rpr.project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class EmployeeController implements Initializable {
 
@@ -34,7 +42,7 @@ public class EmployeeController implements Initializable {
     public TextField fieldMobileNumber = new TextField();
     public TextField fieldEmailAddress = new TextField();
     public TextField fieldCreditCard = new TextField();
-    public Slider sliderSalary = new Slider();
+    public Spinner<Integer> spinnerSalary = new Spinner();
     public ChoiceBox<String> cbLocations = new ChoiceBox();
     public ChoiceBox<String> cbDepartments = new ChoiceBox();
     public ChoiceBox<String> cbJobs = new ChoiceBox();
@@ -54,6 +62,11 @@ public class EmployeeController implements Initializable {
         dpBirthDate.setEditable(false);
         dpBirthDate.getEditor().getStyleClass().removeAll();
         dpBirthDate.getEditor().getStyleClass().add("controllerFields");
+        spinnerSalary.setEditable(false);
+        spinnerSalary.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,0,100));
+        spinnerSalary.getEditor().getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
+        spinnerSalary.getEditor().getStyleClass().add("controllerFields");
+
 
         //Lets add locations to LOCATION CHOICEBOX.
         ObservableList<String> locations = FXCollections.observableArrayList();
@@ -74,10 +87,17 @@ public class EmployeeController implements Initializable {
             jobs.add( j.getJobTitle() );
         cbJobs.setItems( jobs );
 
-        //Lets add employees to MANAGER CHOICEBOX.
+        //Lets add employees to MANAGER CHOICEBOX, employee cannot be his/hers own manager.
         ObservableList<String> managers = FXCollections.observableArrayList();
-        for ( Employee e : dao.getEmployees() )
-            managers.add( e.getFirstName() + " " + e.getLastName() );
+        String currentEmployeeName = null;
+        if( currentEmployee != null )
+            currentEmployeeName = currentEmployee.getFirstName() + " " + currentEmployee.getLastName();
+        for ( Employee e : dao.getEmployees() ) {
+            if (currentEmployeeName == null)
+                managers.add(e.getFirstName() + " " + e.getLastName());
+            else if (!currentEmployeeName.equals(e.getFirstName() + " " + e.getLastName()))
+                managers.add(e.getFirstName() + " " + e.getLastName());
+        }
         cbManagers.setItems( managers );
 
         if( currentEmployee != null ){
@@ -89,7 +109,7 @@ public class EmployeeController implements Initializable {
             fieldMobileNumber.setText( currentEmployee.getMobileNumber() );
             fieldEmailAddress.setText( currentEmployee.getEmailAddress() );
             fieldCreditCard.setText( currentEmployee.getCreditCard() );
-            sliderSalary.setValue( currentEmployee.getSalary() );
+            spinnerSalary.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,currentEmployee.getSalary(),100));
             if( currentEmployee.getLocation() != null )
                 cbLocations.setValue( currentEmployee.getLocation().getStreetAddress() + " (" + currentEmployee.getLocation().getPostalCode() + ")" );
             if( currentEmployee.getDepartment() != null )
@@ -105,10 +125,10 @@ public class EmployeeController implements Initializable {
             fieldLastName.getStyleClass().add("fieldValid");
             fieldParentName.getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
             fieldParentName.getStyleClass().add("fieldValid");
-            dpBirthDate.setEditable(true);
             dpBirthDate.getEditor().getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
             dpBirthDate.getEditor().getStyleClass().add("fieldValid");
-            dpBirthDate.setEditable(false);
+            spinnerSalary.getEditor().getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
+            spinnerSalary.getEditor().getStyleClass().add("fieldValid");
             fieldUmcn.getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
             fieldUmcn.getStyleClass().add("fieldValid");
             fieldMobileNumber.getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
@@ -233,6 +253,12 @@ public class EmployeeController implements Initializable {
             }
         });
 
+        spinnerSalary.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            spinnerSalary.getEditor().getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
+            spinnerSalary.getEditor().getStyleClass().add("fieldValid");
+            okBtn.setDisable( disableOkBtn() );
+        });
+
         choiceBoxEmptyListeners(cbLocations);
         choiceBoxEmptyListeners(cbDepartments);
         choiceBoxEmptyListeners(cbJobs);
@@ -311,6 +337,9 @@ public class EmployeeController implements Initializable {
             if(!( Character.isAlphabetic(s.charAt(i)) ) ) return false;
             i++;
         }
+
+        for (Employee e: dao.getEmployees())
+            if( e.getEmailAddress().equals( s ) ) return false;
         return true;
     }
 
@@ -323,6 +352,9 @@ public class EmployeeController implements Initializable {
                 if (i == 7 && s.charAt(i) != '-') return false;
                 if (i != 3 && i != 7 && !(Character.isDigit(s.charAt(i)))) return false;
             }
+            for ( Employee e : dao.getEmployees())
+                if( e.getMobileNumber().equals( s ) ) return false;
+
             return true;
         }
         else if (s.length() == 11) {
@@ -331,6 +363,8 @@ public class EmployeeController implements Initializable {
                 if (i == 7 && s.charAt(i) != '-') return false;
                 if (i != 3 && i != 7 && !(Character.isDigit(s.charAt(i)))) return false;
             }
+            for ( Employee e : dao.getEmployees())
+                if( e.getMobileNumber().equals( s ) ) return false;
             return true;
         }
         return false;
@@ -348,6 +382,19 @@ public class EmployeeController implements Initializable {
         int calculatedLastDigit = 11 - ( ( 7 * ( toNumber(s.charAt(0)) + toNumber(s.charAt(6)) ) + 6 * ( toNumber(s.charAt(1)) + toNumber(s.charAt(7)) ) + 5 * ( toNumber(s.charAt(2)) + toNumber(s.charAt(8)) ) + 4 *  (toNumber(s.charAt(3)) + toNumber(s.charAt(9)) ) + 3 * ( toNumber(s.charAt(4)) + toNumber(s.charAt(10)))  + 2 * ( toNumber(s.charAt(5)) + toNumber(s.charAt(11)) ) ) % 11 );
         if( calculatedLastDigit > 9 ) calculatedLastDigit = 0;
         if( calculatedLastDigit != realLastDigit ) return false;
+
+        //UMCN is unique
+        for (Employee e: dao.getEmployees())
+            if( e.getUmcn().equals( s ) ) return false;
+
+        //UMCN's date cannot be in future
+        LocalDate localDate = LocalDate.now();
+        String umcnDateString = s.substring(0,2) + "/" + s.substring(2,4) + "/";
+        if( s.charAt(4) == '0'  ) umcnDateString += "2";
+        else umcnDateString += "1";
+        umcnDateString += s.substring(4,7);
+        LocalDate umcnDate = LocalDate.parse(  umcnDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if( umcnDate.isAfter(localDate) ) return false;
         return true;
     }
 
@@ -376,6 +423,10 @@ public class EmployeeController implements Initializable {
             return false;
         }
         else {
+            LocalDate birthDateTemp = LocalDate.parse( s, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate nowDate = LocalDate.now();
+            if( birthDateTemp.isAfter( nowDate ) ) return false;
+
             int dayFromUmcn = Integer.parseInt(fieldUmcn.getText(0, 2));
             int monthFromUmcn = Integer.parseInt(fieldUmcn.getText(2, 4));
             int yearFromUmcn = Integer.parseInt(fieldUmcn.getText(4, 7));
@@ -446,11 +497,25 @@ public class EmployeeController implements Initializable {
             }
         }
 
-        return new Employee( index, fieldFirstName.getText(), fieldLastName.getText(), fieldParentName.getText(), LocalDate.parse( dpBirthDate.getEditor().getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), fieldUmcn.getText(), fieldMobileNumber.getText(), fieldEmailAddress.getText(), fieldCreditCard.getText(), (int)sliderSalary.getValue(), "", location, department, job, manager );
+        return new Employee( index, fieldFirstName.getText(), fieldLastName.getText(), fieldParentName.getText(), LocalDate.parse( dpBirthDate.getEditor().getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), fieldUmcn.getText(), fieldMobileNumber.getText(), fieldEmailAddress.getText(), fieldCreditCard.getText(), spinnerSalary.getValue(), "", location, department, job, manager );
     }
 
     public void clickErrorReportBtn(ActionEvent actionEvent) {
-
+        Stage secondaryStage = new Stage();
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"));
+        ErrorReportController erc = new ErrorReportController( getErrors() );
+        secondaryLoader.setController(erc);
+        Parent secondaryRoot = null;
+        try {
+            secondaryRoot = secondaryLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        secondaryStage.setTitle("Error report");
+        secondaryStage.setResizable(false);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setScene(new Scene(secondaryRoot, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        secondaryStage.show();
     }
 
     public void clickOkBtn(ActionEvent actionEvent) throws SQLException {
@@ -466,5 +531,24 @@ public class EmployeeController implements Initializable {
 
     public void clickCancelBtn(ActionEvent actionEvent) {
         fieldFirstName.getScene().getWindow().hide();
+    }
+
+    private ObservableList<String> getErrors(){
+        ObservableList<String> errors = FXCollections.observableArrayList();
+        if( fieldFirstName.getStyleClass().contains("controllerFields") ) errors.add("First name field is empty");
+        if( fieldLastName.getStyleClass().contains("controllerFields") ) errors.add("Last name field is empty");
+        if( fieldParentName.getStyleClass().contains("controllerFields") ) errors.add("Parent name field is empty");
+        if( dpBirthDate.getEditor().getStyleClass().contains("controllerFields") ) errors.add("No birth date selected");
+        if( dpBirthDate.getEditor().getStyleClass().contains("fieldInvalid") ) errors.add("Birth date doesn't match UMCN or\nor birth date is in future");
+        if( fieldUmcn.getStyleClass().contains("controllerFields") ) errors.add("UMCN field is empty");
+        if( fieldUmcn.getStyleClass().contains("fieldInvalid") ) errors.add("Wrong UMCN format or\nUMCN's date is in future or\nthis UMCN is already in use");
+        if( fieldMobileNumber.getStyleClass().contains("controllerFields") ) errors.add("Mobile number field is empty");
+        if( fieldMobileNumber.getStyleClass().contains("fieldInvalid") ) errors.add("Wrong mobile number format or\nthis mobile number is\nalready in use\nEXPECTED FORMAT:\nxxx/xxx-xxx(x)\n(x has to be a digit)");
+        if( fieldEmailAddress.getStyleClass().contains("controllerFields") ) errors.add("Email address field is empty");
+        if( fieldEmailAddress.getStyleClass().contains("fieldInvalid") ) errors.add("Wrong email address format or\nthis email address is\nalready in use\nEXPECTED FORMAT:\nx@x.x\n(extension cannot contain digits)");
+        if( fieldCreditCard.getStyleClass().contains("controllerFields") ) errors.add("Credit card field is empty");
+        if( fieldCreditCard.getStyleClass().contains("fieldInvalid") ) errors.add("This credit card is already in use");
+
+        return errors;
     }
 }
