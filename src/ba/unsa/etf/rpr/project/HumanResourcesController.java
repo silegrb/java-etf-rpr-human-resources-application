@@ -518,9 +518,44 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     }
 
-    public void clickOnLogout(ActionEvent actionEvent) {
+   public void clickOnLogout(ActionEvent actionEvent) throws IOException, SQLException {
         homeTabWelcomeLabel.getScene().getWindow().hide();
-    }
+       Stage stage = new Stage();
+       FXMLLoader loader = new FXMLLoader( getClass().getResource("/FXML/loginWindow.fxml") );
+       LoginWindowController lwc = new LoginWindowController();
+       loader.setController( lwc );
+       Parent root = loader.load();
+       stage.setTitle("Login");
+       stage.setResizable(false);
+       stage.setScene(new Scene(root, 220, 140));
+       stage.show();
+       stage.setOnHidden(event -> {
+           if( lwc.loginSuccess() ) {
+               Date date = new Date();
+               try {
+                   dao.recordUserLogin( lwc.getUsernameField().getText(), date.toString() );
+               } catch (SQLException e) {
+                   e.printStackTrace();
+               }
+               Stage secondaryStage = new Stage();
+               FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/humanResourcesController.fxml"));
+               HumanResourcesController hrc = new HumanResourcesController( lwc.getUsernameField().getText() );
+
+               secondaryLoader.setController(hrc);
+               Parent secondaryRoot = null;
+               try {
+                   secondaryRoot = secondaryLoader.load();
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+               secondaryStage.setTitle("Human Resources");
+               secondaryStage.setResizable(false);
+               secondaryStage.setScene(new Scene(secondaryRoot, 850, 650));
+               secondaryStage.show();
+               secondaryStage.setOnHidden(event1 -> hrc.getChangingColorTimer().cancel());
+           }
+       });
+   }
 
     public void clickOnAddLocationBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
