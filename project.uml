@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ba.unsa.etf.rpr.project</OriginalElement>
+  <nodes>
+    <node x="351.0" y="444.0">ba.unsa.etf.rpr.project.LocationTest</node>
+    <node x="408.0" y="296.0">ba.unsa.etf.rpr.project.DepartmentTest</node>
+    <node x="262.0" y="0.0">ba.unsa.etf.rpr.project.HumanResourcesDAOTest</node>
+    <node x="437.0" y="592.0">ba.unsa.etf.rpr.project.JobTest</node>
+    <node x="0.0" y="296.0">ba.unsa.etf.rpr.project.CountryController</node>
+    <node x="293.0" y="592.0">ba.unsa.etf.rpr.project.CityTest</node>
+    <node x="181.0" y="370.0">ba.unsa.etf.rpr.project.EmployeeTest</node>
+    <node x="165.0" y="518.0">ba.unsa.etf.rpr.project.LoginTest</node>
+    <node x="0.0" y="518.0">ba.unsa.etf.rpr.project.Department</node>
+    <node x="177.0" y="444.0">ba.unsa.etf.rpr.project.ContractTest</node>
+    <node x="213.0" y="222.0">ba.unsa.etf.rpr.project.ContractController</node>
+    <node x="421.0" y="222.0">ba.unsa.etf.rpr.project.LocationController</node>
+    <node x="249.0" y="666.0">ba.unsa.etf.rpr.project.City</node>
+    <node x="204.0" y="296.0">ba.unsa.etf.rpr.project.AdministratorTest</node>
+    <node x="0.0" y="370.0">ba.unsa.etf.rpr.project.ContinentTest</node>
+    <node x="524.0" y="444.0">ba.unsa.etf.rpr.project.CountryTest</node>
+    <node x="147.0" y="592.0">ba.unsa.etf.rpr.project.Location</node>
+    <node x="0.0" y="74.0">ba.unsa.etf.rpr.project.LoginWindowController</node>
+    <node x="0.0" y="0.0">ba.unsa.etf.rpr.project.HumanResourcesController</node>
+    <node x="0.0" y="592.0">ba.unsa.etf.rpr.project.Contract</node>
+    <node x="473.0" y="518.0">ba.unsa.etf.rpr.project.Employee</node>
+    <node x="127.0" y="666.0">ba.unsa.etf.rpr.project.Main</node>
+    <node x="538.0" y="370.0">ba.unsa.etf.rpr.project.JobController</node>
+    <node x="467.0" y="74.0">ba.unsa.etf.rpr.project.DepartmentController</node>
+    <node x="0.0" y="666.0">ba.unsa.etf.rpr.project.Login</node>
+    <node x="0.0" y="222.0">ba.unsa.etf.rpr.project.EmployeeController</node>
+    <node x="580.0" y="592.0">ba.unsa.etf.rpr.project.Country</node>
+    <node x="0.0" y="148.0">ba.unsa.etf.rpr.project.ErrorReportController</node>
+    <node x="360.0" y="370.0">ba.unsa.etf.rpr.project.CityController</node>
+    <node x="442.0" y="148.0">ba.unsa.etf.rpr.project.PasswordController</node>
+    <node x="366.0" y="666.0">ba.unsa.etf.rpr.project.Job</node>
+    <node x="0.0" y="444.0">ba.unsa.etf.rpr.project.Administrator</node>
+    <node x="319.0" y="518.0">ba.unsa.etf.rpr.project.Continent</node>
+    <node x="238.0" y="74.0">ba.unsa.etf.rpr.project.HumanResourcesDAO</node>
+    <node x="226.0" y="148.0">ba.unsa.etf.rpr.project.UsernameController</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0167798533996686" x="530.3113412573721" y="626.0470295955912" />
+  <SelectedNodes>
+    <node>ba.unsa.etf.rpr.project.LocationTest</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

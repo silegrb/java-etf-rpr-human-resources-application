@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>b02fee6f-d192-4a5a-a6c0-88a675227d74.SCHEMA:main</OriginalElement>
+  <nodes>
+    <node x="272.0" y="-32.5">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Department</node>
+    <node x="828.0" y="367.5">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Location</node>
+    <node x="-34.0" y="900.5">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Contract</node>
+    <node x="46.0" y="394.5">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Job</node>
+    <node x="549.5" y="701.0">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Country</node>
+    <node x="279.5" y="901.0">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Administrator</node>
+    <node x="496.5" y="901.0">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Login</node>
+    <node x="574.5" y="514.5">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Continent</node>
+    <node x="836.0" y="701.0">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.City</node>
+    <node x="259.5" y="219.0">b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Employee</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Country" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Continent">
+      <point x="0.0" y="-59.0" />
+      <point x="0.0" y="45.5" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Location" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.City">
+      <point x="0.0" y="72.5" />
+      <point x="0.0" y="-59.0" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.City" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Country">
+      <point x="-84.0" y="0.0" />
+      <point x="90.5" y="0.0" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Employee" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Employee">
+      <point x="40.0" y="-221.0" />
+      <point x="400.0" y="160.0" />
+      <point x="520.0" y="160.0" />
+      <point x="520.0" y="400.0" />
+      <point x="100.5" y="-40.0" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Department" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Location">
+      <point x="88.0" y="0.0" />
+      <point x="920.0" y="40.0" />
+      <point x="0.0" y="-72.5" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Department" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Employee">
+      <point x="-88.0" y="0.0" />
+      <point x="0.0" y="40.0" />
+      <point x="0.0" y="720.0" />
+      <point x="360.0" y="720.0" />
+      <point x="0.0" y="221.0" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Employee" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Location">
+      <point x="100.5" y="0.0" />
+      <point x="-92.0" y="0.0" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Employee" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Department">
+      <point x="0.0" y="-221.0" />
+      <point x="0.0" y="72.5" />
+    </edge>
+    <edge source="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Employee" target="b02fee6f-d192-4a5a-a6c0-88a675227d74.TABLE:main.Job">
+      <point x="-100.5" y="0.0" />
+      <point x="74.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7077189939288812" x="489.0" y="533.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

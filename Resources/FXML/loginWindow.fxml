@@ -31,7 +31,7 @@
     </Label>
     <PasswordField fx:id="passwordField" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
 
-    <Button fx:id="confirmLogin" onAction="#clickLogin" alignment="CENTER" text="Login" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+    <Button fx:id="confirmLogin" onAction="#clickLogin" alignment="CENTER" text="%Login" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
 
     <Label fx:id="statusLabelImage" GridPane.rowIndex="4" GridPane.columnIndex="1" />
     <Label fx:id="statusLabelText" GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2" />

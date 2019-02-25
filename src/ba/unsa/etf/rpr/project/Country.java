@@ -14,6 +14,10 @@ public class Country {
         this.continent = continent;
     }
 
+    public Country() {
+
+    }
+
     public int getId() {
         return id;
     }

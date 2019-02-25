@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
@@ -27,7 +29,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader( getClass().getResource("/FXML/loginWindow.fxml") );
+       Locale.setDefault(new Locale("en_US"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader loader = new FXMLLoader( getClass().getResource("/FXML/loginWindow.fxml"), bundle );
         LoginWindowController lwc = new LoginWindowController();
         loader.setController( lwc );
         Parent root = loader.load();
@@ -44,7 +48,7 @@ public class Main extends Application {
                     e.printStackTrace();
                 }
                 Stage secondaryStage = new Stage();
-                FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/humanResourcesController.fxml"));
+                FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/humanResourcesController.fxml"),bundle);
                 HumanResourcesController hrc = new HumanResourcesController( lwc.getUsernameField().getText() );
 
                 secondaryLoader.setController(hrc);

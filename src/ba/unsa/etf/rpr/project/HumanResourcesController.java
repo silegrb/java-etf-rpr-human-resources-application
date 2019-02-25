@@ -143,7 +143,6 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-//        createNewAccountCreateBtn.setDisable(true);
 
         //We're setting a welcome message to Home Tab.
         homeTabWelcomeLabel.setText( "   Welcome " + currentUser + "!" );
@@ -462,7 +461,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
                 break;
             }
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/usernameWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/usernameWindow.fxml"),bundle);
         UsernameController uc = new UsernameController( currentPassword, oldUsername );
         secondaryLoader.setController(uc);
         Parent secondaryRoot = null;
@@ -501,7 +501,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
                     break;
                 }
             Stage secondaryStage = new Stage();
-            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/passwordWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/passwordWindow.fxml"),bundle);
             PasswordController pc = new PasswordController(currentUser, userPassword);
             secondaryLoader.setController(pc);
             Parent secondaryRoot = null;
@@ -521,7 +522,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
    public void clickOnLogout(ActionEvent actionEvent) throws IOException, SQLException {
         homeTabWelcomeLabel.getScene().getWindow().hide();
        Stage stage = new Stage();
-       FXMLLoader loader = new FXMLLoader( getClass().getResource("/FXML/loginWindow.fxml") );
+       ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+       FXMLLoader loader = new FXMLLoader( getClass().getResource("/FXML/loginWindow.fxml") ,bundle);
        LoginWindowController lwc = new LoginWindowController();
        loader.setController( lwc );
        Parent root = loader.load();
@@ -559,7 +561,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnAddLocationBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/locationWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/locationWindow.fxml"),bundle);
         LocationController lc = new LocationController( null );
         secondaryLoader.setController(lc);
         Parent secondaryRoot = null;
@@ -578,7 +581,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public void clickOnEditLocationBtn(ActionEvent actionEvent){
         if( currentLocation != null ){
             Stage secondaryStage = new Stage();
-            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/locationWindow.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/locationWindow.fxml"),bundle);
             LocationController lc = new LocationController( currentLocation );
             secondaryLoader.setController( lc );
             Parent secondaryRoot = null;
@@ -614,7 +618,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnAddCountryBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/countryWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/countryWindow.fxml"),bundle);
         CountryController cc = new CountryController( null );
         secondaryLoader.setController(cc);
         Parent secondaryRoot = null;
@@ -633,7 +638,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public void clickOnEditCountryBtn(ActionEvent actionEvent){
         if( currentCountry != null ){
             Stage secondaryStage = new Stage();
-            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/countryWindow.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/countryWindow.fxml"),bundle);
             CountryController cc = new CountryController( currentCountry );
             secondaryLoader.setController( cc );
             Parent secondaryRoot = null;
@@ -692,7 +698,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnAddCityBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/cityWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/cityWindow.fxml"),bundle);
         CityController cc = new CityController( null );
         secondaryLoader.setController(cc);
         Parent secondaryRoot = null;
@@ -711,7 +718,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public void clickOnEditCityBtn(ActionEvent actionEvent){
         if( currentCity != null ){
             Stage secondaryStage = new Stage();
-            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/cityWindow.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/cityWindow.fxml"),bundle);
             CityController cc = new CityController( currentCity );
             secondaryLoader.setController( cc );
             Parent secondaryRoot = null;
@@ -759,7 +767,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnAddContractBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/contractWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/contractWindow.fxml"),bundle);
         ContractController cc = new ContractController();
         secondaryLoader.setController(cc);
         Parent secondaryRoot = null;
@@ -790,7 +799,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnAddJobBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/jobWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/jobWindow.fxml"),bundle);
         JobController jc = new JobController( null );
         secondaryLoader.setController(jc);
         Parent secondaryRoot = null;
@@ -809,7 +819,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public void clickOnEditJobBtn(ActionEvent actionEvent) {
         if (currentJob != null) {
             Stage secondaryStage = new Stage();
-            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/jobWindow.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/jobWindow.fxml"),bundle);
             JobController jc = new JobController(currentJob);
             secondaryLoader.setController(jc);
             Parent secondaryRoot = null;
@@ -845,7 +856,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnAddDepartmentBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/departmentWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/departmentWindow.fxml"),bundle);
         DepartmentController dc = new DepartmentController( null );
         secondaryLoader.setController(dc);
         Parent secondaryRoot = null;
@@ -864,7 +876,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public void clickOnEditDepartmentBtn(ActionEvent actionEvent){
         if( currentDepartment != null ){
             Stage secondaryStage = new Stage();
-            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/departmentWindow.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/departmentWindow.fxml"),bundle);
             DepartmentController dc = new DepartmentController( currentDepartment );
             secondaryLoader.setController( dc );
             Parent secondaryRoot = null;
@@ -949,7 +962,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnCreateNewAccountErrorReportBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/errorReportWindow.fxml"),bundle);
         ErrorReportController erc = new ErrorReportController( getErrors() );
         secondaryLoader.setController(erc);
         Parent secondaryRoot = null;
@@ -967,7 +981,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
 
     public void clickOnAddEmployeeBtn(ActionEvent actionEvent){
         Stage secondaryStage = new Stage();
-        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/employeeWindow.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/employeeWindow.fxml"),bundle);
         EmployeeController ec = new EmployeeController( null );
         secondaryLoader.setController(ec);
         Parent secondaryRoot = null;
@@ -986,7 +1001,8 @@ public class HumanResourcesController extends TimerTask implements Initializable
     public void clickOnEditEmployeeBtn(ActionEvent actionEvent){
         if( currentEmployee != null ){
             Stage secondaryStage = new Stage();
-            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/employeeWindow.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+            FXMLLoader secondaryLoader = new FXMLLoader(getClass().getResource("/FXML/employeeWindow.fxml"),bundle);
             EmployeeController ec = new EmployeeController( currentEmployee );
             secondaryLoader.setController( ec );
             Parent secondaryRoot = null;
@@ -1029,6 +1045,31 @@ public class HumanResourcesController extends TimerTask implements Initializable
         if( createNewAccountConfirmPasswordField.getText().isEmpty() ) errors.add("Confirm password field is empty");
         if( createNewAccountConfirmPasswordField.getStyleClass().contains("fieldInvalid") ) errors.add("Confirmation failed");
         return errors;
+    }
+
+    public void clickOnBs(ActionEvent actionEvent) throws IOException {
+        Locale.setDefault( new Locale("bs") );
+        //reload();
+        System.out.println(Locale.getDefault());
+    }
+
+    public void clickOnEnUs(ActionEvent actionEvent) throws IOException {
+        Locale.setDefault(new Locale("en_US"));
+        reload();
+        System.out.println(Locale.getDefault());
+    }
+
+    public void reload() throws IOException {
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation/Translation");
+        Scene scene = employeeTable.getScene();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/humanResourcesController.fxml"), bundle);
+        loader.setController(this);
+        try {
+            scene.setRoot(loader.load());
+
+        } catch (IOException ignored) {
+
+        }
     }
 
 }

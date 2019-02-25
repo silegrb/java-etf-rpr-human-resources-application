@@ -48,7 +48,7 @@ public class HumanResourcesDAO {
         instance = null;
     }
 
-    private HumanResourcesDAO() throws FileNotFoundException, SQLException {
+    HumanResourcesDAO() throws FileNotFoundException, SQLException {
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:HumanResources.db");
 

@@ -20,6 +20,10 @@ public class Contract {
         this.employeeFullname = employeeFullname;
     }
 
+    public Contract() {
+
+    }
+
     public int getId() {
         return id;
     }

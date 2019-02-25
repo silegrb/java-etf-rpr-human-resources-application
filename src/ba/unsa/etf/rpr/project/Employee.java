@@ -38,6 +38,10 @@ public class Employee {
         this.manager = manager;
     }
 
+    public Employee() {
+
+    }
+
     public int getId() {
         return id;
     }

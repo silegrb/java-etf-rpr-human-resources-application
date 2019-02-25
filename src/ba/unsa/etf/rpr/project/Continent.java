@@ -10,6 +10,10 @@ public class Continent {
         this.name = name;
     }
 
+    public Continent() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -9,9 +9,9 @@
 <GridPane fx:id="errorReportGridPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="400" prefWidth="270" hgap="5" vgap="5">
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
 
-    <Label  fx:id="errorReportLabel" text="List of errors" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.halignment="CENTER" styleClass="controllerLabels"/>
+    <Label  fx:id="errorReportLabel" text="%ListOfErrors" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.halignment="CENTER" styleClass="controllerLabels"/>
     <ListView fx:id="lwErrors" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-    <Button  fx:id="errorReportCloseBtn" text="Close" GridPane.rowIndex="3" GridPane.columnIndex="1"  GridPane.halignment="CENTER" styleClass="controllerButtons" onAction="#clickCloseBtn"/>
+    <Button  fx:id="errorReportCloseBtn" text="%Close" GridPane.rowIndex="3" GridPane.columnIndex="1"  GridPane.halignment="CENTER" styleClass="controllerButtons" onAction="#clickCloseBtn"/>
     <padding>
         <Insets bottom="5" right="5" top="5" left="5"/>
     </padding>

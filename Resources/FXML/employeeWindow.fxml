@@ -8,37 +8,37 @@
 <GridPane hgap="5" prefHeight="550" prefWidth="560" styleClass="controllerGridPanes" vgap="5" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
 
-    <Label styleClass="controllerLabels" text="First Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label styleClass="controllerLabels" text="%FirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
     <TextField fx:id="fieldFirstName" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
 
-    <Label styleClass="controllerLabels" text="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Label styleClass="controllerLabels" text="%LastName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
     <TextField fx:id="fieldLastName" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
 
-    <Label styleClass="controllerLabels" text="Parent Name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <Label styleClass="controllerLabels" text="%ParentName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
     <TextField fx:id="fieldParentName" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
 
-    <Label styleClass="controllerLabels" text="Birth Date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <Label styleClass="controllerLabels" text="%BirthDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
     <DatePicker fx:id="dpBirthDate" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
 
     <Button fx:id="imageBtn" prefHeight="300" prefWidth="200" styleClass="transparent"  GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="8" GridPane.valignment="CENTER" />
     <ChoiceBox fx:id="cbGender" GridPane.rowIndex="10" GridPane.columnIndex="4" styleClass="controllerFields" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"/>
 
-    <Label styleClass="controllerLabels" text="UMCN" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+    <Label styleClass="controllerLabels" text="%UMCN" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     <TextField fx:id="fieldUmcn" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
 
-    <Label styleClass="controllerLabels" text="Mobile number" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    <Label styleClass="controllerLabels" text="%MobileNumber" GridPane.columnIndex="1" GridPane.rowIndex="6" />
     <TextField fx:id="fieldMobileNumber" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
 
-    <Label styleClass="controllerLabels" text="Email address" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+    <Label styleClass="controllerLabels" text="%EmailAddress" GridPane.columnIndex="1" GridPane.rowIndex="7" />
     <TextField fx:id="fieldEmailAddress" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
 
-    <Label styleClass="controllerLabels" text="Credit card" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+    <Label styleClass="controllerLabels" text="%CreditCard" GridPane.columnIndex="1" GridPane.rowIndex="8" />
     <TextField fx:id="fieldCreditCard" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
 
-    <Label styleClass="controllerLabels" text="Salary" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+    <Label styleClass="controllerLabels" text="%Salary" GridPane.columnIndex="1" GridPane.rowIndex="9" />
     <Spinner fx:id="spinnerSalary" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9" />
 
-    <Label styleClass="controllerLabels" text="Location" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+    <Label styleClass="controllerLabels" text="%Location" GridPane.columnIndex="1" GridPane.rowIndex="10" />
     <ChoiceBox fx:id="cbLocations" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="10" />
 
     <Button fx:id="cancelLocationBtn" onAction="#clickOnCancelLocationBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="10">
@@ -49,7 +49,7 @@
         </graphic>
     </Button>
 
-    <Label styleClass="controllerLabels" text="Department" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+    <Label styleClass="controllerLabels" text="%Department" GridPane.columnIndex="1" GridPane.rowIndex="11" />
     <ChoiceBox fx:id="cbDepartments" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="11" />
 
     <Button fx:id="cancelDepartmentBtn" onAction="#clickOnCancelDepartmentBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="11">
@@ -60,7 +60,7 @@
         </graphic>
     </Button>
 
-    <Label styleClass="controllerLabels" text="Job" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+    <Label styleClass="controllerLabels" text="%Job" GridPane.columnIndex="1" GridPane.rowIndex="12" />
     <ChoiceBox fx:id="cbJobs" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="12" />
 
     <Button fx:id="cancelJobBtn" onAction="#clickOnCancelJobBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="12">
@@ -71,7 +71,7 @@
         </graphic>
     </Button>
 
-    <Label styleClass="controllerLabels" text="Manager" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+    <Label styleClass="controllerLabels" text="%Manager" GridPane.columnIndex="1" GridPane.rowIndex="13" />
     <ChoiceBox fx:id="cbManagers" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="13" />
 
     <Button fx:id="cancelManagerBtn" onAction="#clickOnCancelManagerBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="13">
@@ -82,10 +82,10 @@
         </graphic>
     </Button>
 
-    <Button fx:id="errorReportBtn" onAction="#clickErrorReportBtn" styleClass="controllerButtons" text="Error Report" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+    <Button fx:id="errorReportBtn" onAction="#clickErrorReportBtn" styleClass="controllerButtons" text="%ErrorReport" GridPane.columnIndex="1" GridPane.rowIndex="14" />
 
-    <Button fx:id="okBtn" onAction="#clickOkBtn" styleClass="controllerButtons" text="OK" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-    <Button fx:id="cancelBtn" onAction="#clickCancelBtn" styleClass="controllerButtons" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="15" />
+    <Button fx:id="okBtn" onAction="#clickOkBtn" styleClass="controllerButtons" text="%OK" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+    <Button fx:id="cancelBtn" onAction="#clickCancelBtn" styleClass="controllerButtons" text="%Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="15" />
 
     <padding>
         <Insets bottom="5" left="5" right="5" top="5" />

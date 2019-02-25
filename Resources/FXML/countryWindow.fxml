@@ -7,16 +7,16 @@
 <GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="150" prefWidth="370" hgap="5" vgap="5">
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
 
-    <Label text="Name" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
+    <Label text="%Name" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
     <TextField fx:id="fieldName" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
-    <Label text="Continent" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
+    <Label text="%Continent" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
     <ChoiceBox fx:id="cbContinents" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
-    <Button fx:id="errorReportBtn" text="Error Report" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
+    <Button fx:id="errorReportBtn" text="%ErrorReport" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
 
-    <Button fx:id="okBtn" text="OK" textAlignment="CENTER" GridPane.rowIndex="4" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
-    <Button fx:id="cancelBtn" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
+    <Button fx:id="okBtn" text="%OK" textAlignment="CENTER" GridPane.rowIndex="4" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
+    <Button fx:id="cancelBtn" text="%Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
 
     <padding>
         <Insets top="5" right="5" bottom="5" left="5"/>

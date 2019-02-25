@@ -10,6 +10,10 @@ public class Job {
         this.jobTitle = jobTitle;
     }
 
+    public Job() {
+
+    }
+
     public int getId() {
         return id;
     }

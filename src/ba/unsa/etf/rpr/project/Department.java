@@ -14,6 +14,10 @@ public class Department {
         this.manager = manager;
     }
 
+    public Department() {
+
+    }
+
     public int getId() {
         return id;
     }

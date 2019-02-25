@@ -7,22 +7,22 @@
 <GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="210" prefWidth="370" hgap="5" vgap="5">
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
 
-    <Label text="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
+    <Label text="%PostalCode" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
     <TextField fx:id="fieldPostalCode" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
-    <Label text="Street Address" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
+    <Label text="%StreetAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
     <TextField fx:id="fieldStreetAddress" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
-    <Label text="City" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="controllerLabels"/>
+    <Label text="%City" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="controllerLabels"/>
     <ChoiceBox fx:id="cbCities" GridPane.rowIndex="3" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
-    <Button text="Quickly Add City" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="controllerButtons" onAction="#clickOnQuicklyAddCity"/>
+    <Button text="%QuicklyAddCity" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="controllerButtons" onAction="#clickOnQuicklyAddCity"/>
 
-    <Button fx:id="errorReportBtn" text="Error Report" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
+    <Button fx:id="errorReportBtn" text="%ErrorReport" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
 
 
-    <Button fx:id="okBtn" text="OK" textAlignment="CENTER" GridPane.rowIndex="6" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
-    <Button fx:id="cancelBtn" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
+    <Button fx:id="okBtn" text="%OK" textAlignment="CENTER" GridPane.rowIndex="6" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
+    <Button fx:id="cancelBtn" text="%Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
 
     <padding>
         <Insets top="5" right="5" bottom="5" left="5"/>
