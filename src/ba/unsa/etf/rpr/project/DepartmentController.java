@@ -69,38 +69,41 @@ public class DepartmentController implements Initializable {
         cbManagers.setItems( managers );
 
         fieldDepartmentName.textProperty().addListener((observable, oldValue, newValue) -> {
-            validationListener(newValue, fieldDepartmentName.getStyleClass(), cbManagers.getStyleClass(), cbLocations);
-        });
-
-        cbLocations.valueProperty().addListener((observable, oldValue, newValue) -> {
-            validationListener(newValue, cbLocations.getStyleClass(), fieldDepartmentName.getStyleClass(), cbManagers);
-        });
-
-        cbManagers.valueProperty().addListener((observable, oldValue, newValue) -> {
-            validationListener(newValue, cbManagers.getStyleClass(), fieldDepartmentName.getStyleClass(), cbLocations);
-        });
-
-    }
-
-    private void validationListener(String newValue, ObservableList<String> styleClass, ObservableList<String> styleClass2, ChoiceBox<String> cbManagers) {
-        if( newValue.isEmpty() ){
-            styleClass.removeAll();
-            styleClass.add("controllerFields");
-            okBtn.setDisable(true);
-        }
-        else {
-            styleClass.removeAll();
-            styleClass.add("fieldValid");
-            if( styleClass2.contains("fieldValid") && cbManagers.getStyleClass().contains("fieldValid"))
+            if( newValue.isEmpty() ){
+                fieldDepartmentName.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+                fieldDepartmentName.getStyleClass().add("controllerFields");
+                okBtn.setDisable(true);
+            }
+            else{
+                fieldDepartmentName.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+                fieldDepartmentName.getStyleClass().add("fieldValid");
                 okBtn.setDisable(false);
-        }
+            }
+        });
+
+        cbListeners(cbLocations);
+
+        cbListeners(cbManagers);
+
     }
+
+    private void cbListeners(ChoiceBox<String> cbLocations) {
+        cbLocations.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if( newValue != null ){
+                cbLocations.getStyleClass().removeAll("fieldInvalid","controllerFields","fieldValid");
+                cbLocations.getStyleClass().add("fieldValid");
+            }
+            else{
+                cbLocations.getStyleClass().removeAll("fieldInvalid","controllerFields","fieldValid");
+                cbLocations.getStyleClass().add("controllerFields");
+            }
+        });
+    }
+
 
     private ObservableList<String> getErrors(){
         ObservableList<String> errors = FXCollections.observableArrayList();
         if( fieldDepartmentName.getText().isEmpty() ) errors.add("Department name field is empty");
-        if( cbLocations.getValue() == null ) errors.add("No location selected");
-        if( cbManagers.getValue() == null ) errors.add("No manager selected");
         return errors;
     }
 

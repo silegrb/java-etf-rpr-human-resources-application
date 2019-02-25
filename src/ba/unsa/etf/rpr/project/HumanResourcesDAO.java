@@ -521,8 +521,14 @@ public class HumanResourcesDAO {
     public void addDepartment( Department department ) throws SQLException {
         addDepartment.setInt( 1, department.getId() );
         addDepartment.setString( 2, department.getName() );
-        addDepartment.setInt( 3, department.getLocation().getId() );
-        addDepartment.setInt( 4, department.getManager().getId() );
+        if( department.getLocation() == null )
+            addDepartment.setNull(3, Types.NULL);
+        else
+            addDepartment.setInt( 3, department.getLocation().getId() );
+        if( department.getManager() == null )
+            addDepartment.setNull(4, Types.NULL);
+        else
+            addDepartment.setInt( 4, department.getManager().getId() );
         addDepartment.executeUpdate();
         clearData();
         fetchData();
@@ -664,8 +670,21 @@ public class HumanResourcesDAO {
     }
 
     public void deleteEmployee(Employee employee) throws SQLException {
+        //If no one is working job from this employee, after we delete him or her, we need to delete that job.
+        Job job = employee.getJob();
         removeEmployee.setInt(1, employee.getId());
         removeEmployee.executeUpdate();
+        clearData();
+        fetchData();
+        if( job != null ){
+            boolean noOneIsWorkingThisJob = true;
+            for (Employee e : getEmployees())
+                if( e.getJob() != null && e.getJob().getJobTitle().equals( job.getJobTitle() ) ){
+                    noOneIsWorkingThisJob = false;
+                    break;
+                }
+            if( noOneIsWorkingThisJob ) deleteJob( job );
+        }
         clearData();
         fetchData();
     }
