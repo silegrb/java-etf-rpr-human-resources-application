@@ -979,7 +979,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add employee");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 400, 550));
+        secondaryStage.setScene(new Scene(secondaryRoot, 610, 550));
         secondaryStage.show();
     }
 
@@ -998,7 +998,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Edit employee");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 400, 550));
+            secondaryStage.setScene(new Scene(secondaryRoot, 610, 550));
             secondaryStage.show();
             secondaryStage.setOnHidden(event -> {
                 currentEmployee = null;

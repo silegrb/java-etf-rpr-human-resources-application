@@ -5,40 +5,43 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="550" prefWidth="400" hgap="5" vgap="5">
+<GridPane hgap="5" prefHeight="550" prefWidth="560" styleClass="controllerGridPanes" vgap="5" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
 
-    <Label text="First Name" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldFirstName" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="First Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <TextField fx:id="fieldFirstName" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
 
-    <Label text="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldLastName" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <TextField fx:id="fieldLastName" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
 
-    <Label text="Parent Name" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldParentName" GridPane.rowIndex="3" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="Parent Name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <TextField fx:id="fieldParentName" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
 
-    <Label text="Birth Date" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="controllerLabels"/>
-    <DatePicker fx:id="dpBirthDate" GridPane.rowIndex="4" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="Birth Date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <DatePicker fx:id="dpBirthDate" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
 
-    <Label text="UMCN" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldUmcn" GridPane.rowIndex="5" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Button fx:id="imageBtn" prefHeight="300" prefWidth="200" styleClass="transparent"  GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="8" GridPane.valignment="CENTER" />
+    <ChoiceBox fx:id="cbGender" GridPane.rowIndex="10" GridPane.columnIndex="4" styleClass="controllerFields" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"/>
 
-    <Label text="Mobile number" GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldMobileNumber" GridPane.rowIndex="6" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="UMCN" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+    <TextField fx:id="fieldUmcn" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
 
-    <Label text="Email address" GridPane.columnIndex="1" GridPane.rowIndex="7" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldEmailAddress" GridPane.rowIndex="7" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="Mobile number" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    <TextField fx:id="fieldMobileNumber" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
 
-    <Label text="Credit card" GridPane.columnIndex="1" GridPane.rowIndex="8" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldCreditCard" GridPane.rowIndex="8" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="Email address" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+    <TextField fx:id="fieldEmailAddress" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
 
-    <Label text="Salary" GridPane.columnIndex="1" GridPane.rowIndex="9" styleClass="controllerLabels"/>
-    <Spinner fx:id="spinnerSalary" GridPane.rowIndex="9" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
+    <Label styleClass="controllerLabels" text="Credit card" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+    <TextField fx:id="fieldCreditCard" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
 
-    <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="10" styleClass="controllerLabels"/>
-    <ChoiceBox fx:id="cbLocations" GridPane.rowIndex="10" GridPane.columnIndex="2" styleClass="controllerFields"/>
+    <Label styleClass="controllerLabels" text="Salary" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+    <Spinner fx:id="spinnerSalary" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9" />
 
-    <Button fx:id="cancelLocationBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="10" onAction="#clickOnCancelLocationBtn">
+    <Label styleClass="controllerLabels" text="Location" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+    <ChoiceBox fx:id="cbLocations" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+
+    <Button fx:id="cancelLocationBtn" onAction="#clickOnCancelLocationBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="10">
         <graphic>
             <ImageView fitHeight="25" fitWidth="25">
                 <Image url="/Images/cancel.png" />
@@ -46,10 +49,10 @@
         </graphic>
     </Button>
 
-    <Label text="Department" GridPane.columnIndex="1" GridPane.rowIndex="11" styleClass="controllerLabels"/>
-    <ChoiceBox fx:id="cbDepartments" GridPane.rowIndex="11" GridPane.columnIndex="2" styleClass="controllerFields"/>
+    <Label styleClass="controllerLabels" text="Department" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+    <ChoiceBox fx:id="cbDepartments" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="11" />
 
-    <Button fx:id="cancelDepartmentBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="11" onAction="#clickOnCancelDepartmentBtn">
+    <Button fx:id="cancelDepartmentBtn" onAction="#clickOnCancelDepartmentBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="11">
         <graphic>
             <ImageView fitHeight="25" fitWidth="25">
                 <Image url="/Images/cancel.png" />
@@ -57,10 +60,10 @@
         </graphic>
     </Button>
 
-    <Label text="Job" GridPane.columnIndex="1" GridPane.rowIndex="12" styleClass="controllerLabels"/>
-    <ChoiceBox fx:id="cbJobs" GridPane.rowIndex="12" GridPane.columnIndex="2" styleClass="controllerFields"/>
+    <Label styleClass="controllerLabels" text="Job" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+    <ChoiceBox fx:id="cbJobs" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="12" />
 
-    <Button fx:id="cancelJobBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="12" onAction="#clickOnCancelJobBtn">
+    <Button fx:id="cancelJobBtn" onAction="#clickOnCancelJobBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="12">
         <graphic>
             <ImageView fitHeight="25" fitWidth="25">
                 <Image url="/Images/cancel.png" />
@@ -68,10 +71,10 @@
         </graphic>
     </Button>
 
-    <Label text="Manager" GridPane.columnIndex="1" GridPane.rowIndex="13" styleClass="controllerLabels"/>
-    <ChoiceBox fx:id="cbManagers" GridPane.rowIndex="13" GridPane.columnIndex="2" styleClass="controllerFields"/>
+    <Label styleClass="controllerLabels" text="Manager" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+    <ChoiceBox fx:id="cbManagers" styleClass="controllerFields" GridPane.columnIndex="2" GridPane.rowIndex="13" />
 
-    <Button fx:id="cancelManagerBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="13" onAction="#clickOnCancelManagerBtn">
+    <Button fx:id="cancelManagerBtn" onAction="#clickOnCancelManagerBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="13">
         <graphic>
             <ImageView fitHeight="25" fitWidth="25">
                 <Image url="/Images/cancel.png" />
@@ -79,12 +82,37 @@
         </graphic>
     </Button>
 
-    <Button fx:id="errorReportBtn" text="Error Report" GridPane.rowIndex="14" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
+    <Button fx:id="errorReportBtn" onAction="#clickErrorReportBtn" styleClass="controllerButtons" text="Error Report" GridPane.columnIndex="1" GridPane.rowIndex="14" />
 
-    <Button fx:id="okBtn" text="OK" textAlignment="CENTER" GridPane.rowIndex="15" GridPane.columnIndex="1" onAction="#clickOkBtn" styleClass="controllerButtons"/>
-    <Button fx:id="cancelBtn" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="15" onAction="#clickCancelBtn" styleClass="controllerButtons"/>
+    <Button fx:id="okBtn" onAction="#clickOkBtn" styleClass="controllerButtons" text="OK" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+    <Button fx:id="cancelBtn" onAction="#clickCancelBtn" styleClass="controllerButtons" text="Cancel" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="15" />
 
     <padding>
-        <Insets top="5" right="5" bottom="5" left="5"/>
+        <Insets bottom="5" left="5" right="5" top="5" />
     </padding>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints hgrow="ALWAYS" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 </GridPane>

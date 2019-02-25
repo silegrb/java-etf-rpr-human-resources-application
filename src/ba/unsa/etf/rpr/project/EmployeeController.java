@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,10 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,7 +30,7 @@ public class EmployeeController implements Initializable {
     {
         try {
             dao = HumanResourcesDAO.getInstance();
-        } catch (FileNotFoundException | SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -50,6 +52,8 @@ public class EmployeeController implements Initializable {
     public Button errorReportBtn = new Button();
     public Button okBtn = new Button();
     public Button cancelBtn = new Button();
+    public Button imageBtn = new Button();
+    public ChoiceBox<String> cbGender = new ChoiceBox<>();
 
     public EmployeeController( Employee currentEmployee ){
         this.currentEmployee = currentEmployee;
@@ -67,6 +71,11 @@ public class EmployeeController implements Initializable {
         spinnerSalary.getEditor().getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
         spinnerSalary.getEditor().getStyleClass().add("controllerFields");
 
+        Image image = new Image("/Images/noImage.png");
+        ImageView imageView = new ImageView( image );
+        imageView.setFitHeight(250);
+        imageView.setFitWidth(200);
+        imageBtn.setGraphic( imageView );
 
         //Lets add locations to LOCATION CHOICEBOX.
         ObservableList<String> locations = FXCollections.observableArrayList();
@@ -100,6 +109,11 @@ public class EmployeeController implements Initializable {
         }
         cbManagers.setItems( managers );
 
+        ObservableList<String> genders = FXCollections.observableArrayList();
+        genders.add( "Male" );
+        genders.add( "Female" );
+        cbGender.setItems( genders );
+
         if( currentEmployee != null ){
             fieldFirstName.setText( currentEmployee.getFirstName() );
             fieldLastName.setText( currentEmployee.getLastName() );
@@ -110,6 +124,15 @@ public class EmployeeController implements Initializable {
             fieldEmailAddress.setText( currentEmployee.getEmailAddress() );
             fieldCreditCard.setText( currentEmployee.getCreditCard() );
             spinnerSalary.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10000,currentEmployee.getSalary(),100));
+            Image currentGender =  new Image( currentEmployee.getPhoto() );
+            ImageView imageViewGender = new ImageView(currentGender);
+            imageViewGender.setFitHeight(250);
+            imageViewGender.setFitWidth(200);
+            imageBtn.setGraphic( imageViewGender );
+            if( currentEmployee.getPhoto().equals( "/Images/MaleIcon.png" ) )
+                cbGender.setValue( "Male" );
+            else
+                cbGender.setValue("Female");
             if( currentEmployee.getLocation() != null )
                 cbLocations.setValue( currentEmployee.getLocation().getStreetAddress() + " (" + currentEmployee.getLocation().getPostalCode() + ")" );
             if( currentEmployee.getDepartment() != null )
@@ -257,6 +280,23 @@ public class EmployeeController implements Initializable {
             spinnerSalary.getEditor().getStyleClass().removeAll("controllerFields","fieldValid","fieldInvalid");
             spinnerSalary.getEditor().getStyleClass().add("fieldValid");
             okBtn.setDisable( disableOkBtn() );
+        });
+
+        cbGender.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if( newValue != null && newValue.equals("Male") ){
+                Image maleImg = new Image("/Images/MaleIcon.png");
+                ImageView maleImgView = new ImageView(maleImg);
+                maleImgView.setFitWidth(200);
+                maleImgView.setFitHeight(250);
+                imageBtn.setGraphic( maleImgView );
+            }
+            else if( newValue != null && newValue.equals("Female") ){
+                Image femaleImg = new Image("/Images/FemaleIcon.png");
+                ImageView femaleImgView = new ImageView(femaleImg);
+                femaleImgView.setFitWidth(200);
+                femaleImgView.setFitHeight(250);
+                imageBtn.setGraphic( femaleImgView );
+            }
         });
 
         choiceBoxEmptyListeners(cbLocations);
@@ -448,6 +488,7 @@ public class EmployeeController implements Initializable {
         if( fieldMobileNumber.getStyleClass().contains("fieldInvalid") || fieldMobileNumber.getStyleClass().contains("controllerFields") ) return true;
         if( fieldEmailAddress.getStyleClass().contains("fieldInvalid") || fieldEmailAddress.getStyleClass().contains("controllerFields") ) return true;
         if( fieldCreditCard.getStyleClass().contains("fieldInvalid") || fieldCreditCard.getStyleClass().contains("controllerFields") ) return true;
+        if( cbGender.getValue() == null ) return true;
         return false;
     }
 
@@ -495,7 +536,7 @@ public class EmployeeController implements Initializable {
             }
         }
 
-        return new Employee( index, fieldFirstName.getText(), fieldLastName.getText(), fieldParentName.getText(), LocalDate.parse( dpBirthDate.getEditor().getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), fieldUmcn.getText(), fieldMobileNumber.getText(), fieldEmailAddress.getText(), fieldCreditCard.getText(), spinnerSalary.getValue(), "", location, department, job, manager );
+        return new Employee( index, fieldFirstName.getText(), fieldLastName.getText(), fieldParentName.getText(), LocalDate.parse( dpBirthDate.getEditor().getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), fieldUmcn.getText(), fieldMobileNumber.getText(), fieldEmailAddress.getText(), fieldCreditCard.getText(), spinnerSalary.getValue(), "/Images/" + cbGender.getValue() + "Icon.png", location, department, job, manager );
     }
 
     public void clickErrorReportBtn(ActionEvent actionEvent) {
