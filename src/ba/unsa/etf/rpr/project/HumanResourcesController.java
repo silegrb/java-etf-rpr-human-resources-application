@@ -857,7 +857,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add department");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
+        secondaryStage.setScene(new Scene(secondaryRoot, 400, 190));
         secondaryStage.show();
     }
 
@@ -876,7 +876,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Edit department");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 370, 180));
+            secondaryStage.setScene(new Scene(secondaryRoot, 400, 190));
             secondaryStage.show();
             secondaryStage.setOnHidden(event -> {
                 currentDepartment = null;
@@ -979,7 +979,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
         secondaryStage.setTitle("Add employee");
         secondaryStage.setResizable(false);
         secondaryStage.initModality(Modality.APPLICATION_MODAL);
-        secondaryStage.setScene(new Scene(secondaryRoot, 370, 530));
+        secondaryStage.setScene(new Scene(secondaryRoot, 400, 550));
         secondaryStage.show();
     }
 
@@ -998,7 +998,7 @@ public class HumanResourcesController extends TimerTask implements Initializable
             secondaryStage.setTitle("Edit employee");
             secondaryStage.setResizable(false);
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
-            secondaryStage.setScene(new Scene(secondaryRoot, 370, 530));
+            secondaryStage.setScene(new Scene(secondaryRoot, 400, 550));
             secondaryStage.show();
             secondaryStage.setOnHidden(event -> {
                 currentEmployee = null;

@@ -171,4 +171,16 @@ public class DepartmentController implements Initializable {
         fieldDepartmentName.getScene().getWindow().hide();
     }
 
+    public void clickOnCancelLocationBtn(ActionEvent actionEvent){
+        cbLocations.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+        cbLocations.getStyleClass().add("controllerFields");
+        cbLocations.setValue(null);
+    }
+
+    public void clickOnCancelManagerBtn(ActionEvent actionEvent){
+        cbManagers.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+        cbManagers.getStyleClass().add("controllerFields");
+        cbManagers.setValue(null);
+    }
+
 }

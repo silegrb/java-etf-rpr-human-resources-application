@@ -398,3 +398,8 @@
     -fx-font-style: italic;
     -fx-font-family: Arial;
 }
+
+.transparent {
+    -fx-background-color: transparent;
+
+}

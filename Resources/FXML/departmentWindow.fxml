@@ -2,19 +2,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="180" prefWidth="370" hgap="5" vgap="5">
+<GridPane styleClass="controllerGridPanes" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="190" prefWidth="400" hgap="5" vgap="5">
     <stylesheets> <URL value="@/CSS/applicationStyling.css" /> </stylesheets>
 
-    <Label text="Departmen name" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
-    <TextField fx:id="fieldDepartmentName" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields"/>
+    <Label text="Name" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="controllerLabels"/>
+    <TextField fx:id="fieldDepartmentName" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="controllerFields" GridPane.columnSpan="2"/>
 
     <Label text="Location" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="controllerLabels"/>
     <ChoiceBox fx:id="cbLocations" GridPane.rowIndex="2" GridPane.columnIndex="2" styleClass="controllerFields"/>
 
     <Label text="Manager" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="controllerLabels"/>
     <ChoiceBox fx:id="cbManagers" GridPane.rowIndex="3" GridPane.columnIndex="2" styleClass="controllerFields"/>
+
+    <Button fx:id="cancelLocationBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="2" onAction="#clickOnCancelLocationBtn">
+        <graphic>
+            <ImageView fitHeight="25" fitWidth="25">
+                <Image url="/Images/cancel.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <Button fx:id="cancelManagerBtn" styleClass="transparent" GridPane.columnIndex="3" GridPane.rowIndex="3" onAction="#clickOnCancelManagerBtn">
+        <graphic>
+            <ImageView fitHeight="25" fitWidth="25">
+                <Image url="/Images/cancel.png" />
+            </ImageView>
+        </graphic>
+    </Button>
 
     <Button fx:id="errorReportBtn" text="Error Report" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="controllerButtons" onAction="#clickErrorReportBtn"/>
 

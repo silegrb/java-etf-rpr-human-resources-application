@@ -267,15 +267,13 @@ public class EmployeeController implements Initializable {
 
     private void choiceBoxEmptyListeners(ChoiceBox<String> choiceBox) {
         choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if( newValue.isEmpty() ){
+            if( newValue == null || newValue.isEmpty() ){
                 choiceBox.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
                 choiceBox.getStyleClass().add("controllerFields");
-                okBtn.setDisable(true);
             }
             else {
                 choiceBox.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
                 choiceBox.getStyleClass().add("fieldValid");
-                okBtn.setDisable( disableOkBtn() );
             }
         });
     }
@@ -551,4 +549,29 @@ public class EmployeeController implements Initializable {
 
         return errors;
     }
+
+    public void clickOnCancelLocationBtn(ActionEvent actionEvent){
+        cbLocations.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+        cbLocations.getStyleClass().add("controllerFields");
+        cbLocations.setValue(null);
+    }
+
+    public void clickOnCancelDepartmentBtn(ActionEvent actionEvent){
+        cbDepartments.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+        cbDepartments.getStyleClass().add("controllerFields");
+        cbDepartments.setValue(null);
+    }
+
+    public void clickOnCancelJobBtn(ActionEvent actionEvent){
+        cbJobs.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+        cbJobs.getStyleClass().add("controllerFields");
+        cbJobs.setValue(null);
+    }
+
+    public void clickOnCancelManagerBtn(ActionEvent actionEvent){
+        cbManagers.getStyleClass().removeAll("fieldValid","fieldInvalid","controllerFields");
+        cbManagers.getStyleClass().add("controllerFields");
+        cbManagers.setValue(null);
+    }
+
 }
